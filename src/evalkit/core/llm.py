@@ -11,8 +11,9 @@ from __future__ import annotations
 import hashlib
 import os
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable, Protocol
+from typing import Protocol
 
 import httpx
 

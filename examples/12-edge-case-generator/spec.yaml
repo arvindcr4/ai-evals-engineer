@@ -1,0 +1,60 @@
+name: expense-claim-triage
+description: >
+  Triage an employee expense claim into approve / escalate / reject / invalid.
+  Policy: claims over 75 USD-equivalent need a receipt (else reject); claims over
+  1000 USD-equivalent or in the "other" category are escalated; malformed claims
+  are invalid.
+text_field: employee_note
+labels: [approve, escalate, reject, invalid]
+invalid_label: invalid
+fields:
+  - name: employee_note
+    type: string
+    min_length: 1
+    max_length: 280
+    description: free-text justification typed by the employee
+  - name: amount
+    type: number
+    min: 0.01
+    max: 5000
+  - name: currency
+    type: enum
+    choices: [USD, EUR, GBP, INR]
+  - name: expense_date
+    type: date
+    min: 2025-01-01
+    max: 2026-12-31
+  - name: category
+    type: enum
+    choices: [meals, travel, lodging, software, other]
+  - name: has_receipt
+    type: boolean
+out_of_scope:
+  - Can you book me a flight to Berlin next Tuesday?
+  - What is the per-diem for Tokyo?
+  - Please reset my corporate card PIN.
+seeds:
+  - employee_note: Team lunch with the Acme client after the quarterly review.
+    amount: 142.5
+    currency: USD
+    expense_date: 2026-03-14
+    category: meals
+    has_receipt: true
+  - employee_note: Taxi from the airport to the hotel for the Berlin offsite.
+    amount: 48.0
+    currency: EUR
+    expense_date: 2026-05-02
+    category: travel
+    has_receipt: false
+  - employee_note: Annual license for the diagramming tool used by the design team.
+    amount: 1188.0
+    currency: USD
+    expense_date: 2026-01-20
+    category: software
+    has_receipt: true
+  - employee_note: Two nights at the conference hotel in Edinburgh.
+    amount: 310.0
+    currency: GBP
+    expense_date: 2025-11-08
+    category: lodging
+    has_receipt: true

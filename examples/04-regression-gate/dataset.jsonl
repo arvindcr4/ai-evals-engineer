@@ -1,0 +1,40 @@
+{"id": "t00", "input": {"text": "I was charged twice for my subscription this month, please fix"}, "expected": {"category": "billing", "priority": "high", "order_id": null, "amount": null}}
+{"id": "t01", "input": {"text": "Requesting a refund of $49.99 for order ORD-10231"}, "expected": {"category": "billing", "priority": "normal", "order_id": "ORD-10231", "amount": 49.99}}
+{"id": "t02", "input": {"text": "My package has not arrived yet, tracking shows nothing. ORD-55120"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-55120", "amount": null}}
+{"id": "t03", "input": {"text": "Can't log in, password reset email never comes"}, "expected": {"category": "account", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t04", "input": {"text": "The app crashes every time I open the camera"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t05", "input": {"text": "URGENT: payment failed but money left my account, $120.00"}, "expected": {"category": "billing", "priority": "high", "order_id": null, "amount": 120.0}}
+{"id": "t06", "input": {"text": "Courier left the package at the wrong door ORD-77311"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-77311", "amount": null}}
+{"id": "t07", "input": {"text": "I need a refund for the duplicate charge of $15.50 asap"}, "expected": {"category": "billing", "priority": "high", "order_id": null, "amount": 15.5}}
+{"id": "t08", "input": {"text": "Getting error 500 when saving my profile settings"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t09", "input": {"text": "Please change the email address on my account"}, "expected": {"category": "account", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t10", "input": {"text": "Refund still not processed for ORD-88812, it was $230.75"}, "expected": {"category": "billing", "priority": "normal", "order_id": "ORD-88812", "amount": 230.75}}
+{"id": "t11", "input": {"text": "When will my delivery arrive? Ordered last week ORD-91000"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-91000", "amount": null}}
+{"id": "t12", "input": {"text": "Site is down, nothing is loading for our whole team"}, "expected": {"category": "technical", "priority": "high", "order_id": null, "amount": null}}
+{"id": "t13", "input": {"text": "My 2FA codes stopped working and I can't access anything"}, "expected": {"category": "account", "priority": "high", "order_id": null, "amount": null}}
+{"id": "t14", "input": {"text": "Cancel my subscription and refund the last payment of $9.99"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": 9.99}}
+{"id": "t15", "input": {"text": "The page freezes on checkout"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t16", "input": {"text": "Package shipped to old address, ORD-12001"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-12001", "amount": null}}
+{"id": "t17", "input": {"text": "Your billing page shows the wrong plan"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t18", "input": {"text": "Username already taken but it's mine"}, "expected": {"category": "account", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t19", "input": {"text": "Bug: search results are empty"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t20", "input": {"text": "I want my money back, refund $64.20 please"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": 64.2}}
+{"id": "t21", "input": {"text": "The courier says tracking number is invalid ORD-33090"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-33090", "amount": null}}
+{"id": "t22", "input": {"text": "Locked out after too many login attempts, need help immediately"}, "expected": {"category": "account", "priority": "high", "order_id": null, "amount": null}}
+{"id": "t23", "input": {"text": "Dashboard not loading since the update"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t24", "input": {"text": "Refund request: ORD-45678, amount $18.40, damaged item"}, "expected": {"category": "billing", "priority": "normal", "order_id": "ORD-45678", "amount": 18.4}}
+{"id": "t25", "input": {"text": "Delivery was late by two weeks"}, "expected": {"category": "shipping", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t26", "input": {"text": "Where is my invoice for last month?"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t27", "input": {"text": "The card on file was declined, update my receipt details"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t28", "input": {"text": "Parcel stuck at the warehouse for days"}, "expected": {"category": "shipping", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t29", "input": {"text": "Need to verify my profile, the link expired"}, "expected": {"category": "account", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t30", "input": {"text": "Blank screen after the splash logo"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t31", "input": {"text": "Charged $99.00 but plan says $79.00"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": 99.0}}
+{"id": "t32", "input": {"text": "Partial refund of $5.25 never showed up"}, "expected": {"category": "billing", "priority": "normal", "order_id": null, "amount": 5.25}}
+{"id": "t33", "input": {"text": "Package arrived damaged, ORD-60606"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-60606", "amount": null}}
+{"id": "t34", "input": {"text": "Password change keeps failing with an error"}, "expected": {"category": "account", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t35", "input": {"text": "The export freezes and then crashes, urgent for our audit"}, "expected": {"category": "technical", "priority": "high", "order_id": null, "amount": null}}
+{"id": "t36", "input": {"text": "Tracking stuck on 'label created' for ORD-70707"}, "expected": {"category": "shipping", "priority": "normal", "order_id": "ORD-70707", "amount": null}}
+{"id": "t37", "input": {"text": "Please refund ORD-24680 ($12.30), I returned it"}, "expected": {"category": "billing", "priority": "normal", "order_id": "ORD-24680", "amount": 12.3}}
+{"id": "t38", "input": {"text": "Email address change confirmation never arrives"}, "expected": {"category": "account", "priority": "normal", "order_id": null, "amount": null}}
+{"id": "t39", "input": {"text": "Timeout when uploading large files"}, "expected": {"category": "technical", "priority": "normal", "order_id": null, "amount": null}}

@@ -1,0 +1,71 @@
+name: eval-gate
+
+# Runs the parameterised eval suite on every PR, compares it with the baseline
+# committed on main, posts the report and fails the job (blocking the merge when
+# this check is required by branch protection) on a significant regression.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: eval-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUITE: examples/04-regression-gate/suite.yaml
+      BASELINE: examples/04-regression-gate/baseline.json
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen || uv sync
+
+      - name: Run eval suite and gate against baseline
+        id: gate
+        run: |
+          set +e
+          uv run --no-sync evalkit regression-gate run \
+            --suite "$SUITE" --baseline "$BASELINE" \
+            --out eval-results.json --report eval-report.md
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-gate-results
+          path: |
+            eval-results.json
+            eval-report.md
+
+      - name: Comment on PR
+        # Fork PRs get a read-only token; the step summary still carries the report.
+        if: >-
+          always() && github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository &&
+          hashFiles('eval-report.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          gh pr comment "$PR" --body-file eval-report.md --edit-last --create-if-none \
+            || gh pr comment "$PR" --body-file eval-report.md
+
+      - name: Enforce gate
+        if: steps.gate.outputs.exit_code != '0'
+        run: |
+          echo "::error title=Eval regression gate::merge blocked, see the job summary"
+          exit 1

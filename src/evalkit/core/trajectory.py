@@ -8,9 +8,10 @@ read and write trajectories as JSONL, one trajectory per line.
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any, Iterable, Literal
+from typing import Any, Literal
 
 StepKind = Literal["llm", "tool_call", "tool_result", "final"]
 
@@ -53,7 +54,7 @@ class Trajectory:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, d: dict) -> "Trajectory":
+    def from_dict(cls, d: dict) -> Trajectory:
         d = dict(d)
         d["steps"] = [Step(**s) for s in d.get("steps", [])]
         return cls(**d)

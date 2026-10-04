@@ -1,0 +1,1200 @@
+{"request_id": "r00000", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}], "user": "u0086"}
+{"request_id": "r00001", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}]}
+{"request_id": "r00002", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0018"}
+{"request_id": "r00003", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}], "user": "u0220"}
+{"request_id": "r00004", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}]}
+{"request_id": "r00005", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0227"}
+{"request_id": "r00006", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}]}
+{"request_id": "r00007", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0163"}
+{"request_id": "r00008", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}]}
+{"request_id": "r00009", "messages": [{"role": "user", "content": "What should I check first for react hydration errors issues?"}], "user": "u0120"}
+{"request_id": "r00010", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0088"}
+{"request_id": "r00011", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}], "user": "u0263"}
+{"request_id": "r00012", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}], "user": "u0228"}
+{"request_id": "r00013", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0186"}
+{"request_id": "r00014", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0228"}
+{"request_id": "r00015", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}]}
+{"request_id": "r00016", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0250"}
+{"request_id": "r00017", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}], "user": "u0181"}
+{"request_id": "r00018", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}]}
+{"request_id": "r00019", "messages": [{"role": "user", "content": "Can you explain s3 lifecycle rules briefly?"}], "user": "u0285"}
+{"request_id": "r00020", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}], "user": "u0113"}
+{"request_id": "r00021", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}]}
+{"request_id": "r00022", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}]}
+{"request_id": "r00023", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}], "user": "u0258"}
+{"request_id": "r00024", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}], "user": "u0208"}
+{"request_id": "r00025", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0262"}
+{"request_id": "r00026", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0038"}
+{"request_id": "r00027", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0097"}
+{"request_id": "r00028", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0025"}
+{"request_id": "r00029", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0054"}
+{"request_id": "r00030", "messages": [{"role": "user", "content": "What should I check first for terraform state locking issues?"}]}
+{"request_id": "r00031", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}]}
+{"request_id": "r00032", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}]}
+{"request_id": "r00033", "messages": [{"role": "user", "content": "How do I fix kubernetes pod eviction?"}], "user": "u0088"}
+{"request_id": "r00034", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0058"}
+{"request_id": "r00035", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0010"}
+{"request_id": "r00036", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0080"}
+{"request_id": "r00037", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0000"}
+{"request_id": "r00038", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}], "user": "u0126"}
+{"request_id": "r00039", "messages": [{"role": "user", "content": "What is the best practice for kubernetes pod eviction?"}], "user": "u0057"}
+{"request_id": "r00040", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0157"}
+{"request_id": "r00041", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}]}
+{"request_id": "r00042", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}]}
+{"request_id": "r00043", "messages": [{"role": "user", "content": "Can you explain vector index recall briefly?"}]}
+{"request_id": "r00044", "messages": [{"role": "user", "content": "Can you explain rust borrow checker briefly?"}], "user": "u0161"}
+{"request_id": "r00045", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0065"}
+{"request_id": "r00046", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}]}
+{"request_id": "r00047", "messages": [{"role": "user", "content": "Can you explain fastapi dependency injection briefly?"}], "user": "u0174"}
+{"request_id": "r00048", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0214"}
+{"request_id": "r00049", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0071"}
+{"request_id": "r00050", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0067"}
+{"request_id": "r00051", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0118"}
+{"request_id": "r00052", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}]}
+{"request_id": "r00053", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}]}
+{"request_id": "r00054", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0116"}
+{"request_id": "r00055", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}]}
+{"request_id": "r00056", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0269"}
+{"request_id": "r00057", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0209"}
+{"request_id": "r00058", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0044"}
+{"request_id": "r00059", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0093"}
+{"request_id": "r00060", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0266"}
+{"request_id": "r00061", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}], "user": "u0274"}
+{"request_id": "r00062", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}], "user": "u0107"}
+{"request_id": "r00063", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}], "user": "u0010"}
+{"request_id": "r00064", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0214"}
+{"request_id": "r00065", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0048"}
+{"request_id": "r00066", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0265"}
+{"request_id": "r00067", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}], "user": "u0190"}
+{"request_id": "r00068", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}]}
+{"request_id": "r00069", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0101"}
+{"request_id": "r00070", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}]}
+{"request_id": "r00071", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0237"}
+{"request_id": "r00072", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}], "user": "u0002"}
+{"request_id": "r00073", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0039"}
+{"request_id": "r00074", "messages": [{"role": "user", "content": "What is the best practice for git rebase conflicts?"}], "user": "u0292"}
+{"request_id": "r00075", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}]}
+{"request_id": "r00076", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0062"}
+{"request_id": "r00077", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0171"}
+{"request_id": "r00078", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}]}
+{"request_id": "r00079", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0240"}
+{"request_id": "r00080", "messages": [{"role": "user", "content": "How do I fix feature flag cleanup?"}]}
+{"request_id": "r00081", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}]}
+{"request_id": "r00082", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0269"}
+{"request_id": "r00083", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}]}
+{"request_id": "r00084", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}]}
+{"request_id": "r00085", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}], "user": "u0250"}
+{"request_id": "r00086", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0043"}
+{"request_id": "r00087", "messages": [{"role": "user", "content": "What should I check first for feature flag cleanup issues?"}]}
+{"request_id": "r00088", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}], "user": "u0279"}
+{"request_id": "r00089", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}]}
+{"request_id": "r00090", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r00091", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0151"}
+{"request_id": "r00092", "messages": [{"role": "user", "content": "Can you explain rust borrow checker briefly?"}]}
+{"request_id": "r00093", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}], "user": "u0268"}
+{"request_id": "r00094", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0216"}
+{"request_id": "r00095", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0263"}
+{"request_id": "r00096", "messages": [{"role": "user", "content": "Why does react hydration errors break under load?"}]}
+{"request_id": "r00097", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}], "user": "u0183"}
+{"request_id": "r00098", "messages": [{"role": "user", "content": "What should I check first for feature flag cleanup issues?"}], "user": "u0225"}
+{"request_id": "r00099", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}]}
+{"request_id": "r00100", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0261"}
+{"request_id": "r00101", "messages": [{"role": "user", "content": "How do I fix git rebase conflicts?"}], "user": "u0129"}
+{"request_id": "r00102", "messages": [{"role": "user", "content": "How should a small team handle feature flag cleanup?"}]}
+{"request_id": "r00103", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0280"}
+{"request_id": "r00104", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}]}
+{"request_id": "r00105", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}]}
+{"request_id": "r00106", "messages": [{"role": "user", "content": "How should a small team handle rust borrow checker?"}], "user": "u0096"}
+{"request_id": "r00107", "messages": [{"role": "user", "content": "Can you explain oauth refresh flow briefly?"}], "user": "u0005"}
+{"request_id": "r00108", "messages": [{"role": "user", "content": "Why does elasticsearch shard sizing break under load?"}], "user": "u0238"}
+{"request_id": "r00109", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}]}
+{"request_id": "r00110", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}]}
+{"request_id": "r00111", "messages": [{"role": "user", "content": "How should a small team handle llm prompt caching?"}], "user": "u0110"}
+{"request_id": "r00112", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}]}
+{"request_id": "r00113", "messages": [{"role": "user", "content": "What is the best practice for docker layer caching?"}]}
+{"request_id": "r00114", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0070"}
+{"request_id": "r00115", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}], "user": "u0246"}
+{"request_id": "r00116", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}], "user": "u0239"}
+{"request_id": "r00117", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}]}
+{"request_id": "r00118", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0248"}
+{"request_id": "r00119", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}], "user": "u0248"}
+{"request_id": "r00120", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}], "user": "u0257"}
+{"request_id": "r00121", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}]}
+{"request_id": "r00122", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0207"}
+{"request_id": "r00123", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0069"}
+{"request_id": "r00124", "messages": [{"role": "user", "content": "How do I fix react hydration errors?"}], "user": "u0237"}
+{"request_id": "r00125", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}], "user": "u0144"}
+{"request_id": "r00126", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}]}
+{"request_id": "r00127", "messages": [{"role": "user", "content": "Why does kubernetes pod eviction break under load?"}], "user": "u0195"}
+{"request_id": "r00128", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}], "user": "u0157"}
+{"request_id": "r00129", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0275"}
+{"request_id": "r00130", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}], "user": "u0160"}
+{"request_id": "r00131", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0159"}
+{"request_id": "r00132", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0047"}
+{"request_id": "r00133", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0271"}
+{"request_id": "r00134", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}], "user": "u0157"}
+{"request_id": "r00135", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}]}
+{"request_id": "r00136", "messages": [{"role": "user", "content": "What should I check first for rust borrow checker issues?"}], "user": "u0031"}
+{"request_id": "r00137", "messages": [{"role": "user", "content": "How do I fix redis cache invalidation?"}], "user": "u0194"}
+{"request_id": "r00138", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}], "user": "u0039"}
+{"request_id": "r00139", "messages": [{"role": "user", "content": "Why does elasticsearch shard sizing break under load?"}], "user": "u0254"}
+{"request_id": "r00140", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}], "user": "u0068"}
+{"request_id": "r00141", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}]}
+{"request_id": "r00142", "messages": [{"role": "user", "content": "What is the best practice for docker layer caching?"}], "user": "u0050"}
+{"request_id": "r00143", "messages": [{"role": "user", "content": "What is the best practice for git rebase conflicts?"}], "user": "u0191"}
+{"request_id": "r00144", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0069"}
+{"request_id": "r00145", "messages": [{"role": "user", "content": "What is the best practice for docker layer caching?"}]}
+{"request_id": "r00146", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}], "user": "u0175"}
+{"request_id": "r00147", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}]}
+{"request_id": "r00148", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0164"}
+{"request_id": "r00149", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}]}
+{"request_id": "r00150", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}]}
+{"request_id": "r00151", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}], "user": "u0037"}
+{"request_id": "r00152", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}], "user": "u0089"}
+{"request_id": "r00153", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}], "user": "u0044"}
+{"request_id": "r00154", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}]}
+{"request_id": "r00155", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0085"}
+{"request_id": "r00156", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}]}
+{"request_id": "r00157", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0277"}
+{"request_id": "r00158", "messages": [{"role": "user", "content": "Why does rust borrow checker break under load?"}]}
+{"request_id": "r00159", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0240"}
+{"request_id": "r00160", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}], "user": "u0103"}
+{"request_id": "r00161", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}]}
+{"request_id": "r00162", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0215"}
+{"request_id": "r00163", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0096"}
+{"request_id": "r00164", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0023"}
+{"request_id": "r00165", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}], "user": "u0031"}
+{"request_id": "r00166", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}]}
+{"request_id": "r00167", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}]}
+{"request_id": "r00168", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0059"}
+{"request_id": "r00169", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}]}
+{"request_id": "r00170", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0027"}
+{"request_id": "r00171", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0162"}
+{"request_id": "r00172", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}], "user": "u0261"}
+{"request_id": "r00173", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}]}
+{"request_id": "r00174", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}], "user": "u0210"}
+{"request_id": "r00175", "messages": [{"role": "user", "content": "Can you explain fastapi dependency injection briefly?"}], "user": "u0055"}
+{"request_id": "r00176", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}], "user": "u0256"}
+{"request_id": "r00177", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}], "user": "u0234"}
+{"request_id": "r00178", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0179"}
+{"request_id": "r00179", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0218"}
+{"request_id": "r00180", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}], "user": "u0238"}
+{"request_id": "r00181", "messages": [{"role": "user", "content": "How do I fix git rebase conflicts?"}], "user": "u0246"}
+{"request_id": "r00182", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}], "user": "u0257"}
+{"request_id": "r00183", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}], "user": "u0279"}
+{"request_id": "r00184", "messages": [{"role": "user", "content": "How do I fix fastapi dependency injection?"}], "user": "u0270"}
+{"request_id": "r00185", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0000"}
+{"request_id": "r00186", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}], "user": "u0055"}
+{"request_id": "r00187", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}]}
+{"request_id": "r00188", "messages": [{"role": "user", "content": "What should I check first for kafka consumer lag issues?"}], "user": "u0172"}
+{"request_id": "r00189", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}]}
+{"request_id": "r00190", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}], "user": "u0083"}
+{"request_id": "r00191", "messages": [{"role": "user", "content": "What should I check first for redis cache invalidation issues?"}]}
+{"request_id": "r00192", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}]}
+{"request_id": "r00193", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0174"}
+{"request_id": "r00194", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}], "user": "u0203"}
+{"request_id": "r00195", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}]}
+{"request_id": "r00196", "messages": [{"role": "user", "content": "What should I check first for redis cache invalidation issues?"}], "user": "u0145"}
+{"request_id": "r00197", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}]}
+{"request_id": "r00198", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}]}
+{"request_id": "r00199", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}], "user": "u0015"}
+{"request_id": "r00200", "messages": [{"role": "user", "content": "What should I check first for pandas memory usage issues?"}]}
+{"request_id": "r00201", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}], "user": "u0020"}
+{"request_id": "r00202", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}], "user": "u0134"}
+{"request_id": "r00203", "messages": [{"role": "user", "content": "How should a small team handle feature flag cleanup?"}], "user": "u0024"}
+{"request_id": "r00204", "messages": [{"role": "user", "content": "How should a small team handle rust borrow checker?"}]}
+{"request_id": "r00205", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0100"}
+{"request_id": "r00206", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0278"}
+{"request_id": "r00207", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}]}
+{"request_id": "r00208", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0106"}
+{"request_id": "r00209", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}]}
+{"request_id": "r00210", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}], "user": "u0211"}
+{"request_id": "r00211", "messages": [{"role": "user", "content": "Can you explain oauth refresh flow briefly?"}]}
+{"request_id": "r00212", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}], "user": "u0062"}
+{"request_id": "r00213", "messages": [{"role": "user", "content": "How should a small team handle ci flaky tests?"}]}
+{"request_id": "r00214", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}], "user": "u0133"}
+{"request_id": "r00215", "messages": [{"role": "user", "content": "What should I check first for feature flag cleanup issues?"}], "user": "u0269"}
+{"request_id": "r00216", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}], "user": "u0065"}
+{"request_id": "r00217", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}]}
+{"request_id": "r00218", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}]}
+{"request_id": "r00219", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0097"}
+{"request_id": "r00220", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0240"}
+{"request_id": "r00221", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0087"}
+{"request_id": "r00222", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0241"}
+{"request_id": "r00223", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}], "user": "u0295"}
+{"request_id": "r00224", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}]}
+{"request_id": "r00225", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}]}
+{"request_id": "r00226", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0014"}
+{"request_id": "r00227", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0273"}
+{"request_id": "r00228", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0225"}
+{"request_id": "r00229", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0009"}
+{"request_id": "r00230", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0108"}
+{"request_id": "r00231", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0192"}
+{"request_id": "r00232", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}], "user": "u0228"}
+{"request_id": "r00233", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0245"}
+{"request_id": "r00234", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0116"}
+{"request_id": "r00235", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}]}
+{"request_id": "r00236", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0200"}
+{"request_id": "r00237", "messages": [{"role": "user", "content": "What should I check first for celery retry backoff issues?"}], "user": "u0109"}
+{"request_id": "r00238", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}], "user": "u0127"}
+{"request_id": "r00239", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}]}
+{"request_id": "r00240", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}]}
+{"request_id": "r00241", "messages": [{"role": "user", "content": "Can you explain jwt token rotation briefly?"}], "user": "u0194"}
+{"request_id": "r00242", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}], "user": "u0028"}
+{"request_id": "r00243", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}]}
+{"request_id": "r00244", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}]}
+{"request_id": "r00245", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0220"}
+{"request_id": "r00246", "messages": [{"role": "user", "content": "Can you explain rust borrow checker briefly?"}], "user": "u0051"}
+{"request_id": "r00247", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}], "user": "u0252"}
+{"request_id": "r00248", "messages": [{"role": "user", "content": "What should I check first for python asyncio cancellation issues?"}]}
+{"request_id": "r00249", "messages": [{"role": "user", "content": "How should a small team handle ci flaky tests?"}], "user": "u0012"}
+{"request_id": "r00250", "messages": [{"role": "user", "content": "How do I fix git rebase conflicts?"}], "user": "u0072"}
+{"request_id": "r00251", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0024"}
+{"request_id": "r00252", "messages": [{"role": "user", "content": "What should I check first for terraform state locking issues?"}], "user": "u0052"}
+{"request_id": "r00253", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}], "user": "u0069"}
+{"request_id": "r00254", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}], "user": "u0158"}
+{"request_id": "r00255", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}], "user": "u0024"}
+{"request_id": "r00256", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}]}
+{"request_id": "r00257", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0054"}
+{"request_id": "r00258", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0141"}
+{"request_id": "r00259", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}], "user": "u0076"}
+{"request_id": "r00260", "messages": [{"role": "user", "content": "How do I fix kubernetes pod eviction?"}], "user": "u0004"}
+{"request_id": "r00261", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}]}
+{"request_id": "r00262", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0039"}
+{"request_id": "r00263", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}], "user": "u0222"}
+{"request_id": "r00264", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0093"}
+{"request_id": "r00265", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}], "user": "u0180"}
+{"request_id": "r00266", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0020"}
+{"request_id": "r00267", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}]}
+{"request_id": "r00268", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0184"}
+{"request_id": "r00269", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}]}
+{"request_id": "r00270", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0052"}
+{"request_id": "r00271", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0256"}
+{"request_id": "r00272", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0026"}
+{"request_id": "r00273", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}]}
+{"request_id": "r00274", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}]}
+{"request_id": "r00275", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0235"}
+{"request_id": "r00276", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}], "user": "u0292"}
+{"request_id": "r00277", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}]}
+{"request_id": "r00278", "messages": [{"role": "user", "content": "Can you explain vector index recall briefly?"}]}
+{"request_id": "r00279", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}], "user": "u0065"}
+{"request_id": "r00280", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}], "user": "u0095"}
+{"request_id": "r00281", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}], "user": "u0128"}
+{"request_id": "r00282", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0216"}
+{"request_id": "r00283", "messages": [{"role": "user", "content": "Can you explain docker layer caching briefly?"}]}
+{"request_id": "r00284", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}]}
+{"request_id": "r00285", "messages": [{"role": "user", "content": "Can you explain vector index recall briefly?"}]}
+{"request_id": "r00286", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}]}
+{"request_id": "r00287", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0133"}
+{"request_id": "r00288", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}], "user": "u0233"}
+{"request_id": "r00289", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}]}
+{"request_id": "r00290", "messages": [{"role": "user", "content": "Can you explain oauth refresh flow briefly?"}], "user": "u0273"}
+{"request_id": "r00291", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}], "user": "u0185"}
+{"request_id": "r00292", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0125"}
+{"request_id": "r00293", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0198"}
+{"request_id": "r00294", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0266"}
+{"request_id": "r00295", "messages": [{"role": "user", "content": "Can you explain python asyncio cancellation briefly?"}]}
+{"request_id": "r00296", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0185"}
+{"request_id": "r00297", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0119"}
+{"request_id": "r00298", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0230"}
+{"request_id": "r00299", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}]}
+{"request_id": "r00300", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}], "user": "u0160"}
+{"request_id": "r00301", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0135"}
+{"request_id": "r00302", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}], "user": "u0205"}
+{"request_id": "r00303", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}], "user": "u0051"}
+{"request_id": "r00304", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}]}
+{"request_id": "r00305", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0207"}
+{"request_id": "r00306", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}]}
+{"request_id": "r00307", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}], "user": "u0245"}
+{"request_id": "r00308", "messages": [{"role": "user", "content": "Can you explain vector index recall briefly?"}]}
+{"request_id": "r00309", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0176"}
+{"request_id": "r00310", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0026"}
+{"request_id": "r00311", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0002"}
+{"request_id": "r00312", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}]}
+{"request_id": "r00313", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}]}
+{"request_id": "r00314", "messages": [{"role": "user", "content": "Why does react hydration errors break under load?"}], "user": "u0200"}
+{"request_id": "r00315", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}]}
+{"request_id": "r00316", "messages": [{"role": "user", "content": "Can you explain docker layer caching briefly?"}], "user": "u0109"}
+{"request_id": "r00317", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0190"}
+{"request_id": "r00318", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0115"}
+{"request_id": "r00319", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}], "user": "u0203"}
+{"request_id": "r00320", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0082"}
+{"request_id": "r00321", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}]}
+{"request_id": "r00322", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}], "user": "u0101"}
+{"request_id": "r00323", "messages": [{"role": "user", "content": "How should a small team handle ci flaky tests?"}], "user": "u0093"}
+{"request_id": "r00324", "messages": [{"role": "user", "content": "Can you explain vector index recall briefly?"}], "user": "u0068"}
+{"request_id": "r00325", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0042"}
+{"request_id": "r00326", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0094"}
+{"request_id": "r00327", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}], "user": "u0011"}
+{"request_id": "r00328", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}]}
+{"request_id": "r00329", "messages": [{"role": "user", "content": "Why does kubernetes pod eviction break under load?"}], "user": "u0241"}
+{"request_id": "r00330", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0236"}
+{"request_id": "r00331", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}]}
+{"request_id": "r00332", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0075"}
+{"request_id": "r00333", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}], "user": "u0269"}
+{"request_id": "r00334", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}], "user": "u0013"}
+{"request_id": "r00335", "messages": [{"role": "user", "content": "What should I check first for pandas memory usage issues?"}], "user": "u0213"}
+{"request_id": "r00336", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0237"}
+{"request_id": "r00337", "messages": [{"role": "user", "content": "What is the best practice for kubernetes pod eviction?"}], "user": "u0235"}
+{"request_id": "r00338", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}]}
+{"request_id": "r00339", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0055"}
+{"request_id": "r00340", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}]}
+{"request_id": "r00341", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0139"}
+{"request_id": "r00342", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}]}
+{"request_id": "r00343", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0179"}
+{"request_id": "r00344", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}]}
+{"request_id": "r00345", "messages": [{"role": "user", "content": "What is the best practice for grpc deadline propagation?"}], "user": "u0010"}
+{"request_id": "r00346", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0037"}
+{"request_id": "r00347", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}], "user": "u0252"}
+{"request_id": "r00348", "messages": [{"role": "user", "content": "Can you explain oauth refresh flow briefly?"}], "user": "u0151"}
+{"request_id": "r00349", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}]}
+{"request_id": "r00350", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}], "user": "u0046"}
+{"request_id": "r00351", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}]}
+{"request_id": "r00352", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}]}
+{"request_id": "r00353", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}]}
+{"request_id": "r00354", "messages": [{"role": "user", "content": "What should I check first for terraform state locking issues?"}], "user": "u0117"}
+{"request_id": "r00355", "messages": [{"role": "user", "content": "What should I check first for feature flag cleanup issues?"}]}
+{"request_id": "r00356", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}]}
+{"request_id": "r00357", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0210"}
+{"request_id": "r00358", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}], "user": "u0171"}
+{"request_id": "r00359", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0176"}
+{"request_id": "r00360", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}]}
+{"request_id": "r00361", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0193"}
+{"request_id": "r00362", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}]}
+{"request_id": "r00363", "messages": [{"role": "user", "content": "How should a small team handle rust borrow checker?"}], "user": "u0276"}
+{"request_id": "r00364", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0292"}
+{"request_id": "r00365", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}], "user": "u0037"}
+{"request_id": "r00366", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0121"}
+{"request_id": "r00367", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0207"}
+{"request_id": "r00368", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0024"}
+{"request_id": "r00369", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0288"}
+{"request_id": "r00370", "messages": [{"role": "user", "content": "How do I fix feature flag cleanup?"}]}
+{"request_id": "r00371", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0216"}
+{"request_id": "r00372", "messages": [{"role": "user", "content": "What is the best practice for kubernetes pod eviction?"}], "user": "u0066"}
+{"request_id": "r00373", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0053"}
+{"request_id": "r00374", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}]}
+{"request_id": "r00375", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0000"}
+{"request_id": "r00376", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}]}
+{"request_id": "r00377", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}], "user": "u0194"}
+{"request_id": "r00378", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}], "user": "u0136"}
+{"request_id": "r00379", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0264"}
+{"request_id": "r00380", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}], "user": "u0255"}
+{"request_id": "r00381", "messages": [{"role": "user", "content": "Can you explain jwt token rotation briefly?"}]}
+{"request_id": "r00382", "messages": [{"role": "user", "content": "Can you explain react hydration errors briefly?"}], "user": "u0215"}
+{"request_id": "r00383", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0217"}
+{"request_id": "r00384", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0036"}
+{"request_id": "r00385", "messages": [{"role": "user", "content": "What should I check first for postgres connection pooling issues?"}], "user": "u0211"}
+{"request_id": "r00386", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}]}
+{"request_id": "r00387", "messages": [{"role": "user", "content": "What should I check first for pandas memory usage issues?"}], "user": "u0142"}
+{"request_id": "r00388", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}], "user": "u0054"}
+{"request_id": "r00389", "messages": [{"role": "user", "content": "How should a small team handle rust borrow checker?"}]}
+{"request_id": "r00390", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}]}
+{"request_id": "r00391", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}], "user": "u0083"}
+{"request_id": "r00392", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}]}
+{"request_id": "r00393", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}], "user": "u0191"}
+{"request_id": "r00394", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0283"}
+{"request_id": "r00395", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0200"}
+{"request_id": "r00396", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}], "user": "u0082"}
+{"request_id": "r00397", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}]}
+{"request_id": "r00398", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}]}
+{"request_id": "r00399", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}]}
+{"request_id": "r00400", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0081"}
+{"request_id": "r00401", "messages": [{"role": "user", "content": "How do I fix cuda out of memory?"}], "user": "u0204"}
+{"request_id": "r00402", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0251"}
+{"request_id": "r00403", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}], "user": "u0149"}
+{"request_id": "r00404", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0171"}
+{"request_id": "r00405", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}], "user": "u0188"}
+{"request_id": "r00406", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0257"}
+{"request_id": "r00407", "messages": [{"role": "user", "content": "Why does kubernetes pod eviction break under load?"}]}
+{"request_id": "r00408", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0093"}
+{"request_id": "r00409", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}], "user": "u0068"}
+{"request_id": "r00410", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}]}
+{"request_id": "r00411", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r00412", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}]}
+{"request_id": "r00413", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0010"}
+{"request_id": "r00414", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0289"}
+{"request_id": "r00415", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0168"}
+{"request_id": "r00416", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0011"}
+{"request_id": "r00417", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}]}
+{"request_id": "r00418", "messages": [{"role": "user", "content": "What should I check first for postgres connection pooling issues?"}], "user": "u0151"}
+{"request_id": "r00419", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0010"}
+{"request_id": "r00420", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0095"}
+{"request_id": "r00421", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0083"}
+{"request_id": "r00422", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0016"}
+{"request_id": "r00423", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0299"}
+{"request_id": "r00424", "messages": [{"role": "user", "content": "What is the best practice for kubernetes pod eviction?"}], "user": "u0121"}
+{"request_id": "r00425", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0000"}
+{"request_id": "r00426", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0123"}
+{"request_id": "r00427", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0105"}
+{"request_id": "r00428", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}], "user": "u0127"}
+{"request_id": "r00429", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0095"}
+{"request_id": "r00430", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}], "user": "u0001"}
+{"request_id": "r00431", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}]}
+{"request_id": "r00432", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}], "user": "u0149"}
+{"request_id": "r00433", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}]}
+{"request_id": "r00434", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}]}
+{"request_id": "r00435", "messages": [{"role": "user", "content": "Can you explain fastapi dependency injection briefly?"}], "user": "u0290"}
+{"request_id": "r00436", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}]}
+{"request_id": "r00437", "messages": [{"role": "user", "content": "What should I check first for celery retry backoff issues?"}]}
+{"request_id": "r00438", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}]}
+{"request_id": "r00439", "messages": [{"role": "user", "content": "What should I check first for react hydration errors issues?"}], "user": "u0119"}
+{"request_id": "r00440", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0236"}
+{"request_id": "r00441", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}], "user": "u0015"}
+{"request_id": "r00442", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0191"}
+{"request_id": "r00443", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0102"}
+{"request_id": "r00444", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0223"}
+{"request_id": "r00445", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0241"}
+{"request_id": "r00446", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}]}
+{"request_id": "r00447", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0150"}
+{"request_id": "r00448", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}]}
+{"request_id": "r00449", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}], "user": "u0039"}
+{"request_id": "r00450", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0057"}
+{"request_id": "r00451", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}]}
+{"request_id": "r00452", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0012"}
+{"request_id": "r00453", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0102"}
+{"request_id": "r00454", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}]}
+{"request_id": "r00455", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}]}
+{"request_id": "r00456", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}]}
+{"request_id": "r00457", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}], "user": "u0044"}
+{"request_id": "r00458", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}]}
+{"request_id": "r00459", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}], "user": "u0235"}
+{"request_id": "r00460", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0001"}
+{"request_id": "r00461", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0036"}
+{"request_id": "r00462", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0059"}
+{"request_id": "r00463", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}], "user": "u0141"}
+{"request_id": "r00464", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0074"}
+{"request_id": "r00465", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}], "user": "u0114"}
+{"request_id": "r00466", "messages": [{"role": "user", "content": "What is the best practice for git rebase conflicts?"}], "user": "u0248"}
+{"request_id": "r00467", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}]}
+{"request_id": "r00468", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0219"}
+{"request_id": "r00469", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}]}
+{"request_id": "r00470", "messages": [{"role": "user", "content": "How should a small team handle ci flaky tests?"}]}
+{"request_id": "r00471", "messages": [{"role": "user", "content": "What should I check first for celery retry backoff issues?"}], "user": "u0028"}
+{"request_id": "r00472", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}]}
+{"request_id": "r00473", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0155"}
+{"request_id": "r00474", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}]}
+{"request_id": "r00475", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}]}
+{"request_id": "r00476", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}]}
+{"request_id": "r00477", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}]}
+{"request_id": "r00478", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0016"}
+{"request_id": "r00479", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}], "user": "u0022"}
+{"request_id": "r00480", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}], "user": "u0130"}
+{"request_id": "r00481", "messages": [{"role": "user", "content": "What should I check first for react hydration errors issues?"}], "user": "u0178"}
+{"request_id": "r00482", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}]}
+{"request_id": "r00483", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}]}
+{"request_id": "r00484", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0002"}
+{"request_id": "r00485", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}]}
+{"request_id": "r00486", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}]}
+{"request_id": "r00487", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0268"}
+{"request_id": "r00488", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0008"}
+{"request_id": "r00489", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0270"}
+{"request_id": "r00490", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}]}
+{"request_id": "r00491", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}], "user": "u0236"}
+{"request_id": "r00492", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}], "user": "u0088"}
+{"request_id": "r00493", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}]}
+{"request_id": "r00494", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}]}
+{"request_id": "r00495", "messages": [{"role": "user", "content": "What should I check first for react hydration errors issues?"}], "user": "u0027"}
+{"request_id": "r00496", "messages": [{"role": "user", "content": "What should I check first for feature flag cleanup issues?"}], "user": "u0203"}
+{"request_id": "r00497", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0066"}
+{"request_id": "r00498", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}], "user": "u0299"}
+{"request_id": "r00499", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}], "user": "u0108"}
+{"request_id": "r00500", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}], "user": "u0031"}
+{"request_id": "r00501", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}], "user": "u0076"}
+{"request_id": "r00502", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0213"}
+{"request_id": "r00503", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0264"}
+{"request_id": "r00504", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0129"}
+{"request_id": "r00505", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}]}
+{"request_id": "r00506", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}], "user": "u0108"}
+{"request_id": "r00507", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0000"}
+{"request_id": "r00508", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}]}
+{"request_id": "r00509", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}]}
+{"request_id": "r00510", "messages": [{"role": "user", "content": "Can you explain vector index recall briefly?"}], "user": "u0288"}
+{"request_id": "r00511", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}]}
+{"request_id": "r00512", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0083"}
+{"request_id": "r00513", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0110"}
+{"request_id": "r00514", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0173"}
+{"request_id": "r00515", "messages": [{"role": "user", "content": "How do I fix redis cache invalidation?"}], "user": "u0153"}
+{"request_id": "r00516", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}]}
+{"request_id": "r00517", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0281"}
+{"request_id": "r00518", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0166"}
+{"request_id": "r00519", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}]}
+{"request_id": "r00520", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}]}
+{"request_id": "r00521", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}], "user": "u0267"}
+{"request_id": "r00522", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0247"}
+{"request_id": "r00523", "messages": [{"role": "user", "content": "How should a small team handle llm prompt caching?"}], "user": "u0211"}
+{"request_id": "r00524", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0136"}
+{"request_id": "r00525", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0272"}
+{"request_id": "r00526", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0103"}
+{"request_id": "r00527", "messages": [{"role": "user", "content": "What should I check first for python asyncio cancellation issues?"}], "user": "u0134"}
+{"request_id": "r00528", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0017"}
+{"request_id": "r00529", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}]}
+{"request_id": "r00530", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}], "user": "u0220"}
+{"request_id": "r00531", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0200"}
+{"request_id": "r00532", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0147"}
+{"request_id": "r00533", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}], "user": "u0094"}
+{"request_id": "r00534", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0172"}
+{"request_id": "r00535", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}], "user": "u0025"}
+{"request_id": "r00536", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}], "user": "u0060"}
+{"request_id": "r00537", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}], "user": "u0102"}
+{"request_id": "r00538", "messages": [{"role": "user", "content": "Can you explain kubernetes pod eviction briefly?"}], "user": "u0215"}
+{"request_id": "r00539", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0231"}
+{"request_id": "r00540", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0236"}
+{"request_id": "r00541", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}]}
+{"request_id": "r00542", "messages": [{"role": "user", "content": "What should I check first for rust borrow checker issues?"}], "user": "u0121"}
+{"request_id": "r00543", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0106"}
+{"request_id": "r00544", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}]}
+{"request_id": "r00545", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0128"}
+{"request_id": "r00546", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0213"}
+{"request_id": "r00547", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}], "user": "u0094"}
+{"request_id": "r00548", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0272"}
+{"request_id": "r00549", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}], "user": "u0038"}
+{"request_id": "r00550", "messages": [{"role": "user", "content": "How do I fix fastapi dependency injection?"}], "user": "u0231"}
+{"request_id": "r00551", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}]}
+{"request_id": "r00552", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0268"}
+{"request_id": "r00553", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0262"}
+{"request_id": "r00554", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}]}
+{"request_id": "r00555", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0216"}
+{"request_id": "r00556", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0118"}
+{"request_id": "r00557", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0145"}
+{"request_id": "r00558", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}]}
+{"request_id": "r00559", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0016"}
+{"request_id": "r00560", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0267"}
+{"request_id": "r00561", "messages": [{"role": "user", "content": "What should I check first for kafka consumer lag issues?"}], "user": "u0221"}
+{"request_id": "r00562", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0138"}
+{"request_id": "r00563", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}]}
+{"request_id": "r00564", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0120"}
+{"request_id": "r00565", "messages": [{"role": "user", "content": "How should a small team handle llm prompt caching?"}], "user": "u0273"}
+{"request_id": "r00566", "messages": [{"role": "user", "content": "How should a small team handle feature flag cleanup?"}]}
+{"request_id": "r00567", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}]}
+{"request_id": "r00568", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0175"}
+{"request_id": "r00569", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0153"}
+{"request_id": "r00570", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0004"}
+{"request_id": "r00571", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}], "user": "u0238"}
+{"request_id": "r00572", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}]}
+{"request_id": "r00573", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0060"}
+{"request_id": "r00574", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}], "user": "u0040"}
+{"request_id": "r00575", "messages": [{"role": "user", "content": "Why does kubernetes pod eviction break under load?"}], "user": "u0222"}
+{"request_id": "r00576", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0194"}
+{"request_id": "r00577", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}], "user": "u0125"}
+{"request_id": "r00578", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0037"}
+{"request_id": "r00579", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}], "user": "u0099"}
+{"request_id": "r00580", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0183"}
+{"request_id": "r00581", "messages": [{"role": "user", "content": "Why does react hydration errors break under load?"}], "user": "u0258"}
+{"request_id": "r00582", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0045"}
+{"request_id": "r00583", "messages": [{"role": "user", "content": "How do I fix fastapi dependency injection?"}], "user": "u0168"}
+{"request_id": "r00584", "messages": [{"role": "user", "content": "What should I check first for rust borrow checker issues?"}], "user": "u0113"}
+{"request_id": "r00585", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}]}
+{"request_id": "r00586", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}], "user": "u0001"}
+{"request_id": "r00587", "messages": [{"role": "user", "content": "Can you explain fastapi dependency injection briefly?"}], "user": "u0235"}
+{"request_id": "r00588", "messages": [{"role": "user", "content": "What is the best practice for grpc deadline propagation?"}], "user": "u0298"}
+{"request_id": "r00589", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}]}
+{"request_id": "r00590", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}], "user": "u0190"}
+{"request_id": "r00591", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0252"}
+{"request_id": "r00592", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0255"}
+{"request_id": "r00593", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0088"}
+{"request_id": "r00594", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}], "user": "u0165"}
+{"request_id": "r00595", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}], "user": "u0128"}
+{"request_id": "r00596", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}]}
+{"request_id": "r00597", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}], "user": "u0212"}
+{"request_id": "r00598", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}]}
+{"request_id": "r00599", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}], "user": "u0108"}
+{"request_id": "r00600", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}], "user": "u0024"}
+{"request_id": "r00601", "messages": [{"role": "user", "content": "Can you explain python asyncio cancellation briefly?"}], "user": "u0236"}
+{"request_id": "r00602", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0002"}
+{"request_id": "r00603", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}], "user": "u0076"}
+{"request_id": "r00604", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}], "user": "u0072"}
+{"request_id": "r00605", "messages": [{"role": "user", "content": "How do I fix redis cache invalidation?"}], "user": "u0109"}
+{"request_id": "r00606", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}], "user": "u0020"}
+{"request_id": "r00607", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0272"}
+{"request_id": "r00608", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}]}
+{"request_id": "r00609", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0067"}
+{"request_id": "r00610", "messages": [{"role": "user", "content": "What should I check first for rust borrow checker issues?"}]}
+{"request_id": "r00611", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}]}
+{"request_id": "r00612", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0155"}
+{"request_id": "r00613", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0016"}
+{"request_id": "r00614", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}], "user": "u0179"}
+{"request_id": "r00615", "messages": [{"role": "user", "content": "How do I fix git rebase conflicts?"}]}
+{"request_id": "r00616", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0196"}
+{"request_id": "r00617", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0052"}
+{"request_id": "r00618", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}]}
+{"request_id": "r00619", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0115"}
+{"request_id": "r00620", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0161"}
+{"request_id": "r00621", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}], "user": "u0158"}
+{"request_id": "r00622", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}], "user": "u0298"}
+{"request_id": "r00623", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}]}
+{"request_id": "r00624", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}]}
+{"request_id": "r00625", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0024"}
+{"request_id": "r00626", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0077"}
+{"request_id": "r00627", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0177"}
+{"request_id": "r00628", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}], "user": "u0062"}
+{"request_id": "r00629", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0124"}
+{"request_id": "r00630", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0016"}
+{"request_id": "r00631", "messages": [{"role": "user", "content": "Can you explain s3 lifecycle rules briefly?"}]}
+{"request_id": "r00632", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}], "user": "u0085"}
+{"request_id": "r00633", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}]}
+{"request_id": "r00634", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}]}
+{"request_id": "r00635", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}], "user": "u0291"}
+{"request_id": "r00636", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0156"}
+{"request_id": "r00637", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}], "user": "u0262"}
+{"request_id": "r00638", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}], "user": "u0066"}
+{"request_id": "r00639", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}], "user": "u0243"}
+{"request_id": "r00640", "messages": [{"role": "user", "content": "What should I check first for postgres connection pooling issues?"}], "user": "u0299"}
+{"request_id": "r00641", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}], "user": "u0081"}
+{"request_id": "r00642", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}]}
+{"request_id": "r00643", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}]}
+{"request_id": "r00644", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}], "user": "u0062"}
+{"request_id": "r00645", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}]}
+{"request_id": "r00646", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}]}
+{"request_id": "r00647", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0156"}
+{"request_id": "r00648", "messages": [{"role": "user", "content": "Can you explain grpc deadline propagation briefly?"}], "user": "u0244"}
+{"request_id": "r00649", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}]}
+{"request_id": "r00650", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0134"}
+{"request_id": "r00651", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}]}
+{"request_id": "r00652", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}]}
+{"request_id": "r00653", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0065"}
+{"request_id": "r00654", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0008"}
+{"request_id": "r00655", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}], "user": "u0124"}
+{"request_id": "r00656", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}], "user": "u0032"}
+{"request_id": "r00657", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}], "user": "u0076"}
+{"request_id": "r00658", "messages": [{"role": "user", "content": "What is the best practice for pandas memory usage?"}]}
+{"request_id": "r00659", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}]}
+{"request_id": "r00660", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}]}
+{"request_id": "r00661", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0127"}
+{"request_id": "r00662", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}], "user": "u0025"}
+{"request_id": "r00663", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0194"}
+{"request_id": "r00664", "messages": [{"role": "user", "content": "Can you explain fastapi dependency injection briefly?"}]}
+{"request_id": "r00665", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0177"}
+{"request_id": "r00666", "messages": [{"role": "user", "content": "What is the best practice for docker layer caching?"}], "user": "u0176"}
+{"request_id": "r00667", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0260"}
+{"request_id": "r00668", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}], "user": "u0232"}
+{"request_id": "r00669", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}]}
+{"request_id": "r00670", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0162"}
+{"request_id": "r00671", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}], "user": "u0166"}
+{"request_id": "r00672", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}]}
+{"request_id": "r00673", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0139"}
+{"request_id": "r00674", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}], "user": "u0285"}
+{"request_id": "r00675", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}]}
+{"request_id": "r00676", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0070"}
+{"request_id": "r00677", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0286"}
+{"request_id": "r00678", "messages": [{"role": "user", "content": "Can you explain python asyncio cancellation briefly?"}]}
+{"request_id": "r00679", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}]}
+{"request_id": "r00680", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0297"}
+{"request_id": "r00681", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}], "user": "u0273"}
+{"request_id": "r00682", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}], "user": "u0210"}
+{"request_id": "r00683", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0023"}
+{"request_id": "r00684", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}], "user": "u0105"}
+{"request_id": "r00685", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}]}
+{"request_id": "r00686", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}], "user": "u0238"}
+{"request_id": "r00687", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}], "user": "u0004"}
+{"request_id": "r00688", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}], "user": "u0242"}
+{"request_id": "r00689", "messages": [{"role": "user", "content": "What is the best practice for git rebase conflicts?"}]}
+{"request_id": "r00690", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}]}
+{"request_id": "r00691", "messages": [{"role": "user", "content": "Can you explain oauth refresh flow briefly?"}]}
+{"request_id": "r00692", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}]}
+{"request_id": "r00693", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}]}
+{"request_id": "r00694", "messages": [{"role": "user", "content": "What should I check first for terraform state locking issues?"}], "user": "u0192"}
+{"request_id": "r00695", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}]}
+{"request_id": "r00696", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}]}
+{"request_id": "r00697", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0030"}
+{"request_id": "r00698", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0135"}
+{"request_id": "r00699", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}]}
+{"request_id": "r00700", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0150"}
+{"request_id": "r00701", "messages": [{"role": "user", "content": "How should a small team handle ci flaky tests?"}]}
+{"request_id": "r00702", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}]}
+{"request_id": "r00703", "messages": [{"role": "user", "content": "Can you explain rust borrow checker briefly?"}], "user": "u0297"}
+{"request_id": "r00704", "messages": [{"role": "user", "content": "How do I fix cuda out of memory?"}], "user": "u0288"}
+{"request_id": "r00705", "messages": [{"role": "user", "content": "Can you explain react hydration errors briefly?"}], "user": "u0240"}
+{"request_id": "r00706", "messages": [{"role": "user", "content": "What should I check first for pandas memory usage issues?"}], "user": "u0048"}
+{"request_id": "r00707", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0165"}
+{"request_id": "r00708", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0273"}
+{"request_id": "r00709", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}], "user": "u0063"}
+{"request_id": "r00710", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}], "user": "u0230"}
+{"request_id": "r00711", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0299"}
+{"request_id": "r00712", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}]}
+{"request_id": "r00713", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}], "user": "u0244"}
+{"request_id": "r00714", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0005"}
+{"request_id": "r00715", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}]}
+{"request_id": "r00716", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}], "user": "u0299"}
+{"request_id": "r00717", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0216"}
+{"request_id": "r00718", "messages": [{"role": "user", "content": "Why does react hydration errors break under load?"}]}
+{"request_id": "r00719", "messages": [{"role": "user", "content": "What is the best practice for grpc deadline propagation?"}], "user": "u0031"}
+{"request_id": "r00720", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0201"}
+{"request_id": "r00721", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0065"}
+{"request_id": "r00722", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}], "user": "u0098"}
+{"request_id": "r00723", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}]}
+{"request_id": "r00724", "messages": [{"role": "user", "content": "What should I check first for python asyncio cancellation issues?"}], "user": "u0023"}
+{"request_id": "r00725", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0081"}
+{"request_id": "r00726", "messages": [{"role": "user", "content": "Can you explain docker layer caching briefly?"}], "user": "u0048"}
+{"request_id": "r00727", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}]}
+{"request_id": "r00728", "messages": [{"role": "user", "content": "How do I fix git rebase conflicts?"}], "user": "u0135"}
+{"request_id": "r00729", "messages": [{"role": "user", "content": "What should I check first for kafka consumer lag issues?"}], "user": "u0151"}
+{"request_id": "r00730", "messages": [{"role": "user", "content": "Can you explain react hydration errors briefly?"}]}
+{"request_id": "r00731", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}], "user": "u0130"}
+{"request_id": "r00732", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}]}
+{"request_id": "r00733", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}], "user": "u0169"}
+{"request_id": "r00734", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0159"}
+{"request_id": "r00735", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}]}
+{"request_id": "r00736", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}]}
+{"request_id": "r00737", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}]}
+{"request_id": "r00738", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}], "user": "u0227"}
+{"request_id": "r00739", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}], "user": "u0237"}
+{"request_id": "r00740", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}]}
+{"request_id": "r00741", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}]}
+{"request_id": "r00742", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0145"}
+{"request_id": "r00743", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}]}
+{"request_id": "r00744", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}], "user": "u0065"}
+{"request_id": "r00745", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0095"}
+{"request_id": "r00746", "messages": [{"role": "user", "content": "What should I check first for postgres connection pooling issues?"}], "user": "u0182"}
+{"request_id": "r00747", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}], "user": "u0115"}
+{"request_id": "r00748", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}]}
+{"request_id": "r00749", "messages": [{"role": "user", "content": "What is the best practice for vector index recall?"}], "user": "u0082"}
+{"request_id": "r00750", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}], "user": "u0221"}
+{"request_id": "r00751", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}]}
+{"request_id": "r00752", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}]}
+{"request_id": "r00753", "messages": [{"role": "user", "content": "Why does react hydration errors break under load?"}], "user": "u0199"}
+{"request_id": "r00754", "messages": [{"role": "user", "content": "What is the best practice for kafka consumer lag?"}]}
+{"request_id": "r00755", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0058"}
+{"request_id": "r00756", "messages": [{"role": "user", "content": "How do I fix redis cache invalidation?"}]}
+{"request_id": "r00757", "messages": [{"role": "user", "content": "Can you explain react hydration errors briefly?"}], "user": "u0075"}
+{"request_id": "r00758", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0003"}
+{"request_id": "r00759", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}]}
+{"request_id": "r00760", "messages": [{"role": "user", "content": "What is the best practice for grpc deadline propagation?"}]}
+{"request_id": "r00761", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0269"}
+{"request_id": "r00762", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0219"}
+{"request_id": "r00763", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0111"}
+{"request_id": "r00764", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}]}
+{"request_id": "r00765", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}]}
+{"request_id": "r00766", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}], "user": "u0206"}
+{"request_id": "r00767", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}], "user": "u0056"}
+{"request_id": "r00768", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}]}
+{"request_id": "r00769", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0170"}
+{"request_id": "r00770", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}], "user": "u0081"}
+{"request_id": "r00771", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0299"}
+{"request_id": "r00772", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0092"}
+{"request_id": "r00773", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0264"}
+{"request_id": "r00774", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}]}
+{"request_id": "r00775", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}], "user": "u0135"}
+{"request_id": "r00776", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0139"}
+{"request_id": "r00777", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}], "user": "u0131"}
+{"request_id": "r00778", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0203"}
+{"request_id": "r00779", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0211"}
+{"request_id": "r00780", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0189"}
+{"request_id": "r00781", "messages": [{"role": "user", "content": "What should I check first for redis cache invalidation issues?"}], "user": "u0125"}
+{"request_id": "r00782", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}], "user": "u0279"}
+{"request_id": "r00783", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}]}
+{"request_id": "r00784", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0242"}
+{"request_id": "r00785", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}]}
+{"request_id": "r00786", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r00787", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}]}
+{"request_id": "r00788", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}], "user": "u0083"}
+{"request_id": "r00789", "messages": [{"role": "user", "content": "Can you explain rust borrow checker briefly?"}]}
+{"request_id": "r00790", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}]}
+{"request_id": "r00791", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}], "user": "u0125"}
+{"request_id": "r00792", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0006"}
+{"request_id": "r00793", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}]}
+{"request_id": "r00794", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0152"}
+{"request_id": "r00795", "messages": [{"role": "user", "content": "What should I check first for rust borrow checker issues?"}], "user": "u0224"}
+{"request_id": "r00796", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}], "user": "u0091"}
+{"request_id": "r00797", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0120"}
+{"request_id": "r00798", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}], "user": "u0227"}
+{"request_id": "r00799", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0275"}
+{"request_id": "r00800", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}]}
+{"request_id": "r00801", "messages": [{"role": "user", "content": "How do I fix react hydration errors?"}]}
+{"request_id": "r00802", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0209"}
+{"request_id": "r00803", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0098"}
+{"request_id": "r00804", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}]}
+{"request_id": "r00805", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}]}
+{"request_id": "r00806", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0271"}
+{"request_id": "r00807", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}], "user": "u0112"}
+{"request_id": "r00808", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0147"}
+{"request_id": "r00809", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0185"}
+{"request_id": "r00810", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}]}
+{"request_id": "r00811", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}]}
+{"request_id": "r00812", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0205"}
+{"request_id": "r00813", "messages": [{"role": "user", "content": "How do I fix fastapi dependency injection?"}], "user": "u0252"}
+{"request_id": "r00814", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0196"}
+{"request_id": "r00815", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}]}
+{"request_id": "r00816", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}], "user": "u0058"}
+{"request_id": "r00817", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0127"}
+{"request_id": "r00818", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}], "user": "u0067"}
+{"request_id": "r00819", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}], "user": "u0003"}
+{"request_id": "r00820", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}], "user": "u0121"}
+{"request_id": "r00821", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}], "user": "u0030"}
+{"request_id": "r00822", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}], "user": "u0291"}
+{"request_id": "r00823", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}]}
+{"request_id": "r00824", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0114"}
+{"request_id": "r00825", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}]}
+{"request_id": "r00826", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}], "user": "u0156"}
+{"request_id": "r00827", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}]}
+{"request_id": "r00828", "messages": [{"role": "user", "content": "Why does rust borrow checker break under load?"}], "user": "u0110"}
+{"request_id": "r00829", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0063"}
+{"request_id": "r00830", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}]}
+{"request_id": "r00831", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0002"}
+{"request_id": "r00832", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}], "user": "u0218"}
+{"request_id": "r00833", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}]}
+{"request_id": "r00834", "messages": [{"role": "user", "content": "What is the best practice for grpc deadline propagation?"}], "user": "u0055"}
+{"request_id": "r00835", "messages": [{"role": "user", "content": "How do I fix fastapi dependency injection?"}]}
+{"request_id": "r00836", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0235"}
+{"request_id": "r00837", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0222"}
+{"request_id": "r00838", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}]}
+{"request_id": "r00839", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0148"}
+{"request_id": "r00840", "messages": [{"role": "user", "content": "Can you explain python asyncio cancellation briefly?"}], "user": "u0233"}
+{"request_id": "r00841", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}]}
+{"request_id": "r00842", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}], "user": "u0166"}
+{"request_id": "r00843", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0271"}
+{"request_id": "r00844", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0271"}
+{"request_id": "r00845", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0066"}
+{"request_id": "r00846", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}], "user": "u0021"}
+{"request_id": "r00847", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}]}
+{"request_id": "r00848", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0175"}
+{"request_id": "r00849", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}]}
+{"request_id": "r00850", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0256"}
+{"request_id": "r00851", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0202"}
+{"request_id": "r00852", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}]}
+{"request_id": "r00853", "messages": [{"role": "user", "content": "Why does nginx rate limiting break under load?"}], "user": "u0051"}
+{"request_id": "r00854", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}]}
+{"request_id": "r00855", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}]}
+{"request_id": "r00856", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0277"}
+{"request_id": "r00857", "messages": [{"role": "user", "content": "How do I fix react hydration errors?"}], "user": "u0126"}
+{"request_id": "r00858", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}]}
+{"request_id": "r00859", "messages": [{"role": "user", "content": "What should I check first for jwt token rotation issues?"}]}
+{"request_id": "r00860", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0115"}
+{"request_id": "r00861", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0176"}
+{"request_id": "r00862", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0044"}
+{"request_id": "r00863", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}]}
+{"request_id": "r00864", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0234"}
+{"request_id": "r00865", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}], "user": "u0059"}
+{"request_id": "r00866", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0224"}
+{"request_id": "r00867", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}]}
+{"request_id": "r00868", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0241"}
+{"request_id": "r00869", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}], "user": "u0035"}
+{"request_id": "r00870", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}], "user": "u0209"}
+{"request_id": "r00871", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}], "user": "u0288"}
+{"request_id": "r00872", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0035"}
+{"request_id": "r00873", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r00874", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}], "user": "u0010"}
+{"request_id": "r00875", "messages": [{"role": "user", "content": "Why does react hydration errors break under load?"}], "user": "u0256"}
+{"request_id": "r00876", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}]}
+{"request_id": "r00877", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}]}
+{"request_id": "r00878", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}]}
+{"request_id": "r00879", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}], "user": "u0179"}
+{"request_id": "r00880", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0217"}
+{"request_id": "r00881", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}], "user": "u0125"}
+{"request_id": "r00882", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0000"}
+{"request_id": "r00883", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0253"}
+{"request_id": "r00884", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0176"}
+{"request_id": "r00885", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}]}
+{"request_id": "r00886", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0070"}
+{"request_id": "r00887", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}], "user": "u0240"}
+{"request_id": "r00888", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0081"}
+{"request_id": "r00889", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}]}
+{"request_id": "r00890", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0025"}
+{"request_id": "r00891", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0106"}
+{"request_id": "r00892", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0179"}
+{"request_id": "r00893", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0132"}
+{"request_id": "r00894", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0058"}
+{"request_id": "r00895", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0249"}
+{"request_id": "r00896", "messages": [{"role": "user", "content": "What is the best practice for git rebase conflicts?"}]}
+{"request_id": "r00897", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}], "user": "u0053"}
+{"request_id": "r00898", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0176"}
+{"request_id": "r00899", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0000"}
+{"request_id": "r00900", "messages": [{"role": "user", "content": "How do I fix git rebase conflicts?"}], "user": "u0091"}
+{"request_id": "r00901", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}]}
+{"request_id": "r00902", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0029"}
+{"request_id": "r00903", "messages": [{"role": "user", "content": "How do I fix cuda out of memory?"}]}
+{"request_id": "r00904", "messages": [{"role": "user", "content": "How should a small team handle feature flag cleanup?"}], "user": "u0141"}
+{"request_id": "r00905", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0124"}
+{"request_id": "r00906", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0124"}
+{"request_id": "r00907", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}]}
+{"request_id": "r00908", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}]}
+{"request_id": "r00909", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}], "user": "u0271"}
+{"request_id": "r00910", "messages": [{"role": "user", "content": "What should I check first for vector index recall issues?"}], "user": "u0144"}
+{"request_id": "r00911", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0284"}
+{"request_id": "r00912", "messages": [{"role": "user", "content": "What should I check first for postgres connection pooling issues?"}]}
+{"request_id": "r00913", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0258"}
+{"request_id": "r00914", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}], "user": "u0130"}
+{"request_id": "r00915", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0218"}
+{"request_id": "r00916", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r00917", "messages": [{"role": "user", "content": "What should I check first for python asyncio cancellation issues?"}], "user": "u0063"}
+{"request_id": "r00918", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}], "user": "u0091"}
+{"request_id": "r00919", "messages": [{"role": "user", "content": "What is the best practice for kubernetes pod eviction?"}], "user": "u0234"}
+{"request_id": "r00920", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0004"}
+{"request_id": "r00921", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}], "user": "u0107"}
+{"request_id": "r00922", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}], "user": "u0078"}
+{"request_id": "r00923", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}]}
+{"request_id": "r00924", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}], "user": "u0195"}
+{"request_id": "r00925", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0067"}
+{"request_id": "r00926", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}]}
+{"request_id": "r00927", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}]}
+{"request_id": "r00928", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}], "user": "u0045"}
+{"request_id": "r00929", "messages": [{"role": "user", "content": "Can you explain redis cache invalidation briefly?"}], "user": "u0275"}
+{"request_id": "r00930", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}]}
+{"request_id": "r00931", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0197"}
+{"request_id": "r00932", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0131"}
+{"request_id": "r00933", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}]}
+{"request_id": "r00934", "messages": [{"role": "user", "content": "Can you explain fastapi dependency injection briefly?"}], "user": "u0065"}
+{"request_id": "r00935", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}], "user": "u0184"}
+{"request_id": "r00936", "messages": [{"role": "user", "content": "What should I check first for postgres connection pooling issues?"}]}
+{"request_id": "r00937", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0102"}
+{"request_id": "r00938", "messages": [{"role": "user", "content": "How should a small team handle postgres connection pooling?"}]}
+{"request_id": "r00939", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}], "user": "u0034"}
+{"request_id": "r00940", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0209"}
+{"request_id": "r00941", "messages": [{"role": "user", "content": "Why does ci flaky tests break under load?"}], "user": "u0283"}
+{"request_id": "r00942", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}]}
+{"request_id": "r00943", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0038"}
+{"request_id": "r00944", "messages": [{"role": "user", "content": "How do I fix nginx rate limiting?"}], "user": "u0258"}
+{"request_id": "r00945", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0228"}
+{"request_id": "r00946", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}], "user": "u0043"}
+{"request_id": "r00947", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0075"}
+{"request_id": "r00948", "messages": [{"role": "user", "content": "Can you explain kubernetes pod eviction briefly?"}], "user": "u0261"}
+{"request_id": "r00949", "messages": [{"role": "user", "content": "What should I check first for pandas memory usage issues?"}], "user": "u0224"}
+{"request_id": "r00950", "messages": [{"role": "user", "content": "What should I check first for redis cache invalidation issues?"}], "user": "u0275"}
+{"request_id": "r00951", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}], "user": "u0253"}
+{"request_id": "r00952", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0121"}
+{"request_id": "r00953", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0276"}
+{"request_id": "r00954", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}], "user": "u0184"}
+{"request_id": "r00955", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}], "user": "u0158"}
+{"request_id": "r00956", "messages": [{"role": "user", "content": "Why does cuda out of memory break under load?"}], "user": "u0018"}
+{"request_id": "r00957", "messages": [{"role": "user", "content": "What is the best practice for python asyncio cancellation?"}]}
+{"request_id": "r00958", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0132"}
+{"request_id": "r00959", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0085"}
+{"request_id": "r00960", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0009"}
+{"request_id": "r00961", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0171"}
+{"request_id": "r00962", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}], "user": "u0190"}
+{"request_id": "r00963", "messages": [{"role": "user", "content": "What should I check first for react hydration errors issues?"}], "user": "u0144"}
+{"request_id": "r00964", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}]}
+{"request_id": "r00965", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}], "user": "u0247"}
+{"request_id": "r00966", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}], "user": "u0223"}
+{"request_id": "r00967", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0039"}
+{"request_id": "r00968", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0242"}
+{"request_id": "r00969", "messages": [{"role": "user", "content": "Why does feature flag cleanup break under load?"}], "user": "u0224"}
+{"request_id": "r00970", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}], "user": "u0045"}
+{"request_id": "r00971", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}], "user": "u0003"}
+{"request_id": "r00972", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}], "user": "u0296"}
+{"request_id": "r00973", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}]}
+{"request_id": "r00974", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0277"}
+{"request_id": "r00975", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}]}
+{"request_id": "r00976", "messages": [{"role": "user", "content": "Why does llm prompt caching break under load?"}], "user": "u0095"}
+{"request_id": "r00977", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0186"}
+{"request_id": "r00978", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0242"}
+{"request_id": "r00979", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0258"}
+{"request_id": "r00980", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}], "user": "u0130"}
+{"request_id": "r00981", "messages": [{"role": "user", "content": "What is the best practice for kubernetes pod eviction?"}], "user": "u0011"}
+{"request_id": "r00982", "messages": [{"role": "user", "content": "How should a small team handle grpc deadline propagation?"}]}
+{"request_id": "r00983", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0113"}
+{"request_id": "r00984", "messages": [{"role": "user", "content": "What is the best practice for grpc deadline propagation?"}], "user": "u0193"}
+{"request_id": "r00985", "messages": [{"role": "user", "content": "What is the best practice for terraform state locking?"}]}
+{"request_id": "r00986", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}]}
+{"request_id": "r00987", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}]}
+{"request_id": "r00988", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}]}
+{"request_id": "r00989", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}]}
+{"request_id": "r00990", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}]}
+{"request_id": "r00991", "messages": [{"role": "user", "content": "What should I check first for elasticsearch shard sizing issues?"}], "user": "u0277"}
+{"request_id": "r00992", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0157"}
+{"request_id": "r00993", "messages": [{"role": "user", "content": "Why does terraform state locking break under load?"}], "user": "u0189"}
+{"request_id": "r00994", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}], "user": "u0130"}
+{"request_id": "r00995", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}], "user": "u0163"}
+{"request_id": "r00996", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0194"}
+{"request_id": "r00997", "messages": [{"role": "user", "content": "How do I fix feature flag cleanup?"}]}
+{"request_id": "r00998", "messages": [{"role": "user", "content": "How should a small team handle s3 lifecycle rules?"}]}
+{"request_id": "r00999", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0045"}
+{"request_id": "r01000", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0055"}
+{"request_id": "r01001", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}]}
+{"request_id": "r01002", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}]}
+{"request_id": "r01003", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}]}
+{"request_id": "r01004", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}], "user": "u0000"}
+{"request_id": "r01005", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}], "user": "u0208"}
+{"request_id": "r01006", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0067"}
+{"request_id": "r01007", "messages": [{"role": "user", "content": "Why does docker layer caching break under load?"}]}
+{"request_id": "r01008", "messages": [{"role": "user", "content": "Can you explain celery retry backoff briefly?"}], "user": "u0204"}
+{"request_id": "r01009", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0035"}
+{"request_id": "r01010", "messages": [{"role": "user", "content": "Can you explain pandas memory usage briefly?"}]}
+{"request_id": "r01011", "messages": [{"role": "user", "content": "What is the best practice for llm prompt caching?"}], "user": "u0258"}
+{"request_id": "r01012", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}], "user": "u0031"}
+{"request_id": "r01013", "messages": [{"role": "user", "content": "What is the best practice for fastapi dependency injection?"}]}
+{"request_id": "r01014", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r01015", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0234"}
+{"request_id": "r01016", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0066"}
+{"request_id": "r01017", "messages": [{"role": "user", "content": "Can you explain jwt token rotation briefly?"}]}
+{"request_id": "r01018", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}], "user": "u0081"}
+{"request_id": "r01019", "messages": [{"role": "user", "content": "How should a small team handle vector index recall?"}], "user": "u0008"}
+{"request_id": "r01020", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}], "user": "u0136"}
+{"request_id": "r01021", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0258"}
+{"request_id": "r01022", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0070"}
+{"request_id": "r01023", "messages": [{"role": "user", "content": "How should a small team handle kafka consumer lag?"}], "user": "u0155"}
+{"request_id": "r01024", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}]}
+{"request_id": "r01025", "messages": [{"role": "user", "content": "How should a small team handle pandas memory usage?"}], "user": "u0183"}
+{"request_id": "r01026", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}]}
+{"request_id": "r01027", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0141"}
+{"request_id": "r01028", "messages": [{"role": "user", "content": "Can you explain python asyncio cancellation briefly?"}], "user": "u0078"}
+{"request_id": "r01029", "messages": [{"role": "user", "content": "What is the best practice for oauth refresh flow?"}], "user": "u0070"}
+{"request_id": "r01030", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0025"}
+{"request_id": "r01031", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0243"}
+{"request_id": "r01032", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}], "user": "u0024"}
+{"request_id": "r01033", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0183"}
+{"request_id": "r01034", "messages": [{"role": "user", "content": "What is the best practice for ci flaky tests?"}], "user": "u0000"}
+{"request_id": "r01035", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0259"}
+{"request_id": "r01036", "messages": [{"role": "user", "content": "How do I fix redis cache invalidation?"}], "user": "u0013"}
+{"request_id": "r01037", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}]}
+{"request_id": "r01038", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}], "user": "u0103"}
+{"request_id": "r01039", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0264"}
+{"request_id": "r01040", "messages": [{"role": "user", "content": "Why does elasticsearch shard sizing break under load?"}], "user": "u0067"}
+{"request_id": "r01041", "messages": [{"role": "user", "content": "What should I check first for fastapi dependency injection issues?"}], "user": "u0146"}
+{"request_id": "r01042", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0294"}
+{"request_id": "r01043", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}], "user": "u0122"}
+{"request_id": "r01044", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0166"}
+{"request_id": "r01045", "messages": [{"role": "user", "content": "Can you explain elasticsearch shard sizing briefly?"}], "user": "u0234"}
+{"request_id": "r01046", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}], "user": "u0244"}
+{"request_id": "r01047", "messages": [{"role": "user", "content": "Can you explain docker layer caching briefly?"}], "user": "u0280"}
+{"request_id": "r01048", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}], "user": "u0088"}
+{"request_id": "r01049", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}]}
+{"request_id": "r01050", "messages": [{"role": "user", "content": "How do I fix cuda out of memory?"}], "user": "u0171"}
+{"request_id": "r01051", "messages": [{"role": "user", "content": "What is the best practice for elasticsearch shard sizing?"}]}
+{"request_id": "r01052", "messages": [{"role": "user", "content": "Why does elasticsearch shard sizing break under load?"}]}
+{"request_id": "r01053", "messages": [{"role": "user", "content": "How should a small team handle feature flag cleanup?"}], "user": "u0138"}
+{"request_id": "r01054", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0049"}
+{"request_id": "r01055", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}]}
+{"request_id": "r01056", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}], "user": "u0248"}
+{"request_id": "r01057", "messages": [{"role": "user", "content": "How do I fix vector index recall?"}]}
+{"request_id": "r01058", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0041"}
+{"request_id": "r01059", "messages": [{"role": "user", "content": "How do I fix docker layer caching?"}]}
+{"request_id": "r01060", "messages": [{"role": "user", "content": "What should I check first for llm prompt caching issues?"}]}
+{"request_id": "r01061", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}]}
+{"request_id": "r01062", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}]}
+{"request_id": "r01063", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0292"}
+{"request_id": "r01064", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0022"}
+{"request_id": "r01065", "messages": [{"role": "user", "content": "Can you explain cuda out of memory briefly?"}], "user": "u0284"}
+{"request_id": "r01066", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0025"}
+{"request_id": "r01067", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0112"}
+{"request_id": "r01068", "messages": [{"role": "user", "content": "How should a small team handle llm prompt caching?"}], "user": "u0204"}
+{"request_id": "r01069", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0144"}
+{"request_id": "r01070", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}]}
+{"request_id": "r01071", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0099"}
+{"request_id": "r01072", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}]}
+{"request_id": "r01073", "messages": [{"role": "user", "content": "What should I check first for cuda out of memory issues?"}], "user": "u0222"}
+{"request_id": "r01074", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}]}
+{"request_id": "r01075", "messages": [{"role": "user", "content": "What should I check first for python asyncio cancellation issues?"}], "user": "u0292"}
+{"request_id": "r01076", "messages": [{"role": "user", "content": "Why does kubernetes pod eviction break under load?"}], "user": "u0105"}
+{"request_id": "r01077", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0277"}
+{"request_id": "r01078", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}], "user": "u0214"}
+{"request_id": "r01079", "messages": [{"role": "user", "content": "How should a small team handle redis cache invalidation?"}]}
+{"request_id": "r01080", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}], "user": "u0100"}
+{"request_id": "r01081", "messages": [{"role": "user", "content": "Can you explain docker layer caching briefly?"}], "user": "u0115"}
+{"request_id": "r01082", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}], "user": "u0048"}
+{"request_id": "r01083", "messages": [{"role": "user", "content": "What should I check first for kafka consumer lag issues?"}], "user": "u0249"}
+{"request_id": "r01084", "messages": [{"role": "user", "content": "What is the best practice for feature flag cleanup?"}]}
+{"request_id": "r01085", "messages": [{"role": "user", "content": "Why does jwt token rotation break under load?"}], "user": "u0225"}
+{"request_id": "r01086", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}]}
+{"request_id": "r01087", "messages": [{"role": "user", "content": "What should I check first for git rebase conflicts issues?"}], "user": "u0168"}
+{"request_id": "r01088", "messages": [{"role": "user", "content": "What should I check first for kubernetes pod eviction issues?"}]}
+{"request_id": "r01089", "messages": [{"role": "user", "content": "How should a small team handle fastapi dependency injection?"}]}
+{"request_id": "r01090", "messages": [{"role": "user", "content": "How do I fix kubernetes pod eviction?"}], "user": "u0245"}
+{"request_id": "r01091", "messages": [{"role": "user", "content": "What is the best practice for redis cache invalidation?"}], "user": "u0180"}
+{"request_id": "r01092", "messages": [{"role": "user", "content": "What is the best practice for celery retry backoff?"}], "user": "u0117"}
+{"request_id": "r01093", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}]}
+{"request_id": "r01094", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}], "user": "u0023"}
+{"request_id": "r01095", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}]}
+{"request_id": "r01096", "messages": [{"role": "user", "content": "What should I check first for celery retry backoff issues?"}], "user": "u0135"}
+{"request_id": "r01097", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}], "user": "u0033"}
+{"request_id": "r01098", "messages": [{"role": "user", "content": "What is the best practice for s3 lifecycle rules?"}], "user": "u0058"}
+{"request_id": "r01099", "messages": [{"role": "user", "content": "How do I fix kafka consumer lag?"}], "user": "u0115"}
+{"request_id": "r01100", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}]}
+{"request_id": "r01101", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}]}
+{"request_id": "r01102", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}]}
+{"request_id": "r01103", "messages": [{"role": "user", "content": "What should I check first for s3 lifecycle rules issues?"}], "user": "u0093"}
+{"request_id": "r01104", "messages": [{"role": "user", "content": "How do I fix react hydration errors?"}]}
+{"request_id": "r01105", "messages": [{"role": "user", "content": "How should a small team handle cuda out of memory?"}], "user": "u0082"}
+{"request_id": "r01106", "messages": [{"role": "user", "content": "How do I fix feature flag cleanup?"}], "user": "u0240"}
+{"request_id": "r01107", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}]}
+{"request_id": "r01108", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}], "user": "u0153"}
+{"request_id": "r01109", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}]}
+{"request_id": "r01110", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}], "user": "u0090"}
+{"request_id": "r01111", "messages": [{"role": "user", "content": "What is the best practice for rust borrow checker?"}]}
+{"request_id": "r01112", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0190"}
+{"request_id": "r01113", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}], "user": "u0100"}
+{"request_id": "r01114", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}], "user": "u0159"}
+{"request_id": "r01115", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}], "user": "u0260"}
+{"request_id": "r01116", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}]}
+{"request_id": "r01117", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}]}
+{"request_id": "r01118", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0015"}
+{"request_id": "r01119", "messages": [{"role": "user", "content": "What is the best practice for jwt token rotation?"}]}
+{"request_id": "r01120", "messages": [{"role": "user", "content": "Can you explain s3 lifecycle rules briefly?"}], "user": "u0193"}
+{"request_id": "r01121", "messages": [{"role": "user", "content": "What should I check first for grpc deadline propagation issues?"}]}
+{"request_id": "r01122", "messages": [{"role": "user", "content": "How do I fix terraform state locking?"}], "user": "u0019"}
+{"request_id": "r01123", "messages": [{"role": "user", "content": "How do I fix react hydration errors?"}], "user": "u0159"}
+{"request_id": "r01124", "messages": [{"role": "user", "content": "How should a small team handle rust borrow checker?"}], "user": "u0218"}
+{"request_id": "r01125", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}]}
+{"request_id": "r01126", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}]}
+{"request_id": "r01127", "messages": [{"role": "user", "content": "What is the best practice for docker layer caching?"}]}
+{"request_id": "r01128", "messages": [{"role": "user", "content": "Why does celery retry backoff break under load?"}]}
+{"request_id": "r01129", "messages": [{"role": "user", "content": "What is the best practice for postgres connection pooling?"}], "user": "u0057"}
+{"request_id": "r01130", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}], "user": "u0103"}
+{"request_id": "r01131", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}], "user": "u0253"}
+{"request_id": "r01132", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}]}
+{"request_id": "r01133", "messages": [{"role": "user", "content": "How should a small team handle rust borrow checker?"}], "user": "u0162"}
+{"request_id": "r01134", "messages": [{"role": "user", "content": "How do I fix llm prompt caching?"}], "user": "u0275"}
+{"request_id": "r01135", "messages": [{"role": "user", "content": "Can you explain nginx rate limiting briefly?"}], "user": "u0206"}
+{"request_id": "r01136", "messages": [{"role": "user", "content": "Why does redis cache invalidation break under load?"}], "user": "u0044"}
+{"request_id": "r01137", "messages": [{"role": "user", "content": "How do I fix kubernetes pod eviction?"}], "user": "u0186"}
+{"request_id": "r01138", "messages": [{"role": "user", "content": "Why does postgres connection pooling break under load?"}], "user": "u0241"}
+{"request_id": "r01139", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}], "user": "u0051"}
+{"request_id": "r01140", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}]}
+{"request_id": "r01141", "messages": [{"role": "user", "content": "How do I fix ci flaky tests?"}]}
+{"request_id": "r01142", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0087"}
+{"request_id": "r01143", "messages": [{"role": "user", "content": "Why does python asyncio cancellation break under load?"}], "user": "u0059"}
+{"request_id": "r01144", "messages": [{"role": "user", "content": "Why does pandas memory usage break under load?"}], "user": "u0199"}
+{"request_id": "r01145", "messages": [{"role": "user", "content": "How should a small team handle terraform state locking?"}], "user": "u0184"}
+{"request_id": "r01146", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}], "user": "u0188"}
+{"request_id": "r01147", "messages": [{"role": "user", "content": "What should I check first for oauth refresh flow issues?"}], "user": "u0030"}
+{"request_id": "r01148", "messages": [{"role": "user", "content": "How should a small team handle kubernetes pod eviction?"}]}
+{"request_id": "r01149", "messages": [{"role": "user", "content": "What should I check first for nginx rate limiting issues?"}], "user": "u0075"}
+{"request_id": "r01150", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}]}
+{"request_id": "r01151", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0208"}
+{"request_id": "r01152", "messages": [{"role": "user", "content": "How should a small team handle docker layer caching?"}], "user": "u0261"}
+{"request_id": "r01153", "messages": [{"role": "user", "content": "How should a small team handle git rebase conflicts?"}], "user": "u0146"}
+{"request_id": "r01154", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}], "user": "u0133"}
+{"request_id": "r01155", "messages": [{"role": "user", "content": "How should a small team handle jwt token rotation?"}], "user": "u0283"}
+{"request_id": "r01156", "messages": [{"role": "user", "content": "Can you explain react hydration errors briefly?"}], "user": "u0141"}
+{"request_id": "r01157", "messages": [{"role": "user", "content": "Why does oauth refresh flow break under load?"}], "user": "u0173"}
+{"request_id": "r01158", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}]}
+{"request_id": "r01159", "messages": [{"role": "user", "content": "How should a small team handle celery retry backoff?"}], "user": "u0089"}
+{"request_id": "r01160", "messages": [{"role": "user", "content": "What is the best practice for cuda out of memory?"}], "user": "u0106"}
+{"request_id": "r01161", "messages": [{"role": "user", "content": "How do I fix oauth refresh flow?"}], "user": "u0228"}
+{"request_id": "r01162", "messages": [{"role": "user", "content": "How do I fix react hydration errors?"}]}
+{"request_id": "r01163", "messages": [{"role": "user", "content": "How do I fix postgres connection pooling?"}], "user": "u0089"}
+{"request_id": "r01164", "messages": [{"role": "user", "content": "Why does kafka consumer lag break under load?"}], "user": "u0149"}
+{"request_id": "r01165", "messages": [{"role": "user", "content": "Why does grpc deadline propagation break under load?"}], "user": "u0056"}
+{"request_id": "r01166", "messages": [{"role": "user", "content": "How do I fix elasticsearch shard sizing?"}], "user": "u0160"}
+{"request_id": "r01167", "messages": [{"role": "user", "content": "Can you explain jwt token rotation briefly?"}], "user": "u0148"}
+{"request_id": "r01168", "messages": [{"role": "user", "content": "Can you explain kafka consumer lag briefly?"}], "user": "u0061"}
+{"request_id": "r01169", "messages": [{"role": "user", "content": "How do I fix celery retry backoff?"}], "user": "u0244"}
+{"request_id": "r01170", "messages": [{"role": "user", "content": "How should a small team handle python asyncio cancellation?"}], "user": "u0057"}
+{"request_id": "r01171", "messages": [{"role": "user", "content": "What should I check first for ci flaky tests issues?"}]}
+{"request_id": "r01172", "messages": [{"role": "user", "content": "How should a small team handle nginx rate limiting?"}], "user": "u0176"}
+{"request_id": "r01173", "messages": [{"role": "user", "content": "Why does s3 lifecycle rules break under load?"}], "user": "u0066"}
+{"request_id": "r01174", "messages": [{"role": "user", "content": "How do I fix rust borrow checker?"}]}
+{"request_id": "r01175", "messages": [{"role": "user", "content": "How do I fix pandas memory usage?"}], "user": "u0187"}
+{"request_id": "r01176", "messages": [{"role": "user", "content": "What should I check first for docker layer caching issues?"}], "user": "u0294"}
+{"request_id": "r01177", "messages": [{"role": "user", "content": "How do I fix python asyncio cancellation?"}]}
+{"request_id": "r01178", "messages": [{"role": "user", "content": "How do I fix grpc deadline propagation?"}]}
+{"request_id": "r01179", "messages": [{"role": "user", "content": "How should a small team handle elasticsearch shard sizing?"}], "user": "u0249"}
+{"request_id": "r01180", "messages": [{"role": "user", "content": "How do I fix s3 lifecycle rules?"}], "user": "u0214"}
+{"request_id": "r01181", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}], "user": "u0194"}
+{"request_id": "r01182", "messages": [{"role": "user", "content": "How do I fix jwt token rotation?"}]}
+{"request_id": "r01183", "messages": [{"role": "user", "content": "What is the best practice for nginx rate limiting?"}], "user": "u0217"}
+{"request_id": "r01184", "messages": [{"role": "user", "content": "How should a small team handle react hydration errors?"}]}
+{"request_id": "r01185", "messages": [{"role": "user", "content": "Can you explain terraform state locking briefly?"}]}
+{"request_id": "r01186", "messages": [{"role": "user", "content": "Can you explain llm prompt caching briefly?"}]}
+{"request_id": "r01187", "messages": [{"role": "user", "content": "Can you explain git rebase conflicts briefly?"}], "user": "u0225"}
+{"request_id": "r01188", "messages": [{"role": "user", "content": "Can you explain feature flag cleanup briefly?"}]}
+{"request_id": "r01189", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}], "user": "u0064"}
+{"request_id": "r01190", "messages": [{"role": "user", "content": "What is the best practice for react hydration errors?"}], "user": "u0174"}
+{"request_id": "r01191", "messages": [{"role": "user", "content": "Why does git rebase conflicts break under load?"}]}
+{"request_id": "r01192", "messages": [{"role": "user", "content": "How do I fix redis cache invalidation?"}], "user": "u0142"}
+{"request_id": "r01193", "messages": [{"role": "user", "content": "Can you explain postgres connection pooling briefly?"}]}
+{"request_id": "r01194", "messages": [{"role": "user", "content": "Can you explain ci flaky tests briefly?"}], "user": "u0205"}
+{"request_id": "r01195", "messages": [{"role": "user", "content": "How should a small team handle oauth refresh flow?"}], "user": "u0125"}
+{"request_id": "r01196", "messages": [{"role": "user", "content": "Why does fastapi dependency injection break under load?"}], "user": "u0207"}
+{"request_id": "r01197", "messages": [{"role": "user", "content": "Why does vector index recall break under load?"}]}
+{"request_id": "r01198", "messages": [{"role": "user", "content": "How do I fix feature flag cleanup?"}], "user": "u0273"}
+{"request_id": "r01199", "messages": [{"role": "user", "content": "How should a small team handle feature flag cleanup?"}], "user": "u0291"}

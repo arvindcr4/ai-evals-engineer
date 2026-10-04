@@ -1,0 +1,991 @@
+{
+ "system": "You are a helpful personal assistant. User profile: the user's timezone is JST. the user's name is Arvind.",
+ "turns": [
+  {
+   "role": "user",
+   "text": "Please remember that my monthly budget is 4200 dollars.",
+   "index": 0,
+   "slot": "monthly budget",
+   "kind": "fact"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about the history of jazz? I was reading about film photography and solar panels yesterday and got curious how they connect.",
+   "index": 1,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on chess openings skip the basics of sourdough starters, which is well documented. I would compare a few sources first.",
+   "index": 2,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on tide pools and film photography; any tips before I dive into Roman aqueducts next?",
+   "index": 3,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on marathon training skip the basics of the history of jazz, which is full of trade-offs. I would compare a few sources first.",
+   "index": 4,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Unrelated, but my colleague's favorite airline is Air India.",
+   "index": 5,
+   "slot": "favorite airline",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of chess openings, which is easy to overlook. I would compare a few sources first.",
+   "index": 6,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about solar panels? I was reading about marathon training and Roman aqueducts yesterday and got curious how they connect.",
+   "index": 7,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on chess openings skip the basics of the history of jazz, which is rewarding to learn. I would compare a few sources first.",
+   "index": 8,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on film photography and origami cranes; any tips before I dive into the history of jazz next?",
+   "index": 9,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on bird migration skip the basics of mechanical keyboards, which is well documented. I would compare a few sources first.",
+   "index": 10,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Unrelated, but my colleague's favorite airline is Emirates.",
+   "index": 11,
+   "slot": "favorite airline",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair urban beekeeping with medieval maps. The key point is that it is easy to overlook, so take your time with it.",
+   "index": 12,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes mechanical keyboards hotly debated? A friend compared it to bird migration.",
+   "index": 13,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair mechanical keyboards with medieval maps. The key point is that it is full of trade-offs, so take your time with it.",
+   "index": 14,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Please remember that my dentist is Dr Mehta.",
+   "index": 15,
+   "slot": "dentist",
+   "kind": "fact"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on solar panels and Roman aqueducts; any tips before I dive into medieval maps next?",
+   "index": 16,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Medieval maps is hotly debated, and it shares some ideas with sourdough starters. Start small, keep notes, and revisit chess openings later.",
+   "index": 17,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on houseplant lighting and espresso extraction; any tips before I dive into Roman aqueducts next?",
+   "index": 18,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Chess openings is older than people think, and it shares some ideas with houseplant lighting. Start small, keep notes, and revisit solar panels later.",
+   "index": 19,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes volcanic soil older than people think? A friend compared it to solar panels.",
+   "index": 20,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Volcanic soil is hotly debated, and it shares some ideas with medieval maps. Start small, keep notes, and revisit houseplant lighting later.",
+   "index": 21,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about marathon training? I was reading about mechanical keyboards and tide pools yesterday and got curious how they connect.",
+   "index": 22,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on sourdough starters skip the basics of chess openings, which is well documented. I would compare a few sources first.",
+   "index": 23,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "My sister asked how people usually pick a car and I had no answer.",
+   "index": 24,
+   "slot": "car",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair Roman aqueducts with bird migration. The key point is that it is full of trade-offs, so take your time with it.",
+   "index": 25,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on solar panels and origami cranes; any tips before I dive into bird migration next?",
+   "index": 26,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair espresso extraction with solar panels. The key point is that it is easy to overlook, so take your time with it.",
+   "index": 27,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about houseplant lighting? I was reading about the history of jazz and tide pools yesterday and got curious how they connect.",
+   "index": 28,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair tide pools with film photography. The key point is that it is surprisingly subtle, so take your time with it.",
+   "index": 29,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about tide pools? I was reading about marathon training and film photography yesterday and got curious how they connect.",
+   "index": 30,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Quick note for later: my home address is 221 Baker Road.",
+   "index": 31,
+   "slot": "home address",
+   "kind": "fact"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of film photography, which is full of trade-offs. I would compare a few sources first.",
+   "index": 32,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes origami cranes older than people think? A friend compared it to the history of jazz.",
+   "index": 33,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Solar panels is hotly debated, and it shares some ideas with chess openings. Start small, keep notes, and revisit origami cranes later.",
+   "index": 34,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about volcanic soil? I was reading about chess openings and bird migration yesterday and got curious how they connect.",
+   "index": 35,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair sourdough starters with volcanic soil. The key point is that it is full of trade-offs, so take your time with it.",
+   "index": 36,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on film photography and urban beekeeping; any tips before I dive into bird migration next?",
+   "index": 37,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Volcanic soil is well documented, and it shares some ideas with origami cranes. Start small, keep notes, and revisit marathon training later.",
+   "index": 38,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about urban beekeeping? I was reading about origami cranes and tide pools yesterday and got curious how they connect.",
+   "index": 39,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Chess openings is full of trade-offs, and it shares some ideas with bird migration. Start small, keep notes, and revisit houseplant lighting later.",
+   "index": 40,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes medieval maps surprisingly subtle? A friend compared it to origami cranes.",
+   "index": 41,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on origami cranes skip the basics of Roman aqueducts, which is rewarding to learn. I would compare a few sources first.",
+   "index": 42,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about medieval maps? I was reading about marathon training and the history of jazz yesterday and got curious how they connect.",
+   "index": 43,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair chess openings with tide pools. The key point is that it is easy to overlook, so take your time with it.",
+   "index": 44,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on sourdough starters and chess openings; any tips before I dive into urban beekeeping next?",
+   "index": 45,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Quick note for later: my car is a blue Corolla.",
+   "index": 46,
+   "slot": "car",
+   "kind": "fact"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair mechanical keyboards with urban beekeeping. The key point is that it is older than people think, so take your time with it.",
+   "index": 47,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on origami cranes and solar panels; any tips before I dive into mechanical keyboards next?",
+   "index": 48,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on urban beekeeping skip the basics of the history of jazz, which is easy to overlook. I would compare a few sources first.",
+   "index": 49,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about mechanical keyboards? I was reading about medieval maps and origami cranes yesterday and got curious how they connect.",
+   "index": 50,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Sourdough starters is easy to overlook, and it shares some ideas with mechanical keyboards. Start small, keep notes, and revisit film photography later.",
+   "index": 51,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on origami cranes and urban beekeeping; any tips before I dive into marathon training next?",
+   "index": 52,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Roman aqueducts is older than people think, and it shares some ideas with sourdough starters. Start small, keep notes, and revisit solar panels later.",
+   "index": 53,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about Roman aqueducts? I was reading about houseplant lighting and bird migration yesterday and got curious how they connect.",
+   "index": 54,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair sourdough starters with tide pools. The key point is that it is well documented, so take your time with it.",
+   "index": 55,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on bird migration and origami cranes; any tips before I dive into mechanical keyboards next?",
+   "index": 56,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair medieval maps with chess openings. The key point is that it is older than people think, so take your time with it.",
+   "index": 57,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on Roman aqueducts and volcanic soil; any tips before I dive into mechanical keyboards next?",
+   "index": 58,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Sourdough starters is older than people think, and it shares some ideas with bird migration. Start small, keep notes, and revisit chess openings later.",
+   "index": 59,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on Roman aqueducts and mechanical keyboards; any tips before I dive into solar panels next?",
+   "index": 60,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair tide pools with sourdough starters. The key point is that it is rewarding to learn, so take your time with it.",
+   "index": 61,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Quick note for later: my manager is Grace Okafor.",
+   "index": 62,
+   "slot": "manager",
+   "kind": "fact"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about tide pools? I was reading about solar panels and volcanic soil yesterday and got curious how they connect.",
+   "index": 63,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of Roman aqueducts, which is surprisingly subtle. I would compare a few sources first.",
+   "index": 64,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on mechanical keyboards and chess openings; any tips before I dive into marathon training next?",
+   "index": 65,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of medieval maps, which is rewarding to learn. I would compare a few sources first.",
+   "index": 66,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on chess openings and medieval maps; any tips before I dive into volcanic soil next?",
+   "index": 67,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of bird migration, which is easy to overlook. I would compare a few sources first.",
+   "index": 68,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about mechanical keyboards? I was reading about urban beekeeping and tide pools yesterday and got curious how they connect.",
+   "index": 69,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Houseplant lighting is older than people think, and it shares some ideas with urban beekeeping. Start small, keep notes, and revisit Roman aqueducts later.",
+   "index": 70,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes medieval maps well documented? A friend compared it to mechanical keyboards.",
+   "index": 71,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair chess openings with the history of jazz. The key point is that it is well documented, so take your time with it.",
+   "index": 72,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes marathon training rewarding to learn? A friend compared it to medieval maps.",
+   "index": 73,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair urban beekeeping with tide pools. The key point is that it is surprisingly subtle, so take your time with it.",
+   "index": 74,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on urban beekeeping and volcanic soil; any tips before I dive into chess openings next?",
+   "index": 75,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair sourdough starters with marathon training. The key point is that it is hotly debated, so take your time with it.",
+   "index": 76,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Please remember that my favorite airline is Qantas.",
+   "index": 77,
+   "slot": "favorite airline",
+   "kind": "fact"
+  },
+  {
+   "role": "user",
+   "text": "Correction, my monthly budget is now 3100 dollars.",
+   "index": 78,
+   "slot": "monthly budget",
+   "kind": "update"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about tide pools? I was reading about solar panels and espresso extraction yesterday and got curious how they connect.",
+   "index": 79,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on mechanical keyboards skip the basics of Roman aqueducts, which is older than people think. I would compare a few sources first.",
+   "index": 80,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes bird migration older than people think? A friend compared it to origami cranes.",
+   "index": 81,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair espresso extraction with volcanic soil. The key point is that it is easy to overlook, so take your time with it.",
+   "index": 82,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about volcanic soil? I was reading about sourdough starters and espresso extraction yesterday and got curious how they connect.",
+   "index": 83,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Bird migration is hotly debated, and it shares some ideas with solar panels. Start small, keep notes, and revisit the history of jazz later.",
+   "index": 84,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about mechanical keyboards? I was reading about film photography and bird migration yesterday and got curious how they connect.",
+   "index": 85,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair volcanic soil with the history of jazz. The key point is that it is hotly debated, so take your time with it.",
+   "index": 86,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on volcanic soil and film photography; any tips before I dive into mechanical keyboards next?",
+   "index": 87,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Chess openings is hotly debated, and it shares some ideas with the history of jazz. Start small, keep notes, and revisit mechanical keyboards later.",
+   "index": 88,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes film photography well documented? A friend compared it to volcanic soil.",
+   "index": 89,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Solar panels is well documented, and it shares some ideas with volcanic soil. Start small, keep notes, and revisit urban beekeeping later.",
+   "index": 90,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on the history of jazz and sourdough starters; any tips before I dive into solar panels next?",
+   "index": 91,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair houseplant lighting with chess openings. The key point is that it is surprisingly subtle, so take your time with it.",
+   "index": 92,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Correction, my dentist is now Dr Osei.",
+   "index": 93,
+   "slot": "dentist",
+   "kind": "update"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes bird migration rewarding to learn? A friend compared it to urban beekeeping.",
+   "index": 94,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair film photography with tide pools. The key point is that it is well documented, so take your time with it.",
+   "index": 95,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about Roman aqueducts? I was reading about houseplant lighting and marathon training yesterday and got curious how they connect.",
+   "index": 96,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Sourdough starters is full of trade-offs, and it shares some ideas with the history of jazz. Start small, keep notes, and revisit urban beekeeping later.",
+   "index": 97,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "My sister asked how people usually pick a favorite airline and I had no answer.",
+   "index": 98,
+   "slot": "favorite airline",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Chess openings is surprisingly subtle, and it shares some ideas with medieval maps. Start small, keep notes, and revisit Roman aqueducts later.",
+   "index": 99,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on sourdough starters and Roman aqueducts; any tips before I dive into marathon training next?",
+   "index": 100,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Urban beekeeping is hotly debated, and it shares some ideas with tide pools. Start small, keep notes, and revisit sourdough starters later.",
+   "index": 101,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Unrelated, but my colleague's car is a white Golf.",
+   "index": 102,
+   "slot": "car",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of tide pools, which is surprisingly subtle. I would compare a few sources first.",
+   "index": 103,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes Roman aqueducts surprisingly subtle? A friend compared it to houseplant lighting.",
+   "index": 104,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair sourdough starters with solar panels. The key point is that it is surprisingly subtle, so take your time with it.",
+   "index": 105,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on Roman aqueducts and urban beekeeping; any tips before I dive into medieval maps next?",
+   "index": 106,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on espresso extraction skip the basics of origami cranes, which is easy to overlook. I would compare a few sources first.",
+   "index": 107,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Correction, my home address is now 14 Elm Street.",
+   "index": 108,
+   "slot": "home address",
+   "kind": "update"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on Roman aqueducts and sourdough starters; any tips before I dive into bird migration next?",
+   "index": 109,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair bird migration with solar panels. The key point is that it is well documented, so take your time with it.",
+   "index": 110,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on sourdough starters and bird migration; any tips before I dive into urban beekeeping next?",
+   "index": 111,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on chess openings skip the basics of the history of jazz, which is well documented. I would compare a few sources first.",
+   "index": 112,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about espresso extraction? I was reading about bird migration and chess openings yesterday and got curious how they connect.",
+   "index": 113,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on sourdough starters skip the basics of urban beekeeping, which is well documented. I would compare a few sources first.",
+   "index": 114,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I keep forgetting the paperwork about the monthly budget, remind me to sort it later.",
+   "index": 115,
+   "slot": "monthly budget",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Mechanical keyboards is easy to overlook, and it shares some ideas with medieval maps. Start small, keep notes, and revisit solar panels later.",
+   "index": 116,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about chess openings? I was reading about medieval maps and espresso extraction yesterday and got curious how they connect.",
+   "index": 117,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair solar panels with bird migration. The key point is that it is easy to overlook, so take your time with it.",
+   "index": 118,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about the history of jazz? I was reading about film photography and urban beekeeping yesterday and got curious how they connect.",
+   "index": 119,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "People often pair mechanical keyboards with origami cranes. The key point is that it is full of trade-offs, so take your time with it.",
+   "index": 120,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Random question: what makes Roman aqueducts surprisingly subtle? A friend compared it to sourdough starters.",
+   "index": 121,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on volcanic soil skip the basics of urban beekeeping, which is well documented. I would compare a few sources first.",
+   "index": 122,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "Update: my timezone has changed to IST.",
+   "index": 123,
+   "slot": "timezone",
+   "kind": "update"
+  },
+  {
+   "role": "user",
+   "text": "Can you tell me more about film photography? I was reading about chess openings and solar panels yesterday and got curious how they connect.",
+   "index": 124,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on houseplant lighting skip the basics of Roman aqueducts, which is surprisingly subtle. I would compare a few sources first.",
+   "index": 125,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "My sister asked how people usually pick a manager and I had no answer.",
+   "index": 126,
+   "slot": "manager",
+   "kind": "distractor"
+  },
+  {
+   "role": "assistant",
+   "text": "Sure. Volcanic soil is well documented, and it shares some ideas with houseplant lighting. Start small, keep notes, and revisit tide pools later.",
+   "index": 127,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "user",
+   "text": "I spent the weekend on volcanic soil and marathon training; any tips before I dive into mechanical keyboards next?",
+   "index": 128,
+   "slot": null,
+   "kind": "noise"
+  },
+  {
+   "role": "assistant",
+   "text": "Good question. Most guides on volcanic soil skip the basics of solar panels, which is hotly debated. I would compare a few sources first.",
+   "index": 129,
+   "slot": null,
+   "kind": "noise"
+  }
+ ],
+ "probes": [
+  {
+   "slot": "timezone",
+   "question": "What is the user's timezone?",
+   "current": "IST",
+   "stale": [
+    "JST"
+   ],
+   "pinned": true,
+   "updated": true
+  },
+  {
+   "slot": "name",
+   "question": "What is the user's name?",
+   "current": "Arvind",
+   "stale": [],
+   "pinned": true,
+   "updated": false
+  },
+  {
+   "slot": "monthly budget",
+   "question": "What is the user's monthly budget?",
+   "current": "3100 dollars",
+   "stale": [
+    "4200 dollars"
+   ],
+   "pinned": false,
+   "updated": true
+  },
+  {
+   "slot": "dentist",
+   "question": "What is the user's dentist?",
+   "current": "Dr Osei",
+   "stale": [
+    "Dr Mehta"
+   ],
+   "pinned": false,
+   "updated": true
+  },
+  {
+   "slot": "home address",
+   "question": "What is the user's home address?",
+   "current": "14 Elm Street",
+   "stale": [
+    "221 Baker Road"
+   ],
+   "pinned": false,
+   "updated": true
+  },
+  {
+   "slot": "car",
+   "question": "What is the user's car?",
+   "current": "a blue Corolla",
+   "stale": [],
+   "pinned": false,
+   "updated": false
+  },
+  {
+   "slot": "manager",
+   "question": "What is the user's manager?",
+   "current": "Grace Okafor",
+   "stale": [],
+   "pinned": false,
+   "updated": false
+  },
+  {
+   "slot": "favorite airline",
+   "question": "What is the user's favorite airline?",
+   "current": "Qantas",
+   "stale": [],
+   "pinned": false,
+   "updated": false
+  }
+ ],
+ "seed": 7,
+ "noise": 120
+}

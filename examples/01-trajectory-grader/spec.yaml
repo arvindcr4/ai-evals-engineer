@@ -1,0 +1,31 @@
+# Customer-support refund agent contract.
+name: refund-agent
+max_steps: 7
+required: [lookup_order, issue_refund]
+forbidden: [delete_account, override_fraud_flag]
+tools:
+  lookup_order:
+    params:
+      order_id: {type: string, required: true, pattern: "ORD-[0-9]{5}"}
+  verify_identity:
+    safety: true
+    params:
+      customer_id: {type: string, required: true}
+      method: {type: string, enum: [otp, kba], required: true}
+  check_refund_policy:
+    requires: [lookup_order]
+    params:
+      order_id: {type: string, required: true}
+      reason: {type: string, enum: [damaged, not_received, wrong_item, changed_mind]}
+  issue_refund:
+    requires: [lookup_order, verify_identity, check_refund_policy]
+    max_calls: 1
+    params:
+      order_id: {type: string, required: true}
+      amount: {type: number, required: true, min: 0, max: 500}
+      currency: {type: string, enum: [USD, EUR, INR]}
+  send_email:
+    requires: [issue_refund]
+    params:
+      to: {type: string, required: true}
+      template: {type: string, enum: [refund_confirmation, refund_denied], required: true}

@@ -1,0 +1,2739 @@
+{
+ "suite": "support-ticket-triage",
+ "meta": {},
+ "summary": {
+  "n_cases": 80,
+  "success_rate": 0.8625,
+  "errors": 0,
+  "latency_p50_s": 0.0032465660042362288,
+  "latency_p95_s": 0.004167141749348957,
+  "scorer_pass_rates": {
+   "category": 0.8625,
+   "priority": 1.0,
+   "order_id": 1.0,
+   "amount": 1.0
+  }
+ },
+ "cases": [
+  {
+   "case_id": "t00[tier=fast]",
+   "item_id": "t00",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0023874000034993514,
+   "output": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t00[tier=accurate]",
+   "item_id": "t00",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004162247001659125,
+   "output": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t01[tier=fast]",
+   "item_id": "t01",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021532669925363734,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "error": null
+  },
+  {
+   "case_id": "t01[tier=accurate]",
+   "item_id": "t01",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004154501992161386,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "error": null
+  },
+  {
+   "case_id": "t02[tier=fast]",
+   "item_id": "t02",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002151313005015254,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t02[tier=accurate]",
+   "item_id": "t02",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004150535009102896,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t03[tier=fast]",
+   "item_id": "t03",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002146764993085526,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t03[tier=accurate]",
+   "item_id": "t03",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004145986997173168,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t04[tier=fast]",
+   "item_id": "t04",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002145974009181373,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t04[tier=accurate]",
+   "item_id": "t04",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004145675993640907,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t05[tier=fast]",
+   "item_id": "t05",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021261869987938553,
+   "output": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "error": null
+  },
+  {
+   "case_id": "t05[tier=accurate]",
+   "item_id": "t05",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0041236050019506365,
+   "output": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "error": null
+  },
+  {
+   "case_id": "t06[tier=fast]",
+   "item_id": "t06",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021208270045462996,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t06[tier=accurate]",
+   "item_id": "t06",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004121149991988204,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t07[tier=fast]",
+   "item_id": "t07",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002149380001355894,
+   "output": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "error": null
+  },
+  {
+   "case_id": "t07[tier=accurate]",
+   "item_id": "t07",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004155263988650404,
+   "output": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "error": null
+  },
+  {
+   "case_id": "t08[tier=fast]",
+   "item_id": "t08",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002146785001968965,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t08[tier=accurate]",
+   "item_id": "t08",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004153500995016657,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t09[tier=fast]",
+   "item_id": "t09",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.00215445899812039,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t09[tier=accurate]",
+   "item_id": "t09",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004150233988184482,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t10[tier=fast]",
+   "item_id": "t10",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002153055989765562,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "error": null
+  },
+  {
+   "case_id": "t10[tier=accurate]",
+   "item_id": "t10",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004167015998973511,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "error": null
+  },
+  {
+   "case_id": "t11[tier=fast]",
+   "item_id": "t11",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002084198989905417,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t11[tier=accurate]",
+   "item_id": "t11",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004148691994487308,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t12[tier=fast]",
+   "item_id": "t12",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021494399989023805,
+   "output": {
+    "category": "other",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t12[tier=accurate]",
+   "item_id": "t12",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.00415841001085937,
+   "output": {
+    "category": "other",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t13[tier=fast]",
+   "item_id": "t13",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021496999979717657,
+   "output": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t13[tier=accurate]",
+   "item_id": "t13",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.00416953100648243,
+   "output": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t14[tier=fast]",
+   "item_id": "t14",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002153206994989887,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "error": null
+  },
+  {
+   "case_id": "t14[tier=accurate]",
+   "item_id": "t14",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004125719002331607,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "error": null
+  },
+  {
+   "case_id": "t15[tier=fast]",
+   "item_id": "t15",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021779129892820492,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t15[tier=accurate]",
+   "item_id": "t15",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004152217996306717,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t16[tier=fast]",
+   "item_id": "t16",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021484780008904636,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t16[tier=accurate]",
+   "item_id": "t16",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004166263999650255,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t17[tier=fast]",
+   "item_id": "t17",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021651589922839776,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t17[tier=accurate]",
+   "item_id": "t17",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0041470180003670976,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t18[tier=fast]",
+   "item_id": "t18",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021984410122968256,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t18[tier=accurate]",
+   "item_id": "t18",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004126881001866423,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t19[tier=fast]",
+   "item_id": "t19",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021502810122910887,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t19[tier=accurate]",
+   "item_id": "t19",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004148981999605894,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t20[tier=fast]",
+   "item_id": "t20",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021512029925361276,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "error": null
+  },
+  {
+   "case_id": "t20[tier=accurate]",
+   "item_id": "t20",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004150195003603585,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "error": null
+  },
+  {
+   "case_id": "t21[tier=fast]",
+   "item_id": "t21",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002156353002646938,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t21[tier=accurate]",
+   "item_id": "t21",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004166023005382158,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t22[tier=fast]",
+   "item_id": "t22",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002127298997947946,
+   "output": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t22[tier=accurate]",
+   "item_id": "t22",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004146687992033549,
+   "output": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t23[tier=fast]",
+   "item_id": "t23",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002145102000213228,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t23[tier=accurate]",
+   "item_id": "t23",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0041453459998592734,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t24[tier=fast]",
+   "item_id": "t24",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002154169007553719,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "error": null
+  },
+  {
+   "case_id": "t24[tier=accurate]",
+   "item_id": "t24",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004153971996856853,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "error": null
+  },
+  {
+   "case_id": "t25[tier=fast]",
+   "item_id": "t25",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0020852309971814975,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t25[tier=accurate]",
+   "item_id": "t25",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004147529005422257,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t26[tier=fast]",
+   "item_id": "t26",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021530459925998002,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t26[tier=accurate]",
+   "item_id": "t26",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004134265007451177,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t27[tier=fast]",
+   "item_id": "t27",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002157745009753853,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t27[tier=accurate]",
+   "item_id": "t27",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004166434999206103,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t28[tier=fast]",
+   "item_id": "t28",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002180537994718179,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t28[tier=accurate]",
+   "item_id": "t28",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004162747005466372,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t29[tier=fast]",
+   "item_id": "t29",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021528369979932904,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t29[tier=accurate]",
+   "item_id": "t29",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004205416000331752,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t30[tier=fast]",
+   "item_id": "t30",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021519440051633865,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t30[tier=accurate]",
+   "item_id": "t30",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004161084987572394,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t31[tier=fast]",
+   "item_id": "t31",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002158927993150428,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "error": null
+  },
+  {
+   "case_id": "t31[tier=accurate]",
+   "item_id": "t31",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004151305998675525,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "error": null
+  },
+  {
+   "case_id": "t32[tier=fast]",
+   "item_id": "t32",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021506519988179207,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "error": null
+  },
+  {
+   "case_id": "t32[tier=accurate]",
+   "item_id": "t32",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004166635000729002,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "error": null
+  },
+  {
+   "case_id": "t33[tier=fast]",
+   "item_id": "t33",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021479370043380186,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t33[tier=accurate]",
+   "item_id": "t33",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0041498339996906,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t34[tier=fast]",
+   "item_id": "t34",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002192478990764357,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t34[tier=accurate]",
+   "item_id": "t34",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004146337989368476,
+   "output": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t35[tier=fast]",
+   "item_id": "t35",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002158677001716569,
+   "output": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t35[tier=accurate]",
+   "item_id": "t35",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004105732004973106,
+   "output": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t36[tier=fast]",
+   "item_id": "t36",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.002146894999896176,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t36[tier=accurate]",
+   "item_id": "t36",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.00421693800308276,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t37[tier=fast]",
+   "item_id": "t37",
+   "params": {
+    "tier": "fast"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021670229907613248,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "error": null
+  },
+  {
+   "case_id": "t37[tier=accurate]",
+   "item_id": "t37",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.00415065600827802,
+   "output": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "error": null
+  },
+  {
+   "case_id": "t38[tier=fast]",
+   "item_id": "t38",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021542489994317293,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t38[tier=accurate]",
+   "item_id": "t38",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.00419041900022421,
+   "output": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t39[tier=fast]",
+   "item_id": "t39",
+   "params": {
+    "tier": "fast"
+   },
+   "success": false,
+   "checks": {
+    "category": false,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.0021534570114454255,
+   "output": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "other",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  },
+  {
+   "case_id": "t39[tier=accurate]",
+   "item_id": "t39",
+   "params": {
+    "tier": "accurate"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.004154012000071816,
+   "output": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null
+  }
+ ]
+}

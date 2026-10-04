@@ -1,0 +1,4 @@
+{"task_id": "widgets-eur", "input": "What do 3 widgets cost in EUR?", "expected": 11.73}
+{"task_id": "gadgets-gbp", "input": "What do 2 gadgets cost in GBP?", "expected": 18.96}
+{"task_id": "gizmos-inr", "input": "What do 4 gizmos cost in INR?", "expected": 2493.0}
+{"task_id": "sprockets-usd", "input": "What do 10 sprockets cost in USD?", "expected": 8.0}

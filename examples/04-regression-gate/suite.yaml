@@ -1,0 +1,17 @@
+name: support-ticket-triage
+target:
+  callable: sut.py:triage
+dataset: dataset.jsonl
+params:
+  tier: [fast, accurate]
+scorers:
+  - {name: category, type: exact, field: category}
+  - {name: priority, type: exact, field: priority}
+  - {name: order_id, type: exact, field: order_id}
+  - {name: amount, type: numeric, field: amount, tolerance: 0.005}
+gate:
+  max_success_drop: 0.02
+  alpha: 0.05
+  require_significance: true
+  max_p95_latency_increase: 0.25
+  min_latency_increase_ms: 2
