@@ -1,0 +1,33 @@
+[project]
+name = "evalkit"
+version = "0.1.0"
+description = "Fifteen production AI-evals systems: trajectory grading, shadow routing, calibrated judges, CI gates, RAG adversarial tests, DPO flywheel, significance testing, red-team fuzzing, drift monitoring and more."
+readme = "README.md"
+authors = [{ name = "Arvind C R", email = "arvindcr4@gmail.com" }]
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+proxy = ["fastapi>=0.110", "uvicorn>=0.29"]
+train = ["torch>=2.2", "transformers>=4.44", "peft>=0.12", "trl>=0.11", "datasets>=2.20"]
+
+[project.scripts]
+evalkit = "evalkit.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6", "fastapi>=0.110", "uvicorn>=0.29"]
+
+[build-system]
+requires = ["uv_build>=0.11.31,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
