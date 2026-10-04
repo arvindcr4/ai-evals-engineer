@@ -173,7 +173,7 @@ malformed rows.
   "by_strategy_kept": {"correction": 8, "similar_up": 7, "teacher": 6},
   "drops": {"contaminated": 1, "identical": 1, "refusal": 1, "duplicate": 1},
   "pii_redactions": {"email": 1, "card": 1, "phone": 1},
-  "data_sha256": "2987204611155387"
+  "data_sha256": "03c8f004e8512b8a"
 }
 {"prompt": "How do I reset my password?", "chosen": "Go to Settings, choose Security, click Reset password and follow the emailed link; it expires after 30 minutes.", "rejected": "I'm sorry, but I can't help with that request."}
 == 3. nightly run #1 (dry-run backend, gate at 10 new pairs)
@@ -220,3 +220,154 @@ full LoRA/DPO config.
   remove it.
 - The TRL backend targets the current `DPOTrainer(processing_class=...)` API. Older
   TRL versions need `tokenizer=`.
+
+## Real-model run (DeepSeek, Oct 2026)
+
+The offline demo above uses a mock teacher and a heuristic judge. This section is the
+same pipeline against the real DeepSeek API.
+
+```bash
+bash examples/06-dpo-flywheel/real_run.sh   # sources ~/TradingAgents/.env, writes out/real/
+# the core step it runs:
+uv run --no-sync evalkit dpo-flywheel build-pairs --store out/real/feedback.jsonl --golden golden.jsonl \
+  --teacher deepseek:deepseek-v4-pro --judge deepseek:deepseek-flash --workers 6 \
+  --cache out/real/llm_cache.jsonl --out out/real/pairs
+```
+
+- **Teacher:** `deepseek-v4-pro`, thinking off, T=0.8, 3 candidates per thumbs-down,
+  `max_tokens` 600.
+- **Judge:** `deepseek-flash`, thinking off, T=0, `SCORE: <0-10>` rubric.
+- **Data:** the example feedback, which is small. Day 1 has 35 rows (33 valid, 32 stored,
+  25 thumbs-downs). Day 2 adds 6 near-repeat thumbs-downs.
+- **Cost:** the final committed run cost **$0.0169** (day-1 build $0.0108, day-2
+  increment $0.0061, and $0 for the cache-served rebuild and nightly #1). Development
+  runs (a raw-output probe, one unmetered first run, and five full runs while fixing
+  prompts) bring the total API spend to about **$0.12**. Wall time for the day-1 build
+  fell from 142 s (sequential) to about 12 s (6 workers).
+- **Outputs:** `examples/06-dpo-flywheel/real_output/`, which holds the CLI JSON for every step,
+  `manifest.json`, all 21 provenance pairs, the dry-run `plan.json` and the run log.
+
+### Results
+
+`build-pairs`, day 1 (from `real_output/build_pairs.json`):
+
+| | mock teacher + heuristic judge | DeepSeek teacher + judge |
+|---|---|---|
+| pairs raw / kept | 25 / 21 | 25 / 21 |
+| kept by strategy (correction / similar_up / teacher) | 8 / 7 / 6 | 8 / 7 / 6 |
+| drops | contaminated 1, identical 1, refusal 1, duplicate 1 | same |
+| judge margin, correction (min / median / max) | 2.5 / 4.75 / 8.5 | 4 / 6 / 7 |
+| judge margin, similar_up | 3.5 / 6.25 / 6.7 | 4 / 7 / 7 |
+| judge margin, teacher | 4.5 / 6.1 / 7.9 | 6 / 6.5 / 8 |
+| judge parse failures | n/a | 0 / 60 calls |
+| API calls (teacher / judge) | 18 mock / none (heuristic) | 18 / 60 (+8 in-run cache hits) |
+| rebuild of the same data | new hash each time with a sampling teacher | same `data_sha256` `d781bf94…`, 0 calls |
+
+Nightly (dry-run backend; the gate is still `MockEvaluator`):
+
+| run | mock | DeepSeek |
+|---|---|---|
+| #1, day 1, min 10 new | 21 new pairs → promoted (0.700 → 0.761) | 21 new → promoted (0.700 → 0.761), $0 (cache) |
+| #2, day 2, min 10 new | 4 new → skipped | **2 new** → skipped (near_duplicate 4), $0.0061 |
+| #3, day 2, lower min | min 3: trains, promoted 0.761 → 0.788 | min 2: trains, promoted 0.761 → 0.788, $0 |
+
+Teacher-chosen rows from the real run (`real_output/pairs.jsonl`):
+
+```
+6.0 [8,6,8] How do I rotate my webhook secret? | rejected: Please contact support.
+  chosen: Go to Settings, choose Webhooks, click Rotate secret next to the webhook, and confirm.
+          The old secret stops working immediately.
+8.0 [9,9,9] Why is my API key not working? | rejected: That is not possible.
+  chosen: I can help troubleshoot, but I'll need a bit more detail. ... `401 Unauthorized` or `403 Forbidden`? ...
+```
+
+### What the real model revealed (and what was fixed)
+
+1. **The nightly job re-bought the whole history every night, and the dataset was not
+   reproducible.** `run_nightly` rebuilds the cumulative dataset, so every thumbs-down
+   ever seen went back to the T=0.8 teacher each night. Spend grew linearly with history,
+   and `data_sha256` changed with no new data. The mock hid both problems because it is
+   free and deterministic. Fix: `MeteredLLM` (`llm_cache.py`), a persistent completion
+   cache (`--cache`, default `<root>/llm_cache.jsonl` for `nightly`). With it, day 2 paid
+   only for its 6 new events, and a rebuild reproduces the hash with 0 calls.
+2. **Nothing recorded cost.** The manifest, `build-pairs` output and nightly record now
+   carry `llm_usage` (calls, cache hits, errors, tokens and `cost_usd` per role; a model
+   shared by both roles is counted once), along with `margins_raw/kept` per strategy,
+   `judge_parse_failures` and `unpaired`.
+3. **One API error killed the whole run, and the run was slow.** Pair building was
+   sequential (142 s) and any exception aborted the night. It now uses a `--workers`
+   thread pool that keeps event order. A failure after core retries costs that one
+   event (`teacher_error` in `unpaired`), not the whole run.
+4. **Raw PII went to the API.** Scrubbing ran only after pairs were built, so the judge
+   (and the teacher, for teacher pairs) received unscrubbed emails and card numbers. The
+   real run made this visible: a phone number from one user's correction appeared in
+   another prompt's teacher answer. LLM inputs are now scrubbed before sending
+   (`scrub_llm_inputs`, on by default).
+5. **The ungrounded teacher wrote generic answers.** The first real run produced chosen
+   texts like "the exact process varies by service (Google, Apple, Microsoft…)". The judge
+   scored them 9/10 against "Please contact support", so they passed every filter. That is
+   bad DPO data for a product assistant. The teacher now receives the 3 most similar
+   trusted answers (thumbs-ups and user corrections, scrubbed) as example conversations
+   (`--teacher-refs`).
+6. **The grounded teacher leaked its prompt context.** The first grounding prompt called
+   the references "verified answers", and 13 of 18 teacher candidates echoed it ("I don't
+   have a verified answer for that…", "…in the verified product documentation I've been
+   given"). An instruction not to mention them did not help. Two changes fixed it:
+   - The block was reframed as "Example conversations", with the instruction "write only
+     the reply the user sees". That brought leaks to 0 of 18.
+   - `leaks_context` now drops leaking candidates before judging, and the `context_leak`
+     filter is a backstop for teacher pairs.
+7. **Judge parsing was hardened, but the real judge never needed it.** deepseek-flash
+   replied with exactly `SCORE: N` 60 out of 60 times. The parser still accepts
+   `**SCORE:** 8`, `Score = 7/10` and reasoning-then-verdict (a bare `7/10` with no
+   `score`/`rating` label is still a parse failure) (last score wins). A parse failure is
+   now counted, because a silent fallback would mix the heuristic scale into a margin.
+   The judge call is now capped with `max_tokens` 64.
+
+Regression tests for each fix are in `tests/test_dpo_flywheel_real.py`, using MockLLM
+responders that copy the real outputs.
+
+### Honest comparison with the mock
+
+- **The headline counts are identical (21 kept, 6 per strategy), but that is mostly
+  structural.** 15 of the 21 pairs (corrections and thumbs-up donors) never touch the
+  teacher. The judge only sets their margin, and no pair came near `--min-margin 1`, so
+  `low_margin` dropped nothing in either run. On this data the judge does not act as a
+  filter.
+- **The real judge is coarse.** Scores are integers, and the 3 teacher candidates tied in
+  5 of 6 events, and in the sixth (`[8, 6, 8]`) the first still tied for best, so the
+  "best of N" pick was the first candidate in all 6. Teacher margins sit at 6–8; all
+  kept margins are 4–8. The mock heuristic spreads scores more, but they mean less.
+- **The real model's main risk is confident fabrication, and nothing here catches it.**
+  With product-style examples, the teacher writes plausible menu paths for features the
+  examples never covered ("Settings → Webhooks → Rotate secret… stops working
+  immediately"), and the judge scores them 8. The earlier prompt hedged honestly but
+  leaked its context. Neither prompt is free of trade-offs. Teacher pairs for features
+  with no trusted answer should be reviewed by a person, or produced by a teacher with
+  real docs or retrieval, before they train a production model. The mock teacher cannot
+  show this failure.
+- **Day 2 differed.** The real grounded teacher reproduces the user correction almost word
+  for word for a near-repeat prompt ("Quick question: how do I add a teammate…"). The
+  near-dup filter then removed 4 of the 6 day-2 pairs, against 2 with the mock (mock
+  `near_duplicate 2`, 4 new pairs; `out/flywheel/state.json` of `run.sh`), so only
+  2 new pairs arrived and the nightly threshold in `real_run.sh` step 5 was lowered to 2.
+  This is the filter doing its job, and it shows that the near-repeat traffic adds little
+  new signal.
+- **The promotion gate is still `MockEvaluator`.** The gate numbers are identical to the
+  mock by construction. Nothing was trained, because the dry-run backend was used. A real
+  gate needs a served adapter and `WinRateEvaluator`.
+- **The cache only makes old events free while their teacher prompt is unchanged.** The
+  teacher prompt embeds the 3 most similar trusted answers from the *whole* cumulative
+  store, so a new thumbs-up or correction that ranks into an old event's top 3 changes
+  that prompt, misses the cache, re-buys the event and changes its chosen text (and the
+  dataset hash). The example day 2 has only thumbs-downs, which never become references,
+  so this run did not show it. A mock probe with one new thumbs-up and no new
+  thumbs-down re-paid 2 old teacher events (6 calls). Freezing each event's reference set
+  at first build, or drawing references only from earlier events, would fix it.
+- **Not in `real_output/`:** the development-run figures (the 142 s → 12 s wall time,
+  the 13/18 leak rate, the generic 9/10 answers, the cross-user phone number, and the
+  ~$0.12 total spend) come from earlier runs whose outputs were not saved. Everything in
+  the tables above is recomputable from `real_output/`.
+- **The sample is tiny** (25 thumbs-downs, 6 teacher pairs, one run per prompt version).
+  The leak rates (13/18 → 0/18) and the tie rates come from single runs and are
+  directional only.

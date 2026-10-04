@@ -1,0 +1,17 @@
+{
+  "weights": [
+    0.165525173249549,
+    1.848657815082796,
+    2.1939357502402808,
+    0.0
+  ],
+  "features": [
+    "bias",
+    "judge_logit",
+    "log_len_ratio",
+    "self_family"
+  ],
+  "tie_band": 0.01,
+  "judge_family": null,
+  "n_train": 300
+}

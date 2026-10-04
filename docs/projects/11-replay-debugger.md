@@ -132,3 +132,107 @@ bisect automatically.
 - The bundled agent is a single-thread ReAct loop. Agents built on other
   frameworks need a thin adapter that routes their model and tool calls through
   a `Runtime`.
+
+## Real-model run (DeepSeek, Oct 2026)
+
+```bash
+examples/11-replay-debugger/real_run.sh     # sources ~/TradingAgents/.env, writes out/real/
+```
+
+- **Agent model:** `deepseek:deepseek-flash` (thinking off, temperature 0) on every hop.
+- **Reference model for bisect:** `deepseek:deepseek-v4-pro`. A second bisect uses the agent
+  model itself as its own reference, as a nondeterminism control.
+- **Tasks:** `examples/11-replay-debugger/tasks_real.jsonl` has 16 tasks (4 items × 4 currencies,
+  4 phrasings, quantities 1–25). Each row's `expected` field equals `expected_answer()` for its
+  input; the checker passes answers within ±0.011.
+- **Fault:** the real model never produced a wrong answer with correct tools, so the failures
+  are injected through the `toy:stale_fx` tool, which serves an inverted rate rounded to
+  4 dp.
+- **Spend:** about **$0.025** in total, including an initial 4-task probe at the provider-default
+  temperature (the probe's outputs were not saved, so its share is an estimate). A full
+  `real_run.sh` costs about $0.021 (sum of the printed costs): 3 × 16-task records at $0.0036 each,
+  the pro-ref bisect at $0.0072, the self-ref bisect at $0.0024 and three replays under $0.001.
+- Sample outputs are in `examples/11-replay-debugger/real_output/`.
+
+**Results (n = 16 tasks per record; small sample):**
+
+| run | pass | notes |
+|---|---|---|
+| record, correct tools | **16/16** | protocol followed on every hop. `widgets-gbp-2` answered 6.72 vs expected 6.71 (exact value 6.715; within the ±0.011 tolerance) |
+| re-record, same settings | 16/16 | 15/16 runs byte-identical; 1 of 60 aligned LLM hops differed (`sprockets-usd-25` node 0: `"sprockets"` vs `"sprocket"`). Recomputed from `out/real/clean*.jsonl`; only the summary line is saved in `real_output/1b_reproducibility.txt` |
+| record, stale FX tool | **10/16** | 4 USD tasks unaffected. 6 of 12 non-USD tasks still pass because the model *divides* by the inverted rate (10/12 divided; INR still fails on rounding) |
+| bisect, ref = v4-pro | 6/6 root causes = node 3 `fx_rate` | every LLM hop `identical` to pro at temperature 0 except one `still_failing` hop with a different spelling |
+| bisect, ref = flash itself | 6/6 = node 3 `fx_rate` | 0 `unstable` nodes at temperature 0 |
+
+Excerpt (`real_output/3_bisect_pro.txt`):
+
+```
+gadgets-eur-7: baseline FAIL; swapping each node with its known-good alternative
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "EUR"}'
+   node  3 tool fx_rate      flipped        alt='0.92' -> answer 77.28
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "7 * 12.0 * 1.087"}'
+   ROOT CAUSE: node 3 (tool fx_rate)
+sprockets-inr-20: baseline FAIL; ...
+   node  0 llm  deepseek-flash still_failing  alt='CALL lookup_price {"item": "sprocket"}' -> answer 1333.33
+   node  3 tool fx_rate      flipped        alt='83.1' -> answer 1329.60
+   ROOT CAUSE: node 3 (tool fx_rate)
+root causes isolated: 6  (api cost $0.00722)
+```
+
+**Comparison with the offline mock.**
+
+- **What carries over.** The mechanics transfer unchanged: prefix served from the cassette,
+  one node swapped, consequences re-run, and the stale tool isolated as the earliest
+  flipped node in 6/6 failing runs with either reference. Cached mode keeps replays cheap:
+  each manual replay made 2–3 live calls, under $0.0004.
+- **The model partly defends against the fault.** The scripted `toy` policy always
+  multiplies by whatever rate it gets, so the stale tool breaks 3/3 non-USD toy tasks.
+  deepseek-flash divided by the stale rate in **10 of 12** non-USD tasks
+  (EUR 3/4, GBP 3/4, INR 4/4; see `real_output/2_show_stale.txt`):
+  - For EUR and GBP, dividing undoes the inversion, so 6 tasks pass. The two that
+    multiplied (`gadgets-eur-7`, `sprockets-gbp-13`) fail, with no obvious phrasing
+    pattern.
+  - In the probe run (outputs not saved; quoted from the run log) flash said why it divided for INR: *"the quote returned 0.012
+    (which appears to be USD per INR)"*.
+  - All 4 INR runs still fail only because the stale tool rounded 1/83.1 to 0.012.
+    1/0.012 = 83.33, which is ~0.3% high.
+
+  Bisect still blames the tool correctly in every case. The interesting real-model
+  signal is *which* tasks the fault reaches, and the mock cannot show that.
+- **The stronger model is no better at this hop.** Swapping the calc hop of
+  `widgets-eur-3`'s stale run to deepseek-v4-pro (`5c_pro_calc_hop.txt`) made the run
+  *worse*. Pro multiplied by 1.087 → 13.86 (FAIL), where flash had divided → 11.73
+  (PASS). In the bisect, pro reproduced flash's hop verbatim on every other LLM node.
+  On this toy, "known-good reference model" adds little beyond the oracle tool. One
+  task on one hop, so this is anecdotal.
+- **Hallucinated parity was not observed.** The hallucinating-model failure of scenario A
+  (`toy:sloppy` skipping `fx_rate`) never appeared: flash called `fx_rate` on all 12
+  non-USD tasks and skipped it correctly on the 4 USD tasks. That scenario stays
+  mock-only.
+
+**Integration bugs found and fixed (regression tests in `tests/test_replay_debugger_real.py`):**
+
+1. **Prose before the action.** On the stale INR task flash replied with a reasoning sentence,
+   a blank line, then `CALL calc {...}`. `parse_action` only read the first line, so
+   it returned an `ERROR`, cost an extra hop, and added a spurious LLM node to the cassette. The
+   parser now strips code fences and markdown decoration (`**FINAL**`, backticks), accepts
+   `FINAL:`, and takes the *first* protocol line. Prose such as "The FINAL answer is 3" is
+   still rejected.
+2. **No temperature control.** Record, replay, override and bisect called the API at the
+   provider default temperature. In the probe run the "reference" (same model) re-sampled the
+   calc hop of `widgets-eur` as `/ 1.087` instead of `* 1.087` and was reported as a
+   **second culprit** (probe outputs not saved). That verdict came from sampling noise, not a fix. All live hops now pass
+   `temperature=0` (CLI `--temperature`, default 0; `None` keeps the provider default).
+3. **Same-model re-samples treated as known-good.** Temperature 0 is not bit-reproducible
+   (1/60 hops differed between two records). When `--ref-llm` is the model that recorded the
+   hop and its output differs, bisect now reports the node as `unstable`. The node is
+   replayed but never blamed. This did not trigger in the final temperature-0 run. The
+   guard exists for the probe-run case above.
+4. **Cost accounting.** An `--with-llm` override node lost its tokens and cost. Bisect's
+   reference calls and the live hops of its replays were not counted anywhere, and no
+   command reported spend. Override nodes now keep their cost, `ReplayResult.cost_usd` and
+   `BisectReport.cost_usd` exist, and `record`, `replay` and `bisect` print API cost. With
+   `toy` models the printed cost is MockLLM's notional price, not real spend.
+
+No core bugs were found. `OpenAICompatibleLLM` passed `temperature` through and its retry logic
+was never exercised: there were no 429s at this volume.

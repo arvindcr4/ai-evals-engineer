@@ -13,13 +13,14 @@ from __future__ import annotations
 import json
 import math
 import re
-from dataclasses import dataclass
+import threading
+from dataclasses import dataclass, field
 from typing import Any
 
 import numpy as np
 
 from evalkit.calibrated_judge.anchors import FACT_SET, FAMILY_STYLE, Anchor
-from evalkit.core.llm import LLM, Message, MockLLM, stable_hash
+from evalkit.core.llm import LLM, Completion, Message, MockLLM, stable_hash
 
 PAIRWISE_SYSTEM = (
     "You are an impartial evaluator. Compare two assistant responses to the same question. "
@@ -55,18 +56,43 @@ def _sigmoid(x: float) -> float:
     return 1.0 / (1.0 + math.exp(-x))
 
 
+_WINNER = re.compile(r"^(?:response|assistant|answer|output)?\s*([AB])$", re.IGNORECASE)
+_TIE_WORDS = {"TIE", "C", "BOTH", "NEITHER", "EQUAL", "DRAW", "SAME"}
+
+
+def _winner_label(value: Any) -> str | None:
+    """Normalise a JSON ``winner`` field: "A", "a", "Response B", "tie", "both" ..."""
+    w = str(value).strip().strip("\"'[]()*. ")
+    if w.upper() in _TIE_WORDS:
+        return "tie"
+    m = _WINNER.match(w)
+    return m.group(1).upper() if m else None
+
+
+def _confidence(value: Any) -> float:
+    conf = float(value)
+    if 50 <= conf <= 100:  # a percentage ("confidence": 85) — the prompt asks for 0.5-1.0
+        conf /= 100
+    return min(max(conf, 0.5), 1.0)
+
+
 def parse_pairwise(text: str) -> tuple[str, float]:
     """Parse ``(winner in {"A","B","tie"}, confidence)`` from a judge reply."""
-    m = re.search(r"\{.*?\}", text, re.DOTALL)
-    if m:
+    for m in re.finditer(r"\{[^{}]*\}", text, re.DOTALL):
         try:
             d = json.loads(m.group(0))
-            w = str(d.get("winner", "")).strip().upper()
-            conf = float(d.get("confidence", 0.75))
-            if w in ("A", "B", "TIE"):
-                return ("tie" if w == "TIE" else w), min(max(conf, 0.5), 1.0)
-        except (json.JSONDecodeError, TypeError, ValueError):
-            pass
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(d, dict) or "winner" not in d:
+            continue
+        w = _winner_label(d["winner"])
+        if w is None:
+            continue
+        try:
+            conf = _confidence(d.get("confidence", 0.75))
+        except (TypeError, ValueError):
+            conf = 0.75
+        return w, conf
     m = re.search(r"\[\[(A|B|C|tie)\]\]|winner\W+(A|B|tie)\b", text, re.IGNORECASE)
     if m:
         w = (m.group(1) or m.group(2)).upper()
@@ -75,8 +101,48 @@ def parse_pairwise(text: str) -> tuple[str, float]:
 
 
 def parse_score(text: str) -> float | None:
-    m = re.search(r'"score"\s*:\s*(-?\d+(?:\.\d+)?)', text) or re.search(r"\b(10|[1-9])\b", text)
-    return float(m.group(1)) if m else None
+    """Parse a 1-10 score; ignores scale mentions such as "1-10" or "1 to 10"."""
+    m = (re.search(r'"score"\s*:\s*"?(-?\d+(?:\.\d+)?)', text)
+         or re.search(r"\b(10|[1-9](?:\.\d+)?)\s*(?:/|out of)\s*(?:10|ten)\b", text,
+                      re.IGNORECASE)
+         or re.search(r"\bscore\W{0,3}(10|[1-9])\b", text, re.IGNORECASE))
+    if m is None:
+        cleaned = re.sub(r"\b1\s*(?:-|–|to)\s*10\b", " ", text)
+        m = re.search(r"\b(10|[1-9])\b", cleaned)
+    return float(np.clip(float(m.group(1)), 1, 10)) if m else None
+
+
+@dataclass
+class Usage:
+    """Thread-safe running total of judge calls, tokens and API cost."""
+
+    calls: int = 0
+    tokens_in: int = 0
+    tokens_out: int = 0
+    cost_usd: float = 0.0
+    errors: int = 0
+    _lock: threading.Lock = field(default_factory=threading.Lock, repr=False, compare=False)
+
+    def add(self, c: Completion) -> None:
+        with self._lock:
+            self.calls += 1
+            self.tokens_in += c.tokens_in
+            self.tokens_out += c.tokens_out
+            self.cost_usd += c.cost_usd
+
+    def error(self) -> None:
+        with self._lock:
+            self.errors += 1
+
+    def merge(self, other: Usage) -> Usage:
+        return Usage(self.calls + other.calls, self.tokens_in + other.tokens_in,
+                     self.tokens_out + other.tokens_out, self.cost_usd + other.cost_usd,
+                     self.errors + other.errors)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"calls": self.calls, "tokens_in": self.tokens_in,
+                "tokens_out": self.tokens_out, "cost_usd": round(self.cost_usd, 6),
+                "errors": self.errors}
 
 
 @dataclass
@@ -94,6 +160,7 @@ class PairwiseJudge:
     def __init__(self, llm: LLM, system: str = PAIRWISE_SYSTEM,
                  template: str = PAIRWISE_TEMPLATE):
         self.llm, self.system, self.template = llm, system, template
+        self.usage = Usage()
 
     def judge(self, prompt: str, response_a: str, response_b: str,
               swap: bool = False) -> Verdict:
@@ -103,7 +170,9 @@ class PairwiseJudge:
             {"role": "system", "content": self.system},
             {"role": "user", "content": self.template.format(prompt=prompt, a=first, b=second)},
         ]
-        raw = self.llm.complete(messages, temperature=0).text
+        completion = self.llm.complete(messages, temperature=0)
+        self.usage.add(completion)
+        raw = completion.text
         slot, conf = parse_pairwise(raw)
         if slot == "tie":
             return Verdict("tie", 0.5, conf, swap, raw)
@@ -120,13 +189,16 @@ class PointwiseJudge:
     def __init__(self, llm: LLM, system: str = POINTWISE_SYSTEM,
                  template: str = POINTWISE_TEMPLATE):
         self.llm, self.system, self.template = llm, system, template
+        self.usage = Usage()
 
     def score(self, prompt: str, response: str) -> float | None:
         messages: list[Message] = [
             {"role": "system", "content": self.system},
             {"role": "user", "content": self.template.format(prompt=prompt, response=response)},
         ]
-        return parse_score(self.llm.complete(messages, temperature=0).text)
+        completion = self.llm.complete(messages, temperature=0)
+        self.usage.add(completion)
+        return parse_score(completion.text)
 
 
 _BLOCK = re.compile(r"\[Response( [AB])?\]\n(.*?)\n\[End of Response", re.DOTALL)

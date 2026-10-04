@@ -40,12 +40,13 @@ def _gate(baseline: RunResult, candidate: RunResult, policy: GatePolicy,
 def _run(args: argparse.Namespace) -> RunResult:
     suite = Suite.load(args.suite)
     llm = get_llm(args.llm) if args.llm else None
-    result = run_suite(suite, llm=llm)
+    result = run_suite(suite, llm=llm, workers=getattr(args, "workers", None))
     if args.out:
         result.save(args.out)
     s = result.summary()
+    cost = f", cost ${s['cost_usd']:.4f}" if s["tokens_in"] or s["cost_usd"] else ""
     print(f"{suite.name}: {s['n_cases']} cases, success {s['success_rate']:.1%}, "
-          f"p95 {s['latency_p95_s'] * 1000:.1f} ms, errors {s['errors']}", file=sys.stderr)
+          f"p95 {s['latency_p95_s'] * 1000:.1f} ms, errors {s['errors']}{cost}", file=sys.stderr)
     return result
 
 
@@ -96,6 +97,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     r.add_argument("--baseline", help="baseline results JSON to gate against")
     r.add_argument("--allow-missing-baseline", action="store_true")
     r.add_argument("--llm", help="LLM spec for llm targets (default: suite / $EVALKIT_LLM)")
+    r.add_argument("--workers", type=int, help="concurrent cases (default: target setting, 1)")
     policy_flags(r)
     r.set_defaults(func=_cmd_run)
 
@@ -111,4 +113,5 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     b.add_argument("--out", required=True)
     b.add_argument("--from-results", help="promote an existing results file instead of running")
     b.add_argument("--llm")
+    b.add_argument("--workers", type=int)
     b.set_defaults(func=_cmd_baseline)

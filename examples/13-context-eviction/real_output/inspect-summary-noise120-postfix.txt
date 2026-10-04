@@ -1,0 +1,29 @@
+scenario seed=7 noise=120: 130 turns; planted:
+  turn    0 [fact] Please remember that my monthly budget is 4200 dollars.
+  turn   15 [fact] Please remember that my dentist is Dr Mehta.
+  turn   31 [fact] Quick note for later: my home address is 221 Baker Road.
+  turn   46 [fact] Quick note for later: my car is a blue Corolla.
+  turn   62 [fact] Quick note for later: my manager is Grace Okafor.
+  turn   77 [fact] Please remember that my favorite airline is Qantas.
+  turn   78 [update] Correction, my monthly budget is now 3100 dollars.
+  turn   93 [update] Correction, my dentist is now Dr Osei.
+  turn  108 [update] Correction, my home address is now 14 Elm Street.
+  turn  123 [update] Update: my timezone has changed to IST.
+
+summary: recall 1.00, stale 0.00, budget compliance 100%, peak 199 tokens
+  timezone           correct  answer='IST' expected='IST'
+  name               correct  answer='Arvind' expected='Arvind'
+  monthly budget     correct  answer='3100 dollars' expected='3100 dollars'
+  dentist            correct  answer='Dr Osei' expected='Dr Osei'
+  home address       correct  answer='14 Elm Street' expected='14 Elm Street'
+  car                correct  answer='blue Corolla' expected='a blue Corolla'
+  manager            correct  answer='Grace Okafor' expected='Grace Okafor'
+  favorite airline   correct  answer='Qantas' expected='Qantas'
+
+context for the last probe:
+  system: You are a helpful personal assistant. User profile: the user's timezone is JST. the user's name is Arvind.
+  memory: the user's monthly budget is 3100 dollars. the user's dentist is Dr Osei. the user's home address is 14 Elm Street. the user's car is a blue Corolla. the user's manager is Grace Okafor. the user's favorite airline is Qantas. the user's timezone is IST. the user's sister is curious about how people pick a manager.
+  assistant: Sure. Volcanic soil is well documented, and it shares some ideas with houseplant lighting. Start small, keep notes, and revisit tide pools later.
+  user: I spent the weekend on volcanic soil and marathon training; any tips before I dive into mechanical keyboards next?
+  assistant: Good question. Most guides on volcanic soil skip the basics of solar panels, which is hotly debated. I would compare a few sources first.
+llm usage: reader deepseek-flash: 8 calls, 2116+22 tok, $0.0007; summarizer deepseek-flash: 48 calls, 12391+4754 tok, $0.0094; total $0.0101

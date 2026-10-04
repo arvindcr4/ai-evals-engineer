@@ -1,0 +1,15 @@
+budget = 120 tokens; recall/stale/miss over all probes; pinned = system-prompt facts, upd = updated facts
+strategy   noise recall  stale   miss pinned    upd  budget   peak    llm
+-------------------------------------------------------------------------
+retrieval     50   1.00   0.00   0.00   1.00   1.00   100%    120    0.0
+retrieval    800   0.75   0.00   0.25   1.00   0.88   100%    120    0.0
+summary       50   0.80   0.00   0.20   1.00   1.00   100%    120   39.5
+summary      800   0.80   0.00   0.20   1.00   1.00   100%    120  599.0
+window        50   0.20   0.00   0.80   1.00   0.25   100%    120    0.0
+window       800   0.10   0.10   0.80   0.50   0.00   100%    120    0.0
+
+recall curve over noise levels:
+  window     |▂▁|  50:0.20 800:0.10
+  summary    |▆▆|  50:0.80 800:0.80
+  retrieval  |█▆|  50:1.00 800:0.75
+llm usage: reader mock-extractive-reader: 120 calls, 27881+187 tok, $0.0043; summarizer mock-summarizer: 1277 calls, 245192+70869 tok, $0.0793; total $0.0836

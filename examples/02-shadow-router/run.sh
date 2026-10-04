@@ -12,6 +12,6 @@ uv run --no-sync evalkit shadow-router simulate "$EX/requests.jsonl" \
 uv run --no-sync evalkit shadow-router report "$EX/out/pairs.jsonl" \
   --judge mock --out "$EX/out/report"
 
-# Real models instead (OpenAI-compatible):
+# Real models: see real_run.sh (DeepSeek v4-pro primary, flash candidate). Generic form:
 #   evalkit shadow-router serve --primary openai:gpt-4.1 --candidate deepseek:deepseek-chat --rate 0.05
 #   evalkit shadow-router report shadow_pairs.jsonl --judge openai:gpt-4.1-mini

@@ -1,7 +1,7 @@
 """Turn logged shadow pairs into a cost/quality comparison report.
 
 Agreement is measured three ways (normalised exact match, token Jaccard and a
-character-level similarity ratio). An optional pairwise LLM judge runs every
+word-sequence similarity ratio). An optional pairwise LLM judge runs every
 non-identical pair in both A/B orders; a pair counts as a win only when the
 judge agrees with itself across orders, which cancels position bias. Output is
 a JSON-able :class:`ShadowReport` rendered to Markdown and self-contained HTML.
@@ -36,7 +36,14 @@ def token_jaccard(a: str, b: str) -> float:
 
 
 def similarity(a: str, b: str) -> float:
-    return SequenceMatcher(None, normalize(a), normalize(b)).ratio()
+    """Word-sequence similarity in [0, 1].
+
+    Runs on word tokens with ``autojunk`` off: difflib's default junk heuristic
+    treats every element occurring in >1% of a >200-element sequence as junk,
+    which on character strings of real-length answers (letters, spaces) drove
+    the ratio of two clear paraphrases to ~0.
+    """
+    return SequenceMatcher(None, normalize(a).split(), normalize(b).split(), autojunk=False).ratio()
 
 
 def wilson(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -50,9 +57,9 @@ def wilson(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
 
 
 JUDGE_PROMPT = """You are comparing two assistant answers to the same user request.
-Pick the answer that is more correct, specific and helpful. Reply with exactly one
+Pick the answer that is more correct, specific and helpful{constraint}. Reply with exactly one
 token: A, B, or TIE.
-
+{instructions}
 Question:
 {question}
 
@@ -87,36 +94,107 @@ def default_judge() -> LLM:
     return MockLLM(model="mock-judge", responder=heuristic_judge)
 
 
+_VERDICT = re.compile(r"\b(TIE|A|B)\b")
+_FINAL = re.compile(
+    r"(?:VERDICT|ANSWER|WINNER|CHOICE|BETTER(?: ANSWER)?)\s*(?:IS)?\s*[:=\-]\s*\(?(TIE|A|B)\b"
+)
+
+# A leading token needs punctuation after it ("B, because ..."), so the article
+# in "A better answer is B" is not read as a verdict.
+_LEAD = re.compile(r"^\(?(TIE|A|B)\s*[.,:;)!\n-]")
+
+
+def parse_verdict(text: str) -> str | None:
+    """Extract ``A``/``B``/``TIE`` from a judge reply, or ``None`` if ambiguous.
+
+    Accepts the bare token with markdown/punctuation (``**B**``, ``B.``), an
+    explicit ``Verdict: B`` line, a leading token followed by punctuation
+    (``B, because ...``), or a reply whose every A/B/TIE mention is the
+    same token. Mixed mentions such as "A and B are both fine" are ambiguous;
+    the old first-match parse silently scored those as A.
+    """
+    t = re.sub(r"[*_`#>\"']", " ", text).strip().upper()
+    if not t:
+        return None
+    bare = t.strip(" .:!()[]")
+    if bare in ("A", "B", "TIE"):
+        return bare
+    finals = _FINAL.findall(t)
+    if finals:
+        return finals[-1]
+    lead = _LEAD.match(t)
+    if lead:
+        return lead.group(1)
+    found = set(_VERDICT.findall(t))
+    return found.pop() if len(found) == 1 else None
+
+
 def _parse_verdict(text: str) -> str:
-    m = re.search(r"\b(TIE|A|B)\b", text.strip().upper())
-    return m.group(1) if m else "TIE"
+    return parse_verdict(text) or "TIE"
 
 
-def judge_pair(judge: LLM, question: str, primary: str, shadow: str) -> str:
-    """Return ``win``/``loss``/``tie`` for the shadow answer, order-debiased."""
-    first = _parse_verdict(
-        judge.complete(
-            [
-                {
-                    "role": "user",
-                    "content": JUDGE_PROMPT.format(question=question, a=primary, b=shadow),
-                }
-            ]
-        ).text
-    )
-    second = _parse_verdict(
-        judge.complete(
-            [
-                {
-                    "role": "user",
-                    "content": JUDGE_PROMPT.format(question=question, a=shadow, b=primary),
-                }
-            ]
-        ).text
-    )
-    shadow_first = {"A": "loss", "B": "win", "TIE": "tie"}[first]
-    shadow_second = {"A": "win", "B": "loss", "TIE": "tie"}[second]
-    return shadow_first if shadow_first == shadow_second else "tie"
+JUDGE_PARAMS = {"temperature": 0, "max_tokens": 16}
+
+
+def _judge_prompt(question: str, a: str, b: str, instructions: str = "") -> str:
+    if instructions:
+        return JUDGE_PROMPT.format(
+            constraint=", and that better follows the system instructions given to the assistant",
+            instructions=f"\nSystem instructions the assistant was given:\n{instructions}\n",
+            question=question,
+            a=a,
+            b=b,
+        )
+    return JUDGE_PROMPT.format(constraint="", instructions="", question=question, a=a, b=b)
+
+
+def judge_pair_detailed(
+    judge: LLM, question: str, primary: str, shadow: str, instructions: str = ""
+) -> dict:
+    """Judge one pair in both A/B orders.
+
+    Returns ``{outcome, verdicts, flip, unparsed, cost_usd, tokens_in, tokens_out,
+    error}`` where ``outcome`` is ``win``/``loss``/``tie`` for the shadow answer,
+    or ``error`` if a judge call raised (so one transient API failure does not
+    abort a report whose pairs already cost money). Calls run at temperature 0.
+    """
+    info = {
+        "verdicts": [],
+        "raw": [],
+        "unparsed": 0,
+        "cost_usd": 0.0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "flip": False,
+        "error": None,
+    }
+    for a, b in ((primary, shadow), (shadow, primary)):
+        msg = [{"role": "user", "content": _judge_prompt(question, a, b, instructions)}]
+        try:
+            c = judge.complete(msg, **JUDGE_PARAMS)
+        except Exception as exc:  # noqa: BLE001 - recorded, excluded from the tally
+            info["error"] = f"{type(exc).__name__}: {exc}"
+            info["outcome"] = "error"
+            return info
+        info["cost_usd"] += c.cost_usd
+        info["tokens_in"] += c.tokens_in
+        info["tokens_out"] += c.tokens_out
+        info["raw"].append(c.text[:200])
+        v = parse_verdict(c.text)
+        if v is None:
+            info["unparsed"] += 1
+            v = "TIE"
+        info["verdicts"].append(v)
+    shadow_first = {"A": "loss", "B": "win", "TIE": "tie"}[info["verdicts"][0]]
+    shadow_second = {"A": "win", "B": "loss", "TIE": "tie"}[info["verdicts"][1]]
+    info["flip"] = shadow_first != shadow_second
+    info["outcome"] = shadow_first if not info["flip"] else "tie"
+    return info
+
+
+def judge_pair(judge: LLM, question: str, primary: str, shadow: str, instructions: str = "") -> str:
+    """Return ``win``/``loss``/``tie`` (or ``error``) for the shadow answer, order-debiased."""
+    return judge_pair_detailed(judge, question, primary, shadow, instructions)["outcome"]
 
 
 @dataclass
@@ -128,6 +206,7 @@ class SideStats:
     latency_p50_s: float
     latency_p95_s: float
     error_rate: float
+    truncated_rate: float = 0.0
 
 
 @dataclass
@@ -158,6 +237,11 @@ def _question(messages: list[Message]) -> str:
     return next((m["content"] for m in reversed(messages) if m.get("role") == "user"), "")
 
 
+def _instructions(messages: list[Message]) -> str:
+    """System prompt(s) the models saw; the judge needs them to score compliance."""
+    return "\n".join(m["content"] for m in messages if m.get("role") == "system")
+
+
 def _side_stats(sides: list[dict], ok: list[dict], n: int) -> SideStats:
     lat = np.array([s["latency_s"] for s in ok]) if ok else np.zeros(1)
     cost = [s["cost_usd"] for s in ok]
@@ -169,6 +253,9 @@ def _side_stats(sides: list[dict], ok: list[dict], n: int) -> SideStats:
         latency_p50_s=float(np.percentile(lat, 50)),
         latency_p95_s=float(np.percentile(lat, 95)),
         error_rate=sum(1 for s in sides if s.get("error")) / n if n else 0.0,
+        truncated_rate=(
+            sum(1 for s in ok if s.get("finish_reason") == "length") / len(ok) if ok else 0.0
+        ),
     )
 
 
@@ -198,25 +285,49 @@ def build_report(
 
     judge_summary, decided = None, 0
     if judge is not None:
-        tally = {"win": 0, "loss": 0, "tie": 0}
+        tally = {"win": 0, "loss": 0, "tie": 0, "error": 0}
+        flips = unparsed = calls = tin = tout = first_slot = decisive = 0
+        jcost = 0.0
         for s, same, p in rows:
-            outcome = (
-                "tie"
-                if same
-                else judge_pair(
-                    judge, _question(p["messages"]), p["primary"]["text"], p["shadow"]["text"]
+            if same:
+                outcome = "tie"
+            else:
+                d = judge_pair_detailed(
+                    judge,
+                    _question(p["messages"]),
+                    p["primary"]["text"],
+                    p["shadow"]["text"],
+                    _instructions(p["messages"]),
                 )
-            )
+                outcome = d["outcome"]
+                flips += d["flip"]
+                first_slot += d["verdicts"].count("A")
+                decisive += sum(v != "TIE" for v in d["verdicts"])
+                unparsed += d["unparsed"]
+                calls += len(d["verdicts"]) + (1 if d["error"] else 0)
+                jcost += d["cost_usd"]
+                tin += d["tokens_in"]
+                tout += d["tokens_out"]
             tally[outcome] += 1
             p["_judge"] = outcome
         decided = tally["win"] + tally["loss"]
+        judged = len(rows) - tally["error"]
         lo, hi = wilson(tally["win"], decided)
         judge_summary = {
             "model": judge.model,
             **tally,
+            "order_flips": flips,
+            # Share of decisive single-order verdicts that picked slot A; ~0.5 if
+            # the judge has no position bias.
+            "first_slot_rate": first_slot / decisive if decisive else None,
+            "unparsed_verdicts": unparsed,
+            "calls": calls,
+            "tokens_in": tin,
+            "tokens_out": tout,
+            "cost_usd": jcost,
             "win_rate": tally["win"] / decided if decided else 0.5,
             "win_rate_ci95": [lo, hi],
-            "non_loss_rate": (tally["win"] + tally["tie"]) / len(rows),
+            "non_loss_rate": (tally["win"] + tally["tie"]) / judged if judged else 0.0,
         }
 
     cost_delta = (
@@ -237,9 +348,18 @@ def build_report(
     elif cost_delta < 0 and (judge_summary is None or judge_summary["non_loss_rate"] >= 0.9):
         verdict = "PROMOTE"
         reasons.append(f"candidate {abs(cost_delta):.0f}% cheaper at quality parity")
+    elif cost_delta < 0:
+        verdict = "HOLD"
+        reasons.append(
+            f"candidate {abs(cost_delta):.0f}% cheaper, but non-loss rate "
+            f"{judge_summary['non_loss_rate']:.0%} < 90% and the win-rate CI spans 50%; "
+            "collect more pairs"
+        )
     else:
         verdict = "HOLD"
         reasons.append("no significant quality difference and no cost win; collect more pairs")
+    if judge_summary and judge_summary["error"]:
+        reasons.append(f"{judge_summary['error']} pairs not judged (judge call failed)")
     if (
         judge_summary
         and decided
@@ -249,7 +369,11 @@ def build_report(
         reasons.append(f"{judge_summary['loss']} judged losses — review disagreements first")
 
     hist = np.histogram(sim, bins=10, range=(0, 1))[0].tolist()
-    worst = sorted((r for r in rows if not r[1]), key=lambda r: r[0])[:top_k]
+    # Judged losses first (what a reviewer must read), then least similar.
+    rank = {"loss": 0, "win": 1, "error": 2, "tie": 3, None: 3}
+    worst = sorted((r for r in rows if not r[1]), key=lambda r: (rank[r[2].get("_judge")], r[0]))[
+        :top_k
+    ]
     return ShadowReport(
         n_pairs=n,
         n_compared=len(ok),
@@ -310,6 +434,7 @@ def render_markdown(r: ShadowReport) -> str:
         ),
         f"| mean output tokens | {p.mean_tokens_out:.1f} | {s.mean_tokens_out:.1f} | |",
         f"| error rate | {p.error_rate:.1%} | {s.error_rate:.1%} | |",
+        f"| truncated (finish=length) | {p.truncated_rate:.1%} | {s.truncated_rate:.1%} | |",
         "",
         "## Agreement",
         "",
@@ -329,6 +454,20 @@ def render_markdown(r: ShadowReport) -> str:
                 f"(95% CI {j['win_rate_ci95'][0]:.1%}–{j['win_rate_ci95'][1]:.1%})"
             ),
             f"- non-loss rate {j['non_loss_rate']:.1%}",
+            (
+                f"- order flips (verdict changed with A/B order, scored tie) "
+                f"{j.get('order_flips', 0)}; unparsed verdicts {j.get('unparsed_verdicts', 0)}; "
+                f"judge errors {j.get('error', 0)}"
+            ),
+            (
+                "- slot-A share of decisive single-order verdicts "
+                + (
+                    f"{j['first_slot_rate']:.0%} (0.5 = no position bias)"
+                    if j.get("first_slot_rate") is not None
+                    else "n/a"
+                )
+            ),
+            (f"- judge spend: {j.get('calls', 0)} calls, ${j.get('cost_usd', 0.0):.4f}"),
         ]
     if r.disagreements:
         lines += [

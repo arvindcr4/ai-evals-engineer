@@ -1,0 +1,13 @@
+2026-09-14: sampled 80/2000 -> OK | judge 0.975 $0.0068
+2026-09-15: sampled 80/2000 -> OK | judge 0.950 $0.0068
+2026-09-16: sampled 80/2000 -> OK | judge 0.975 $0.0070
+2026-09-17: sampled 80/2000 -> OK | judge 0.950 $0.0068
+2026-09-18: sampled 80/2000 -> OK | judge 0.963 $0.0068
+2026-09-19: sampled 80/2000 -> OK | judge 0.950 $0.0068
+2026-09-20: sampled 80/2000 -> OK | judge 0.925 $0.0068
+2026-09-21: sampled 80/2000 -> 1 critical / 1 warning | judge 0.850 $0.0068
+2026-09-22: sampled 80/2000 -> 3 critical / 2 warning | judge 0.787 $0.0065
+2026-09-23: sampled 80/2000 -> 3 critical / 4 warning | judge 0.762 $0.0065
+2026-09-24: sampled 80/2000 -> 6 critical / 3 warning | judge 0.681 $0.0062
+2026-09-25: sampled 80/2000 -> 8 critical / 1 warning | judge 0.512 $0.0059
+2026-09-26: sampled 80/2000 -> 8 critical / 1 warning | judge 0.500 $0.0063

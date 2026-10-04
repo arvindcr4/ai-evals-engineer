@@ -36,12 +36,16 @@ def _record(a: argparse.Namespace) -> int:
     out = []
     for row in read_jsonl(a.tasks):
         c = record(row["input"], llm, tools, task_id=row["task_id"], max_hops=a.max_hops,
-                   meta={"expected": row.get("expected"), "llm": a.llm, "tools": a.tools})
+                   meta={"expected": row.get("expected"), "llm": a.llm, "tools": a.tools},
+                   temperature=a.temperature)
         out.append(c)
         print(f"{c.task_id:<18} {len(c.nodes):>2} nodes  answer={c.final_answer!s:<10} "
               f"expected={c.expected!s:<10} {_status(_passed(c))}")
     save_cassettes(a.out, out)
-    print(f"wrote {len(out)} cassettes -> {a.out}")
+    passed = sum(_passed(c) is True for c in out)
+    cost = sum(n.cost_usd for c in out for n in c.nodes)
+    print(f"wrote {len(out)} cassettes -> {a.out}  ({passed}/{len(out)} pass, "
+          f"api cost ${cost:.5f})")
     return 0
 
 
@@ -74,11 +78,12 @@ def _replay(a: argparse.Namespace) -> int:
     else:
         sys.exit("give one of --output, --output-json, --with-llm, --with-tools")
     res = Replayer(resolve_llm(a.llm), resolve_tools(a.tools), after=a.after,
-                   max_hops=a.max_hops).replay(c, ov)
+                   max_hops=a.max_hops, temperature=a.temperature).replay(c, ov)
     print(f"[{c.task_id}] original ({_status(_passed(c))}):")
     print(format_nodes(c, mark=a.at))
     print(f"\nreplay with node {a.at} swapped, after={a.after} "
-          f"({_status(_passed(res.replayed))}, {res.live_calls} live calls):")
+          f"({_status(_passed(res.replayed))}, {res.live_calls} live calls, "
+          f"api cost ${res.cost_usd:.5f}):")
     print(format_nodes(res.replayed, mark=a.at))
     if a.out:
         save_cassettes(a.out, [res.replayed])
@@ -89,18 +94,20 @@ def _bisect(a: argparse.Namespace) -> int:
     llm, tools = resolve_llm(a.llm), resolve_tools(a.tools)
     ref = resolve_llm(a.ref_llm) if a.ref_llm else None
     oracle = resolve_tools(a.oracle_tools) if a.oracle_tools else None
-    found = 0
+    found, cost = 0, 0.0
     for c in _pick(a):
         if c.expected is None:
             print(f"{c.task_id}: no expected answer recorded — skipped")
             continue
         r = bisect(c, numeric_checker(c.expected), llm=llm, tools=tools, ref_llm=ref,
-                   oracle_tools=oracle, after=a.after, max_hops=a.max_hops)
+                   oracle_tools=oracle, after=a.after, max_hops=a.max_hops,
+                   temperature=a.temperature)
+        cost += r.cost_usd
         if r.baseline_passed and not a.verbose:
             continue
         print(format_bisect(r))
         found += r.root_cause is not None
-    print(f"\nroot causes isolated: {found}")
+    print(f"\nroot causes isolated: {found}  (api cost ${cost:.5f})")
     return 0
 
 
@@ -114,6 +121,8 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         sp.add_argument("--llm", default="toy", help="agent model (toy, toy:sloppy, or LLM spec)")
         sp.add_argument("--tools", default="toy", help="toolset (toy, toy:stale_fx)")
         sp.add_argument("--max-hops", type=int, default=8)
+        sp.add_argument("--temperature", type=float, default=0.0,
+                        help="sampling temperature for live LLM hops (default 0)")
 
     r = sub.add_parser("record", help="run tasks live and save cassettes")
     r.add_argument("--tasks", required=True, help="JSONL with task_id, input, expected")

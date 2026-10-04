@@ -48,11 +48,16 @@ class GateReport:
         b, c = self.baseline.summary(), self.candidate.summary()
         lines = [REPORT_MARKER, f"## Eval regression gate: **{status}**", "",
                  f"Suite `{self.candidate.suite}` · {c['n_cases']} cases"]
+        bm, cm = self.baseline.meta, self.candidate.meta
+        if any(k in m for m in (bm, cm) for k in ("model", "prompt_sha")):
+            lines += ["", "| Build | Model | Prompt |", "|---|---|---|",
+                      f"| baseline | `{bm.get('model', '—')}` | `{bm.get('prompt_sha', '—')}` |",
+                      f"| candidate | `{cm.get('model', '—')}` | `{cm.get('prompt_sha', '—')}` |"]
         if self.comparison is not None:
             lines += ["", f"> {self.comparison.verdict()}"]
         lines += ["", "| Metric | Baseline | Candidate | Δ | Limit |", "|---|---:|---:|---:|---|",
                   f"| Task success | {b['success_rate']:.1%} | {c['success_rate']:.1%} | "
-                  f"{(c['success_rate'] - b['success_rate']) * 100:+.1f} pts | "
+                  f"{round((c['success_rate'] - b['success_rate']) * 100, 9):+.1f} pts | "
                   f"drop ≤ {self.policy.max_success_drop * 100:.1f} pts"
                   + (" or not significant" if self.policy.require_significance else "") + " |",
                   (f"| Latency p50 | {b['latency_p50_s'] * 1000:.1f} ms | "
@@ -62,11 +67,19 @@ class GateReport:
                   f" | {self.p95_change:+.0%} | rise ≤ {self.policy.max_p95_latency_increase:.0%}"
                   f" (or < {self.policy.min_latency_increase_ms:g} ms) |"),
                   f"| Errors | {b['errors']} | {c['errors']} | {c['errors'] - b['errors']:+d} | — |"]
+        if b.get("cost_usd") or c.get("cost_usd"):
+            bc, cc = b.get("cost_usd", 0.0), c.get("cost_usd", 0.0)
+            lines.append(f"| Cost | ${bc:.4f} | ${cc:.4f} | "
+                         + (f"{(cc - bc) / bc:+.0%}" if bc else "—") + " | — |")
         for name in sorted(set(b["scorer_pass_rates"]) | set(c["scorer_pass_rates"])):
             pb, pc = b["scorer_pass_rates"].get(name), c["scorer_pass_rates"].get(name)
             if pb is None or pc is None:
                 continue
-            lines.append(f"| `{name}` | {pb:.1%} | {pc:.1%} | {(pc - pb) * 100:+.1f} pts | — |")
+            lines.append(f"| `{name}` | {pb:.1%} | {pc:.1%} | {round((pc - pb) * 100, 9):+.1f} pts | — |")
+        if c["errors"] > b["errors"]:
+            lines += ["", (f"> Warning: {c['errors'] - b['errors']} more errored cases than "
+                           "the baseline — check for API/infra failures before reading the "
+                           "drop as a quality regression.")]
         if self.reasons:
             lines += ["", "**Blocking:**"] + [f"- {r}" for r in self.reasons]
         if self.newly_failing:

@@ -1,0 +1,30 @@
+scenario seed=7 noise=120: 130 turns; planted:
+  turn    0 [fact] Please remember that my monthly budget is 4200 dollars.
+  turn   15 [fact] Please remember that my dentist is Dr Mehta.
+  turn   31 [fact] Quick note for later: my home address is 221 Baker Road.
+  turn   46 [fact] Quick note for later: my car is a blue Corolla.
+  turn   62 [fact] Quick note for later: my manager is Grace Okafor.
+  turn   77 [fact] Please remember that my favorite airline is Qantas.
+  turn   78 [update] Correction, my monthly budget is now 3100 dollars.
+  turn   93 [update] Correction, my dentist is now Dr Osei.
+  turn  108 [update] Correction, my home address is now 14 Elm Street.
+  turn  123 [update] Update: my timezone has changed to IST.
+
+summary: recall 0.75, stale 0.00, budget compliance 100%, peak 200 tokens
+  timezone           correct  answer='IST' expected='IST'
+  name               correct  answer='Arvind' expected='Arvind'
+  monthly budget     correct  answer='3100 dollars' expected='3100 dollars'
+  dentist            correct  answer='Dr Osei' expected='Dr Osei'
+  home address       correct  answer='14 Elm Street' expected='14 Elm Street'
+  car                miss     answer='unknown' expected='a blue Corolla'
+  manager            miss     answer='unknown' expected='Grace Okafor'
+  favorite airline   correct  answer='Qantas' expected='Qantas'
+
+context for the last probe:
+  system: You are a helpful personal assistant. User profile: the user's timezone is JST. the user's name is Arvind.
+  memory: The user's favorite airline is Qantas. The user's monthly budget is 3100 dollars. The user's dentist is Dr Osei. The user's home address is 14 Elm Street. The user's timezone is IST. The user's interests include jazz history, film photography, solar panels, chess openings, sourdough starters, tide pools, Roman aqueducts, marathon training, origami cranes, bird migration, mechanical keyboards, medieval maps, houseplant lighting, espresso extraction, volcanic soil, and urban beekeeping. The user's colleague's car is a white Golf.
+  user: My sister asked how people usually pick a manager and I had no answer.
+  assistant: Sure. Volcanic soil is well documented, and it shares some ideas with houseplant lighting. Start small, keep notes, and revisit tide pools later.
+  user: I spent the weekend on volcanic soil and marathon training; any tips before I dive into mechanical keyboards next?
+  assistant: Good question. Most guides on volcanic soil skip the basics of solar panels, which is hotly debated. I would compare a few sources first.
+llm usage: reader deepseek-flash: 8 calls, 2580+17 tok, $0.0008; summarizer deepseek-flash: 49 calls, 13059+5333 tok, $0.0103; total $0.0111

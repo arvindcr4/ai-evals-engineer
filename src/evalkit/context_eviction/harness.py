@@ -13,11 +13,13 @@ so scores measure exactly what the memory kept, not reader quality.
 from __future__ import annotations
 
 import re
-from dataclasses import asdict, dataclass
+import threading
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import asdict, dataclass, field
 
 from evalkit.context_eviction.memory import FACT_RE, Memory, make_memory
 from evalkit.context_eviction.scenario import Probe, Scenario, generate
-from evalkit.core.llm import LLM, Message, MockLLM
+from evalkit.core.llm import LLM, Completion, Message, MockLLM
 
 READER_PROMPT = """Answer the question using only the assistant's memory below.
 If a fact was updated, answer with the latest value. If the memory does not
@@ -39,21 +41,73 @@ def extractive_reader(messages: list[Message]) -> str:
     if not q:
         return "unknown"
     memory = prompt.split("MEMORY:", 1)[-1].split("QUESTION:", 1)[0]
-    values = [v.strip() for a, v in FACT_RE.findall(memory) if a == q.group(1)]
+    values = [v.strip() for a, v in FACT_RE.findall(memory)
+              if a.lower() == q.group(1).lower()]
     return values[-1] if values else "unknown"
 
 
+_ARTICLES = frozenset({"a", "an", "the"})
+
+
 def _norm(s: str) -> str:
-    return " ".join(re.findall(r"[a-z0-9]+", s.lower()))
+    """Lowercase alphanumeric words with articles dropped.
+
+    Real readers trim or add articles ("blue Corolla" for "a blue Corolla",
+    "The 14 Elm Street"), which must not turn a right answer into a miss.
+    """
+    return " ".join(w for w in re.findall(r"[a-z0-9]+", s.lower()) if w not in _ARTICLES)
 
 
 def classify(answer: str, probe: Probe) -> str:
+    """correct (current value) > stale (a superseded value) > miss.
+
+    A hedge that names both values ("3100 dollars, previously 4200 dollars")
+    counts as correct: the current value is stated as the answer.
+    """
     a = f" {_norm(answer)} "
     if f" {_norm(probe.current)} " in a:
         return "correct"
     if any(f" {_norm(v)} " in a for v in probe.stale):
         return "stale"
     return "miss"
+
+
+@dataclass
+class CostMeter:
+    """Thread-safe LLM wrapper that totals calls, tokens and ``cost_usd``."""
+
+    llm: LLM
+    calls: int = 0
+    tokens_in: int = 0
+    tokens_out: int = 0
+    cost_usd: float = 0.0
+    _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+
+    @property
+    def model(self) -> str:
+        return self.llm.model
+
+    def complete(self, messages: list[Message], **kwargs) -> Completion:
+        c = self.llm.complete(messages, **kwargs)
+        with self._lock:
+            self.calls += 1
+            self.tokens_in += c.tokens_in
+            self.tokens_out += c.tokens_out
+            self.cost_usd += c.cost_usd
+        return c
+
+    def to_dict(self) -> dict:
+        return {"model": self.model, "calls": self.calls, "tokens_in": self.tokens_in,
+                "tokens_out": self.tokens_out, "cost_usd": round(self.cost_usd, 6)}
+
+
+def clean_answer(text: str) -> str:
+    """Collapse a reader reply to one line: strip fences, an ``ANSWER:`` echo, quotes."""
+    lines = [x.strip() for x in text.strip().splitlines()
+             if x.strip() and not x.strip().startswith("```")]
+    ans = " ".join(lines)
+    ans = re.sub(r"^\**answer\**\s*:\s*", "", ans, flags=re.IGNORECASE)
+    return ans.strip().strip("\"'`*").strip()
 
 
 @dataclass
@@ -103,7 +157,8 @@ def run_scenario(scenario: Scenario, memory: Memory, reader: LLM) -> tuple[RunRe
         tok = sum(len(x.split()) for x in ctx)
         peak, checks, ok = max(peak, tok), checks + 1, ok + (tok <= memory.budget)
         prompt = READER_PROMPT.format(memory="\n".join(ctx), question=p.question)
-        ans = reader.complete([{"role": "user", "content": prompt}]).text.strip()
+        ans = clean_answer(reader.complete([{"role": "user", "content": prompt}],
+                                           temperature=0).text)
         verdict = classify(ans, p)
         counts[verdict] += 1
         pinned_ok += p.pinned and verdict == "correct"
@@ -161,23 +216,36 @@ def default_reader() -> LLM:
 def sweep(strategies: list[str], noise_levels: list[int], *, budget: int = 400, trials: int = 3,
           seed: int = 0, reader: LLM | None = None, summarizer: LLM | None = None,
           n_facts: int = 6, n_updates: int = 3, pinned_updates: int = 1,
-          hard_noise: float = 0.1) -> list[Cell]:
-    """Grid of strategy × noise; every strategy sees the same scenarios (paired comparison)."""
+          hard_noise: float = 0.1, workers: int = 1) -> list[Cell]:
+    """Grid of strategy × noise; every strategy sees the same scenarios (paired comparison).
+
+    ``workers`` > 1 runs (strategy, scenario) jobs in threads — real APIs are
+    latency-bound and a summary run is a long chain of sequential calls. Each
+    job owns its memory, so results do not depend on the worker count.
+    """
     reader = reader or default_reader()
-    cells: list[Cell] = []
+    jobs: list[tuple[int, str, Scenario]] = []
     for noise in noise_levels:
         scenarios = [generate(noise, n_facts=n_facts, n_updates=n_updates,
                               pinned_updates=pinned_updates,
                               seed=seed + 7919 * t + noise, hard_noise=hard_noise)
                      for t in range(trials)]
-        for name in strategies:
-            results = []
-            for sc in scenarios:
-                mem = make_memory(name, sc.system, budget,
-                                  llm=summarizer if name == "summary" else None)
-                results.append(run_scenario(sc, mem, reader)[0])
-            cells.append(_aggregate(results))
-    return cells
+        jobs += [(noise, name, sc) for name in strategies for sc in scenarios]
+
+    def one(job: tuple[int, str, Scenario]) -> RunResult:
+        _, name, sc = job
+        mem = make_memory(name, sc.system, budget, llm=summarizer if name == "summary" else None)
+        return run_scenario(sc, mem, reader)[0]
+
+    if workers > 1:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            results = list(ex.map(one, jobs))
+    else:
+        results = [one(j) for j in jobs]
+    grouped: dict[tuple[int, str], list[RunResult]] = {}
+    for (noise, name, _), r in zip(jobs, results):
+        grouped.setdefault((noise, name), []).append(r)
+    return [_aggregate(rs) for rs in grouped.values()]
 
 
 _BARS = " ▁▂▃▄▅▆▇█"

@@ -31,9 +31,12 @@ STOPWORDS = frozenset(
         "to", "was", "what", "with", "you", "your", "can", "now",
     }
 )
+# Case-insensitive: real summarizers write "The user's manager is ..." with a
+# capital T; attributes are compared lower-cased by the extractive components.
 FACT_RE = re.compile(
     r"\b(?:my|the user's) ([a-z][a-z ]{1,30}?) (?:is now|has changed to|changed to|is) "
-    r"([^.?!\n]+)[.?!]"
+    r"([^.?!\n]+)[.?!]",
+    re.IGNORECASE,
 )
 
 
@@ -139,9 +142,67 @@ def extractive_summarizer(messages: list[Message]) -> str:
     body = prompt.split("PREVIOUS NOTES:", 1)[-1]
     facts: dict[str, str] = {}
     for attr, value in FACT_RE.findall(body):
+        attr = attr.lower()
         facts.pop(attr, None)
         facts[attr] = value.strip()
     return " ".join(f"the user's {a} is {v}." for a, v in facts.items())
+
+
+_FENCE = re.compile(r"^```[a-zA-Z]*\s*$")
+_LABEL = re.compile(
+    r"^\s*\**(?:updated notes|notes|memory)(?:\s*:\s*\**|\**\s*:)\s*", re.IGNORECASE
+)
+_BULLET = re.compile(r"^\s*(?:[-*\u2022]|\d+[.)])\s+")
+_SENT = re.compile(r"(?<=[.!?])\s+")
+
+
+def clean_summary(text: str) -> str:
+    """Normalise a real model's notes into one line of sentences.
+
+    Chat models wrap notes in code fences, echo the ``UPDATED NOTES:`` label,
+    or emit bullet lists without full stops; strip all of that so the notes
+    render as one ``memory:`` line and split cleanly into sentences.
+    """
+    out = []
+    for raw in text.strip().splitlines():
+        line = raw.strip()
+        if not line or _FENCE.match(line):
+            continue
+        line = _BULLET.sub("", _LABEL.sub("", line)).strip()
+        if not line:
+            continue
+        if line[-1] not in ".!?":
+            line += "."
+        out.append(line)
+    return " ".join(out)
+
+
+def cap_summary(text: str, cap: int) -> str:
+    """Fit notes into ``cap`` whitespace tokens, dropping whole sentences.
+
+    Real summarizers routinely ignore the word limit and pad the notes with
+    small talk ("the user's interests are ..."). Cutting the oldest *words*
+    then silently deletes the oldest facts while the filler survives, and the
+    loss is permanent because the next merge only sees the cut notes. Instead
+    drop non-fact sentences first (oldest first), then the oldest fact
+    sentences; only a single over-long sentence is cut word-wise.
+    """
+    if count_tokens(text) <= cap:
+        return text
+    sents = [x for x in _SENT.split(text) if x.strip()]
+    is_fact = [bool(FACT_RE.search(x if x[-1] in ".!?" else x + ".")) for x in sents]
+    keep = list(range(len(sents)))
+    used = sum(count_tokens(x) for x in sents)
+    for drop_facts in (False, True):
+        for i in list(keep):
+            if used <= cap or len(keep) == 1:
+                break
+            if is_fact[i] == drop_facts:
+                keep.remove(i)
+                used -= count_tokens(sents[i])
+    out = " ".join(sents[i] for i in keep)
+    words = out.split()
+    return " ".join(words[-cap:]) if len(words) > cap else out
 
 
 class SummaryMemory(Memory):
@@ -169,11 +230,9 @@ class SummaryMemory(Memory):
             prompt = SUMMARY_PROMPT.format(limit=self.summary_cap,
                                            previous=self.summary or "(none)",
                                            turns="\n".join(chunk))
-            self.summary = self.llm.complete([{"role": "user", "content": prompt}]).text.strip()
+            reply = self.llm.complete([{"role": "user", "content": prompt}], temperature=0)
             self.llm_calls += 1
-            words = self.summary.split()
-            if len(words) > self.summary_cap:  # model ignored the limit: keep the newest notes
-                self.summary = " ".join(words[-self.summary_cap:])
+            self.summary = cap_summary(clean_summary(reply.text), self.summary_cap)
 
 
 class HashingEmbedder:

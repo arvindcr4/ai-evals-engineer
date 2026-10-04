@@ -55,8 +55,9 @@ reason and the training doc id(s) responsible.
   hook for real embeddings via any OpenAI-compatible `/embeddings` endpoint
   (`--embedder openai:text-embedding-3-small` or `--embedder 'http://host/v1|bge-m3'`).
 - **Calibrated thresholds**: cosine thresholds come from the embedder unless set:
-  lexical hashed vectors score paraphrases ≈0.45 against ≤0.27 for same-topic
-  distractors (suspicious 0.40 / contaminated 0.80); neural embedders default to
+  lexical hashed vectors score the demo's hand-written paraphrases ≈0.45 against
+  ≤0.27 for its hand-written same-topic distractors (suspicious 0.40 / contaminated
+  0.80; model-written same-topic text reaches 0.73, see the real-model run below); neural embedders default to
   0.85 / 0.95. Other defaults: n-gram overlap ≥ 50% → contaminated, any 13-gram
   hit → suspicious; containment ≥ 0.8 → contaminated, ≥ 0.5 → suspicious.
 - **Streaming and memory**: records are read lazily (JSONL with configurable
@@ -173,18 +174,171 @@ accuracy, containment math, LSH recall/precision, embedder ranking and the
 `/embeddings` hook via a fake transport, each detector's catch/miss behaviour,
 thresholds, index round-trip and scan-time overrides, decontaminate drop/flag,
 judge upgrade/reject, and the CLI end-to-end including the `--fail-on` gate),
-plus `tests/test_contamination_adversarial.py` (11 regressions: OpenAI-style
+plus `tests/test_contamination_real.py` (23 real-model regressions: judge verdict
+parsing, judge cost accounting, judge API failures, leak-generation JSON extraction
+and retry, recall scoring and the `leaktest` CLI), and
+`tests/test_contamination_adversarial.py` (11 regressions: OpenAI-style
 content-part messages, non-object JSONL rows, non-contiguous span inflation,
 uncapped doc counts, degenerate configs, empty eval set, blocked embedding
 similarity, and refusing to decontaminate a corpus onto itself).
+
+## Real-model run (DeepSeek, Oct 2026)
+
+**What `--llm` does here.** The scanner itself never calls a model; `--llm` only
+adjudicates *suspicious* items (`judge.py`). There are no embeddings at DeepSeek,
+so the embedding detector stays on the hashed lexical embedder. To measure
+detector recall on *real* paraphrases instead of the 2 hand-written ones, a new
+`evalkit contamination leaktest` subcommand (`leakgen.py`) has the model write,
+for every eval item, five documents (`light_edit`, `paraphrase`,
+`heavy_paraphrase`, `answer_only`, and a same-topic `negative` that should not
+leak), adds a locally built `verbatim` copy as a positive control, scans one
+corpus per kind, runs the judge exactly as `scan --llm` does, and also asks the
+judge about every (item, document) pair directly.
+
+Command (`examples/14-contamination-checker/real_run.sh`, outputs in `out/real/`,
+committed excerpts in `real_output/`):
+
+```bash
+# from the repo root; EX=examples/14-contamination-checker, OUT=$EX/out/real
+set -a; source ~/TradingAgents/.env; set +a
+uv run --no-sync evalkit contamination index --eval $EX/eval.jsonl --out $OUT/index.json
+uv run --no-sync evalkit contamination scan --index $OUT/index.json \
+  --train $EX/train.jsonl --out $OUT/scan-judged --llm deepseek:deepseek-flash
+uv run --no-sync evalkit contamination leaktest --eval $EX/eval.jsonl --synth 28 \
+  --llm deepseek:deepseek-flash --judge deepseek:deepseek-flash --out $OUT/leaktest --reuse
+# threshold probe on the SAME items and leaks (REAL_RUN_PROBE=1 in real_run.sh):
+uv run --no-sync evalkit contamination leaktest --eval $OUT/leaktest/eval.jsonl \
+  --leaks $OUT/leaktest/leaks.jsonl --llm deepseek:deepseek-flash \
+  --judge deepseek:deepseek-flash --cosine-suspicious 0.25 --out $OUT/leaktest-cos025
+```
+
+`real_output/` holds the full items (`leaktest.eval.jsonl`) and leaks
+(`leaktest.leaks.jsonl`), so every detector column below can be recomputed offline
+for free: pass `--llm mock` and leave out `--judge`. The judge columns
+are in `leaktest*.summary.json`. The per-item pipeline verdicts on non-leaks, and
+on leaks the judge did not upgrade, are in `pipeline-judge-verdicts.json`.
+
+- Models: `deepseek-flash` (thinking off, temperature 0) as leak writer, eval-item
+  writer (`--synth 28`) and judge. The judge is the same model that wrote the
+  leaks, so the judge columns are optimistic; no second model family was used.
+- Sample: 40 eval items (the 12 demo items + 28 model-written ones in
+  `real_output/leaktest.eval.jsonl`) x 6 kinds = 240 documents. Small: one leak
+  per item per kind, so every percentage below has a +/- ~10-15 pt interval.
+- Total API spend for this system: **about $0.11**. Recorded in saved files:
+  demo judge $0.0003 (`scan-judged.report.md`), the re-score $0.0303
+  (`leaktest.recall.md`, 341 calls) and the 0.25 threshold probe $0.0340
+  (`leaktest-cos025.recall.md`, 381 calls), $0.065 in all. Not in any saved file
+  (the re-score overwrote that run's `recall.*`), so taken from the console:
+  the first generation + scoring run, $0.044, and a 3-item smoke run plus two
+  format probes, about $0.004. The $0.044 is plausible: about $0.02 of generation
+  (about 16k output tokens in `leaktest.leaks.jsonl`) plus about $0.03 of judging,
+  the same as the re-score.
+
+**Demo corpus with the real judge** (`real_output/scan-judged.report.md`):
+
+```
+judge deepseek-flash: 4 call(s), 4 YES / 0 NO / 0 unparsed / 0 error(s), $0.0003
+12 eval items: 8 contaminated, 0 suspicious, 4 clean (by method: {'ngram': 4, 'minhash': 4, 'embedding': 8, 'judge': 4})
+```
+
+All four suspicious items (q04/q05 paraphrases, q06 answer quoted, q12 short fact)
+were upgraded, each with a correct one-sentence reason ("The passage explicitly
+states 'the capital of peru is lima'..."). The offline overlap mock upgraded
+three and kept q04 (a real paraphrase) as suspicious, so the real judge is
+strictly better on this corpus; the clean items never reach the judge.
+
+**Leak recall** (`real_output/leaktest.recall.md`, default thresholds):
+
+| kind | items | any detector | contaminated | n-gram | MinHash | embedding | own-doc cosine min / median / max | scan + judge -> contaminated | judge YES on every pair |
+|---|---|---|---|---|---|---|---|---|---|
+| verbatim | 40 | 100% | 100% | 98% | 100% | 100% | 0.52 / 0.90 / 0.93 | 100% | 100% (40/40) |
+| light_edit | 40 | 100% | 57% | 50% | 70% | 100% | 0.40 / 0.81 / 0.96 | 100% | 100% (40/40) |
+| paraphrase | 40 | 98% | 12% | 0% | 0% | 98% | 0.39 / 0.65 / 0.85 | 98% | 100% (40/40) |
+| heavy_paraphrase | 40 | 28% | 0% | 0% | 0% | 28% | 0.07 / 0.31 / 0.72 | 28% | 98% (39/40) |
+| answer_only | 40 | 95% | 28% | 10% | 8% | 95% | 0.31 / 0.67 / 0.95 | 95% | 98% (39/40) |
+| negative | 40 | 28% | 0% | 0% | 0% | 28% | 0.07 / 0.32 / 0.73 | 2% | 2% (1/40) |
+
+Same leaks with `--cosine-suspicious 0.25` (`real_output/leaktest-cos025.recall.md`):
+
+| kind | any detector | scan + judge -> contaminated |
+|---|---|---|
+| paraphrase | 100% | 100% |
+| heavy_paraphrase | 72% | 70% |
+| answer_only | 100% | 100% |
+| negative | 70% | 8% (3/40) |
+
+What the real model revealed, compared with the offline mock and the hand-planted demo:
+
+- **The detector story holds for ordinary paraphrases.** n-gram and MinHash catch
+  0% of model-written paraphrases; the hashed embedder flags 98%, as the demo's two
+  hand-written paraphrases suggested. n-gram alone misses half of the light edits.
+- **Heavy paraphrases defeat every detector.** Prose restatements with fresh
+  vocabulary ("twenty minutes to ten", "seventy-eight kilometres per hour") score a
+  median cosine of 0.31, the same as same-topic non-leaks (0.32). No cosine
+  threshold separates them: the documented calibration "paraphrases ~0.45 vs <=0.27
+  for same-topic distractors" came from hand-picked examples and does not hold for
+  model-written same-topic text (negatives reach 0.73). The default bar flags 28% of
+  heavy paraphrases and 28% of non-leaks alike.
+- **The judge supplies the precision, the embedder caps the recall.** The judge says
+  YES to 98-100% of every leak kind and to 1/40 non-leaks, so scan + judge keeps
+  only 1 of 11 suspicious non-leaks. Because only suspicious items reach the judge,
+  end-to-end recall on heavy paraphrases is the embedder's 28%. Lowering
+  `--cosine-suspicious` to 0.25 sends 70% of non-leaks to the judge (141 instead
+  of 101 pipeline judge calls) and lifts heavy-paraphrase recall to 70%, with 8%
+  of negatives flagged at the end. Only part of the rise from 2% to 8% comes from the threshold.
+  s04 reached the judge only at 0.25. s13 was already suspicious at the default
+  bar (same cosine, 0.44), but the judge said NO in the default run and YES in the
+  probe.
+- **The "false positives" were mostly mislabeled, but the judge is not consistent
+  on them.** The three negatives convicted in the probe each give away part or all
+  of the answer, so the generator broke its own "do not reveal the answer" rule. s24
+  names Marbury v. Madison. s04 says Marshall Plan aid went to Western Europe, but
+  not its purpose. s13 names Washington and 1789, but leaves the link between them
+  implicit. Only s24 is a clear-cut leak. The same judge answered NO on the
+  full s04 and s13 documents in the pairwise pass of both runs (1/40 negatives YES).
+  For s13 in the default run it even claimed the passage does not "give the year
+  1789", which it does. So read the 8% as 1 clear leak + 2 borderline cases on
+  which the judge flips, not as 3 judge-confirmed leaks. Its NO verdicts on leaks
+  (pairwise s20 heavy_paraphrase and s15 answer_only in the re-score, and s20 + s23
+  heavy_paraphrase in the probe; pipeline s23 in the probe) were borderline "general
+  explanation, not the item" cases.
+- **Not deterministic at temperature 0.** Two saved runs judged the same 240
+  pairs: the re-score (`leaktest.summary.json`) and the probe
+  (`leaktest-cos025.summary.json`). Between them, 2 pairwise verdicts flipped:
+  heavy_paraphrase s23 went YES -> NO (39 -> 38/40), and answer_only s15 went
+  NO -> YES (39 -> 40/40). The pipeline verdict on negative s13 also flipped, as
+  above. The first, unsaved run had shown heavy_paraphrase 38/40 and answer_only
+  40/40. Report judge numbers as +/- a couple of items.
+- **Output format.** deepseek-flash started every judge reply with a bare `YES`
+  or `NO`: 0 unparsed across the 726 judge calls in saved files (4 demo + 341
+  re-score + 381 probe; 101 + 141 pipeline replies in `pipeline-judge-verdicts.json`
+  and the summaries). Generation returned plain JSON (no fences) with 0 failures
+  (all 200 model-written documents are present in `leaktest.leaks.jsonl`). The
+  parsing fixes below are hardening for other models.
+
+Code changes from the real run (each with a regression in `tests/test_contamination_real.py`):
+
+1. Judge verdict parsing only accepted a bare first-line `YES`; `**YES**`,
+   `Verdict: NO`, fenced or trailing verdicts were silently treated as NO. Now
+   `parse_verdict` handles them and an unreadable reply is counted as `unparsed`
+   and left suspicious with a note.
+2. The judge spent money with no record of it. `report.json` now carries
+   `judge_usage` (calls, tokens, USD, YES/NO/unparsed/error counts), shown in
+   `report.md` and on the CLI.
+3. One failed judge call (timeout after retries, 4xx) aborted the whole scan with no
+   report written. Errors are now recorded per item and the scan completes.
+4. New `leaktest` (generation with fenced/prose-tolerant JSON extraction and one
+   repair retry, per-kind recall, pipeline and pairwise judge scoring).
 
 ## Limitations
 
 - The hashed embedder is lexical: it finds paraphrases that reuse content
   words (and morphological variants via char n-grams) but not translations or
-  restatements with fresh vocabulary. Use `--embedder` with a real model for
+  restatements with fresh vocabulary (28% recall on model-written heavy
+  paraphrases in the real run above, indistinguishable from same-topic text). Use `--embedder` with a real model for
   that, and recalibrate `--cosine*` on a sample of known leaks/non-leaks.
-- Cosine thresholds for the hashed embedder were calibrated on small examples;
+- Cosine thresholds for the hashed embedder were calibrated on small examples
+  (the real run found same-topic non-leaks up to 0.73, median 0.32);
   same-topic corpora (e.g. a medical eval vs a medical corpus) raise the
   background and need a higher `--cosine-suspicious`.
 - MinHash estimates have sampling noise (±~0.05 at 128 permutations); items

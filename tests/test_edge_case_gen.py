@@ -161,7 +161,7 @@ def test_validator_rejects_copies_duplicates_and_unknown_fields(spec):
         EdgeCase(input=dict(seed), axis="boundary", category="min"),
         EdgeCase(input={**seed, "amount": 999}, axis="boundary", category="max"),
         EdgeCase(input={**seed, "amount": 999}, axis="format", category="casing"),
-        EdgeCase(input=near, axis="format", category="emoji"),
+        EdgeCase(input=near, axis="format", category="typos"),
         EdgeCase(input={**seed, "bogus": 1}, axis="boundary", category="null"),
         EdgeCase(input={**seed, "amount": 0}, axis="boundary", category="below_min"),
     ]
@@ -190,7 +190,7 @@ def test_propose_labels_schema_oracle_and_review_flags(spec):
     s0 = spec.seeds[0]
     cases = [
         EdgeCase(input={**s0, "amount": 0}, axis="boundary", category="below_min"),
-        EdgeCase(input={**s0, "message": "Send it"}, axis="format", category="casing"),
+        EdgeCase(input={**s0, "message": "Send it"}, axis="format", category="typos"),
         EdgeCase(input={**s0, "message": "Send it maybe?"}, axis="semantic",
                  category="ambiguous"),
     ]

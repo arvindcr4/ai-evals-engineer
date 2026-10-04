@@ -1,0 +1,136 @@
+[widgets-eur-3] What do 3 widgets cost in EUR?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "widget"}
+    1 tool live     lookup_price lookup_price({"item": "widget"}) -> 4.25
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "EUR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "EUR"}) -> 1.087
+    4 llm  live     deepseek-flash CALL calc {"expr": "3 * 4.25 / 1.087"}
+    5 tool live     calc         calc({"expr": "3 * 4.25 / 1.087"}) -> 11.7295
+    6 llm  live     deepseek-flash FINAL 11.73
+   final answer: 11.73
+[widgets-gbp-2] How much are 2 widgets in GBP?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "widget"}
+    1 tool live     lookup_price lookup_price({"item": "widget"}) -> 4.25
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "GBP"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "GBP"}) -> 1.2658
+    4 llm  live     deepseek-flash CALL calc {"expr": "2 * 4.25 / 1.2658"}
+    5 tool live     calc         calc({"expr": "2 * 4.25 / 1.2658"}) -> 6.7151
+    6 llm  live     deepseek-flash FINAL 6.72
+   final answer: 6.72
+[widgets-inr-4] I want to buy 4 widgets. What is the total in INR?  (FAIL)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "widget"}
+    1 tool live     lookup_price lookup_price({"item": "widget"}) -> 4.25
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "INR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "INR"}) -> 0.012
+    4 llm  live     deepseek-flash CALL calc {"expr": "4 * 4.25 / 0.012"}
+    5 tool live     calc         calc({"expr": "4 * 4.25 / 0.012"}) -> 1416.6667
+    6 llm  live     deepseek-flash FINAL 1416.67
+   final answer: 1416.67
+[widgets-usd-10] Price of 10 widgets, in USD please.  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "widget"}
+    1 tool live     lookup_price lookup_price({"item": "widget"}) -> 4.25
+    2 llm  live     deepseek-flash CALL calc {"expr": "10 * 4.25"}
+    3 tool live     calc         calc({"expr": "10 * 4.25"}) -> 42.5
+    4 llm  live     deepseek-flash FINAL 42.50
+   final answer: 42.50
+[gadgets-eur-7] How much are 7 gadgets in EUR?  (FAIL)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gadget"}
+    1 tool live     lookup_price lookup_price({"item": "gadget"}) -> 12.0
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "EUR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "EUR"}) -> 1.087
+    4 llm  live     deepseek-flash CALL calc {"expr": "7 * 12.0 * 1.087"}
+    5 tool live     calc         calc({"expr": "7 * 12.0 * 1.087"}) -> 91.308
+    6 llm  live     deepseek-flash FINAL 91.31
+   final answer: 91.31
+[gadgets-gbp-12] I want to buy 12 gadgets. What is the total in GBP?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gadget"}
+    1 tool live     lookup_price lookup_price({"item": "gadget"}) -> 12.0
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "GBP"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "GBP"}) -> 1.2658
+    4 llm  live     deepseek-flash CALL calc {"expr": "12 * 12.0 / 1.2658"}
+    5 tool live     calc         calc({"expr": "12 * 12.0 / 1.2658"}) -> 113.762
+    6 llm  live     deepseek-flash FINAL 113.76
+   final answer: 113.76
+[gadgets-inr-5] Price of 5 gadgets, in INR please.  (FAIL)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gadget"}
+    1 tool live     lookup_price lookup_price({"item": "gadget"}) -> 12.0
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "INR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "INR"}) -> 0.012
+    4 llm  live     deepseek-flash CALL calc {"expr": "5 * 12.0 / 0.012"}
+    5 tool live     calc         calc({"expr": "5 * 12.0 / 0.012"}) -> 5000.0
+    6 llm  live     deepseek-flash FINAL 5000.00
+   final answer: 5000.00
+[gadgets-usd-9] What do 9 gadgets cost in USD?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gadget"}
+    1 tool live     lookup_price lookup_price({"item": "gadget"}) -> 12.0
+    2 llm  live     deepseek-flash CALL calc {"expr": "9 * 12.0"}
+    3 tool live     calc         calc({"expr": "9 * 12.0"}) -> 108.0
+    4 llm  live     deepseek-flash FINAL 108.00
+   final answer: 108.00
+[gizmos-eur-1] I want to buy 1 gizmos. What is the total in EUR?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gizmos"}
+    1 tool live     lookup_price lookup_price({"item": "gizmos"}) -> 7.5
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "EUR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "EUR"}) -> 1.087
+    4 llm  live     deepseek-flash CALL calc {"expr": "7.5 / 1.087"}
+    5 tool live     calc         calc({"expr": "7.5 / 1.087"}) -> 6.8997
+    6 llm  live     deepseek-flash FINAL 6.90
+   final answer: 6.90
+[gizmos-gbp-6] Price of 6 gizmos, in GBP please.  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gizmo"}
+    1 tool live     lookup_price lookup_price({"item": "gizmo"}) -> 7.5
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "GBP"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "GBP"}) -> 1.2658
+    4 llm  live     deepseek-flash CALL calc {"expr": "6 * 7.5 / 1.2658"}
+    5 tool live     calc         calc({"expr": "6 * 7.5 / 1.2658"}) -> 35.5506
+    6 llm  live     deepseek-flash FINAL 35.55
+   final answer: 35.55
+[gizmos-inr-11] What do 11 gizmos cost in INR?  (FAIL)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gizmo"}
+    1 tool live     lookup_price lookup_price({"item": "gizmo"}) -> 7.5
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "INR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "INR"}) -> 0.012
+    4 llm  live     deepseek-flash CALL calc {"expr": "11 * 7.5 / 0.012"}
+    5 tool live     calc         calc({"expr": "11 * 7.5 / 0.012"}) -> 6875.0
+    6 llm  live     deepseek-flash FINAL 6875.00
+   final answer: 6875.00
+[gizmos-usd-8] How much are 8 gizmos in USD?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "gizmo"}
+    1 tool live     lookup_price lookup_price({"item": "gizmo"}) -> 7.5
+    2 llm  live     deepseek-flash CALL calc {"expr": "8 * 7.5"}
+    3 tool live     calc         calc({"expr": "8 * 7.5"}) -> 60.0
+    4 llm  live     deepseek-flash FINAL 60.00
+   final answer: 60.00
+[sprockets-eur-15] Price of 15 sprockets, in EUR please.  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "sprocket"}
+    1 tool live     lookup_price lookup_price({"item": "sprocket"}) -> 0.8
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "EUR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "EUR"}) -> 1.087
+    4 llm  live     deepseek-flash CALL calc {"expr": "15 * 0.8 / 1.087"}
+    5 tool live     calc         calc({"expr": "15 * 0.8 / 1.087"}) -> 11.0396
+    6 llm  live     deepseek-flash FINAL 11.04
+   final answer: 11.04
+[sprockets-gbp-13] What do 13 sprockets cost in GBP?  (FAIL)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "sprocket"}
+    1 tool live     lookup_price lookup_price({"item": "sprocket"}) -> 0.8
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "GBP"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "GBP"}) -> 1.2658
+    4 llm  live     deepseek-flash CALL calc {"expr": "13 * 0.8 * 1.2658"}
+    5 tool live     calc         calc({"expr": "13 * 0.8 * 1.2658"}) -> 13.1643
+    6 llm  live     deepseek-flash FINAL 13.16
+   final answer: 13.16
+[sprockets-inr-20] How much are 20 sprockets in INR?  (FAIL)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "sprockets"}
+    1 tool live     lookup_price lookup_price({"item": "sprockets"}) -> 0.8
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "INR"}
+    3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "INR"}) -> 0.012
+    4 llm  live     deepseek-flash CALL calc {"expr": "20 * 0.8 / 0.012"}
+    5 tool live     calc         calc({"expr": "20 * 0.8 / 0.012"}) -> 1333.3333
+    6 llm  live     deepseek-flash FINAL 1333.33
+   final answer: 1333.33
+[sprockets-usd-25] I want to buy 25 sprockets. What is the total in USD?  (PASS)
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "sprockets"}
+    1 tool live     lookup_price lookup_price({"item": "sprockets"}) -> 0.8
+    2 llm  live     deepseek-flash CALL calc {"expr": "25 * 0.8"}
+    3 tool live     calc         calc({"expr": "25 * 0.8"}) -> 20.0
+    4 llm  live     deepseek-flash FINAL 20.00
+   final answer: 20.00

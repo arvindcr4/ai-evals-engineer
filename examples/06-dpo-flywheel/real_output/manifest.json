@@ -1,0 +1,114 @@
+{
+  "created": "2026-10-04T14:26:48+00:00",
+  "events": {
+    "total": 32,
+    "down": 25,
+    "up": 7
+  },
+  "pairs_raw": 25,
+  "pairs_kept": 21,
+  "unpaired": {},
+  "by_strategy_raw": {
+    "correction": 12,
+    "similar_up": 7,
+    "teacher": 6
+  },
+  "by_strategy_kept": {
+    "correction": 8,
+    "similar_up": 7,
+    "teacher": 6
+  },
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1
+  },
+  "pii_redactions": {
+    "email": 1,
+    "card": 1,
+    "phone": 1
+  },
+  "data_sha256": "d781bf943c4795acea63e10dca8f44ce076c3b962ede124d7ac611e2d9b6f9c8",
+  "filters": {
+    "min_chosen_words": 3,
+    "max_chosen_words": 800,
+    "max_prompt_words": 2000,
+    "min_margin": 1.0,
+    "trust_corrections": true,
+    "near_dup_threshold": 0.85,
+    "scrub_pii": true,
+    "drop_refusal_chosen": true,
+    "drop_context_leaks": true
+  },
+  "golden_items": 3,
+  "judge": "LLMJudge",
+  "judge_model": "deepseek-flash",
+  "judge_parse_failures": 0,
+  "teacher": "deepseek-v4-pro",
+  "margins_raw": {
+    "correction": {
+      "n": 12,
+      "min": 0.0,
+      "median": 6.0,
+      "mean": 5.5,
+      "max": 7.0
+    },
+    "similar_up": {
+      "n": 7,
+      "min": 4.0,
+      "median": 7.0,
+      "mean": 6.143,
+      "max": 7.0
+    },
+    "teacher": {
+      "n": 6,
+      "min": 6.0,
+      "median": 6.5,
+      "mean": 6.833,
+      "max": 8.0
+    }
+  },
+  "margins_kept": {
+    "correction": {
+      "n": 8,
+      "min": 4.0,
+      "median": 6.0,
+      "mean": 5.875,
+      "max": 7.0
+    },
+    "similar_up": {
+      "n": 7,
+      "min": 4.0,
+      "median": 7.0,
+      "mean": 6.143,
+      "max": 7.0
+    },
+    "teacher": {
+      "n": 6,
+      "min": 6.0,
+      "median": 6.5,
+      "mean": 6.833,
+      "max": 8.0
+    }
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 18,
+      "cache_hits": 0,
+      "errors": 0,
+      "tokens_in": 3717,
+      "tokens_out": 1065,
+      "cost_usd": 0.009124
+    },
+    "judge": {
+      "calls": 60,
+      "cache_hits": 8,
+      "errors": 0,
+      "tokens_in": 4237,
+      "tokens_out": 300,
+      "cost_usd": 0.001631
+    },
+    "total_cost_usd": 0.010755
+  }
+}

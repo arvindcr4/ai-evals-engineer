@@ -1,0 +1,10 @@
+probe: 137 cases, 0 wrong, 0 crashed (0.0% of 137 scored, 0 unlabeled); confirmed-label subset: 0.0% of 93
+  by axis:
+    adversarial      0.0%  (fail=0 crash=0 / 7)
+    boundary         0.0%  (fail=0 crash=0 / 39)
+    combinatorial    0.0%  (fail=0 crash=0 / 39)
+    format           0.0%  (fail=0 crash=0 / 22)
+    semantic         0.0%  (fail=0 crash=0 / 30)
+  by generator: llm=0.0% of 27, rule=0.0% of 110
+  worst categories: none
+  sample failures: none

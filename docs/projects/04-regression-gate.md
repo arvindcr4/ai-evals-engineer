@@ -135,3 +135,135 @@ Suite `support-ticket-triage` · 80 cases
 - Cases are paired by id; renamed cases show up as "missing" + "new" and are not gated.
 - Only success and p95 latency are gated; cost and token budgets would be easy additions to the policy.
 - Targets run sequentially in-process; there is no sandboxing of the target callable.
+
+## Real-model run (DeepSeek, Oct 2026)
+
+The system under test becomes a **prompt**: `examples/04-regression-gate/llm_suite.yaml` sends each
+of the same 40 tickets (× `channel: [email, chat]` = 80 cases, 40 clusters) to
+`deepseek:deepseek-flash` (DeepSeek V4.1 Flash, thinking off, `temperature: 0`, `max_tokens: 200`,
+8 concurrent workers) and scores the four JSON fields with `json_field` scorers. Three candidates
+are gated against a baseline produced the same way:
+
+| Run | What changed | Purpose |
+|---|---|---|
+| `same-prompt` | nothing (re-run of `llm_suite.yaml`) | must PASS |
+| `bad-prompt` | `llm_suite_degraded.yaml`: a "simplified" system prompt that drops the priority rules, the billing hint and the JSON example and asks for a one-sentence rationale first | must FAIL |
+| `think` | same prompt, `--llm deepseek:deepseek-flash+think` (model swap) | shows latency/cost/truncation in the report |
+
+```bash
+examples/04-regression-gate/real_run.sh      # sources ~/TradingAgents/.env, writes out/real/
+# = for each run:
+uv run --no-sync evalkit regression-gate baseline --suite llm_suite.yaml --out out/real/baseline.json
+uv run --no-sync evalkit regression-gate run --suite llm_suite_degraded.yaml \
+  --baseline out/real/baseline.json --out out/real/results-bad-prompt.json --report out/real/report-bad-prompt.md
+uv run --no-sync evalkit regression-gate run --suite llm_suite.yaml --llm deepseek:deepseek-flash+think ...
+```
+
+**Sample size / cost:** 4 runs × 80 calls = 320 API calls, 0 API errors. The recorded run cost
+**$0.036** (baseline $0.0075, same-prompt $0.0075, bad-prompt $0.0077, think $0.0135; costs are
+from `Completion.cost_usd` at peak prices; `real_output/summary.json` → `total_cost_usd`). Including
+the first full run (before the truncation fix) and two 4–6-case probes, total spend for this system
+was **≈ $0.075** (agent estimate; those extra runs were not saved).
+
+Console (`real_output/console.txt`, verbatim; Markdown reports go to `--report`):
+
+```
+================ 1. baseline (main prompt)
+support-ticket-triage-llm: 80 cases, success 100.0%, p95 973.3 ms, errors 0, cost $0.0075
+baseline written to out/real/baseline.json
+================ same-prompt
+support-ticket-triage-llm: 80 cases, success 100.0%, p95 893.1 ms, errors 0, cost $0.0075
+regression-gate: PASS
+-> exit code 0
+================ bad-prompt
+support-ticket-triage-llm: 80 cases, success 58.8%, p95 1161.2 ms, errors 0, cost $0.0077
+regression-gate: FAIL: task success dropped 41.2 pts (limit 2.0), significant at p=0.0002
+-> exit code 1
+================ think
+support-ticket-triage-llm: 80 cases, success 96.2%, p95 1261.3 ms, errors 2, cost $0.0135
+regression-gate: PASS
+-> exit code 0
+```
+
+The `think` report's verdict line: −3.8 pts, 95% CI [−14.4, 0.0], p=0.497, not significant.
+
+Excerpt of the `bad-prompt` PR report (`real_output/report-bad-prompt.md`):
+
+```markdown
+| Build | Model | Prompt |
+| baseline | `deepseek-flash` | `bc9d99be02ee` |
+| candidate | `deepseek-flash` | `88701f736160` |
+
+> baseline beats candidate by +41.2 pts ± 14.2 (95% CI [27.5, 55.9], p<0.001, n=80 paired, 40 clusters)
+
+| Task success | 100.0% | 58.8% | -41.2 pts | drop ≤ 2.0 pts or not significant |
+| Latency p95  | 973.3 ms | 1161.2 ms | +19% | rise ≤ 50% (or < 1500 ms) |
+| Cost         | $0.0075 | $0.0077 | +3% | — |
+| `priority`   | 100.0% | 58.8% | -41.2 pts | — |    (category, order_id, amount: 100% → 100%)
+
+| `t02[channel=email]` | `priority`: 'high' → 'normal' |
+```
+
+What the real model showed:
+
+- **Determinism holds at temperature 0, mostly.** The same-prompt re-run reproduced all 80 outputs
+  byte-for-byte, so the PASS is exact (Δ 0.0, CI [0, 0]); only latency moved (p95 −8%). The
+  degraded prompt, which produces longer free-text outputs, scored 60.0% in an earlier full run
+  (not saved; only the 58.8% run is in `real_output/`) and 58.8% in the recorded one — one case
+  flipped — so "temperature 0" is not a determinism guarantee for longer
+  generations.
+- **The degraded prompt fails in one specific way.** Without the priority rules the model
+  over-escalates: all 33 failures are `priority` 'high' where 'normal' was expected (20 of 40
+  tickets; recomputable from `real_output/results-bad-prompt.json`, e.g. "My package has not arrived yet" → high). Category, order id and amount stayed at
+  100% — the model gets those from the text without being told, which the rule-based mock
+  cannot. Every degraded output was "reasoning sentence + ```json fence```", so the parsing fixes
+  below are what make this a quality signal instead of a parse-failure signal.
+- **Model swap to thinking mode** costs +80% and +30% p95 here and *passes*: 3 newly failing
+  cases on 80 is not significant (p=0.50, minimum detectable effect ≈ 7.8 pts). Two of the three
+  are not wrong answers at all — the reasoning tokens used the whole `max_tokens=200` budget
+  (`TruncatedOutputError`, one returned `''`), and the report now says so instead of listing four
+  failed checks.
+- **Latency is network-bound.** p95 swung −8% between two identical runs and +19–30% for the
+  changed builds; the mock suite's 25% / 2 ms limits would flap on a real API, so the LLM suite
+  uses `max_p95_latency_increase: 0.5` and `min_latency_increase_ms: 1500`. With those limits
+  neither candidate trips the latency gate — the thinking-mode slowdown here is real but small. Note that
+  both limits must be exceeded, so with a ~0.97 s baseline p95 the 1500 ms floor dominates: the
+  gate only trips above ~2.47 s p95 (+154%); the 50% relative limit is inert at this latency.
+
+Comparison with the offline mock run (`run.sh`): the rule-based SUT starts at 86.2% and its bad
+build loses 20 pts of task success (`amount` −20, `category` −15); the LLM starts at 100% (this 40-ticket set is easy
+for an LLM — a ceiling effect, so the baseline has no headroom to show improvements) and its bad
+build loses 41 pts on `priority` only. Both FAILs are significant with 40 clusters; the mock's
+latency failure (v3, 3× slower) has no real-model counterpart here — the thinking build did not
+cross the absolute 1.5 s floor. Small sample: 40 items, one run per build; a 1–2 case wobble
+(as seen between the two degraded runs) is within noise.
+
+Bugs found and fixed in `regression_gate` by the real run (regression tests in
+`tests/test_regression_gate_llm.py`, responders copied from real outputs):
+
+1. **JSON after prose was a total miss.** `json_field` only parsed bare or fenced JSON; the real
+   "One sentence of reasoning.\n{...}" reply failed all four checks although every field was right.
+   New `extract_json` handles bare, fenced and embedded JSON (last object wins). `exact`,
+   `numeric` and `regex` scorers with a `field` now also parse text outputs, and `numeric` accepts
+   `"$1,234.50"`.
+2. **Generation settings were silently ignored.** `temperature`, `max_tokens`, … in the suite's
+   `target:` were never sent to the model, so "temperature 0" baselines ran with default sampling.
+   They are now forwarded; unknown target keys (`temprature`) raise.
+3. **Prompt templates with literal JSON crashed.** `str.format` raised on `{"category": ...}` in
+   a prompt; `render_template` substitutes only `{identifier}` placeholders (unknown ones raise).
+4. **No token/cost accounting.** Cases now record `tokens_in/out` and `cost_usd`; the summary,
+   CLI line and PR report show cost; results files written before this still load.
+5. **Truncation looked like a wrong answer.** `finish_reason == "length"` now raises
+   `TruncatedOutputError` (tokens still billed) so it shows as an error, and the report warns when
+   the candidate has more errored cases than the baseline.
+6. **Provenance.** Run `meta` records the model (incl. `+think`, which `Completion.model` drops),
+   a 12-char prompt fingerprint and the generation settings; the report shows a Build table.
+7. **Sequential calls.** `workers` (target key or `--workers`) runs cases concurrently; order is
+   preserved (the real runs used 8 workers).
+
+Sample outputs (reports, console, `summary.json` with per-run summaries, failure patterns and a
+few raw model outputs, plus the full per-case results files `baseline.json` and
+`results-{same-prompt,bad-prompt,think}.json`) are in `examples/04-regression-gate/real_output/`.
+The three reports regenerate offline, with no API calls, from those files:
+`evalkit regression-gate compare --suite llm_suite.yaml --baseline real_output/baseline.json
+--candidate real_output/results-think.json`.

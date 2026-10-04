@@ -266,7 +266,9 @@ def run_nightly(
 
     result = build_dataset(events, builder, cfg.filters, cfg.golden)
     new_pairs = sum(p.source_event in new_ids for p in result.pairs)
-    record.update(pairs_total=len(result.pairs), pairs_new=new_pairs)
+    record.update(pairs_total=len(result.pairs), pairs_new=new_pairs, drops=result.manifest["drops"])
+    if result.manifest.get("llm_usage"):
+        record["llm_usage"] = result.manifest["llm_usage"]
     if new_pairs < cfg.min_new_pairs:
         record["status"] = "skipped"
         record["reason"] = f"only {new_pairs} new pairs (< {cfg.min_new_pairs})"

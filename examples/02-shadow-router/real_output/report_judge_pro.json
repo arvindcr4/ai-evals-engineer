@@ -1,0 +1,134 @@
+{
+  "n_pairs": 47,
+  "n_compared": 47,
+  "primary": {
+    "model": "deepseek-v4-pro",
+    "mean_cost_usd": 0.000691651914893617,
+    "total_cost_usd": 0.03250764,
+    "mean_tokens_out": 161.27659574468086,
+    "latency_p50_s": 2.900269718011259,
+    "latency_p95_s": 3.6378342997995787,
+    "error_rate": 0.0,
+    "truncated_rate": 0.0
+  },
+  "shadow": {
+    "model": "deepseek-flash",
+    "mean_cost_usd": 0.00018854042553191486,
+    "total_cost_usd": 0.008861399999999998,
+    "mean_tokens_out": 146.82978723404256,
+    "latency_p50_s": 1.411588661998394,
+    "latency_p95_s": 1.8007239872938947,
+    "error_rate": 0.0,
+    "truncated_rate": 0.0
+  },
+  "exact_agreement": 0.0,
+  "near_agreement": 0.0,
+  "mean_jaccard": 0.27690035851586375,
+  "mean_similarity": 0.22115791475821417,
+  "cost_delta_pct": -72.74056191098461,
+  "latency_p50_delta_s": -1.4886810560128652,
+  "latency_p95_delta_s": -1.837110312505684,
+  "judge": {
+    "model": "deepseek-v4-pro",
+    "win": 20,
+    "loss": 1,
+    "tie": 26,
+    "error": 0,
+    "order_flips": 26,
+    "first_slot_rate": 0.6702127659574468,
+    "unparsed_verdicts": 0,
+    "calls": 94,
+    "tokens_in": 38940,
+    "tokens_out": 94,
+    "cost_usd": 0.051773040000000006,
+    "win_rate": 0.9523809523809523,
+    "win_rate_ci95": [
+      0.7733018341376452,
+      0.9915442305280766
+    ],
+    "non_loss_rate": 0.9787234042553191
+  },
+  "verdict": "PROMOTE",
+  "reasons": [
+    "judge says candidate wins significantly"
+  ],
+  "similarity_hist": [
+    1,
+    19,
+    19,
+    6,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "disagreements": [
+    {
+      "request_id": "r00040",
+      "question": "Why does nginx rate limiting break under load?",
+      "primary": "Nginx rate limiting typically \"breaks\" under load due to the **burst** and **nodelay** parameters, not a flaw in the algorithm. \n\nWithout `nodelay`, excess requests are queued. Under high concurrency, this queue fills instantly, causing high latency and cascading timeouts that feel like a total outage. \n\nAdditionally, if you use the default `zone` size (e.g., `10m`), the shared memory can fill up under massive traffic. When the zone is full, nginx stops tracking new IPs and applies the limit globally to all traffic (or stops limiting, depending on version), causing erratic behavior.\n\n**Fix:** Use `burst` with `nodelay` to drop excess traffic instantly, and increase the `zone` size to safely store all client states.",
+      "shadow": "Nginx `limit_req` is per-worker, not global. Under load, each worker enforces its own bucket, so effective limits multiply by worker count. Also, `burst` queues requests; once full, excess returns 503, which spikes under load.\n\nFixes:\n- Use `limit_req_zone ... zone=...:10m` with shared memory (already shared across workers\u2014verify it's not per-worker).\n- Set `limit_req_status 429` and tune `burst`/`nodelay`.\n- For true global limits across instances, use a shared store (Redis) or an edge/WAF layer.\n\nCheck `worker_processes` and whether limits are applied per `server`/`location` correctly.",
+      "similarity": 0.136,
+      "judge": "loss"
+    },
+    {
+      "request_id": "r00023",
+      "question": "Can you explain grpc deadline propagation briefly?",
+      "primary": "gRPC deadline propagation automatically carries the timeout from an incoming request to any outgoing requests made while handling it. The deadline is attached to the gRPC metadata (as `grpc-timeout`) and is automatically injected into child calls by the client stub.\n\nThis ensures that if a parent request times out, all downstream work is cancelled too, preventing wasted resources. The propagated deadline is always the earliest of the parent's remaining time and any deadline you explicitly set on the child call. You can opt out per-call using `CallOptions` with `WithPropagateDeadline(false)` in Go, or equivalent options in other languages.",
+      "shadow": "gRPC deadlines propagate automatically: when a client sets a deadline, the server receives it as the `grpc-timeout` header, and any downstream gRPC calls the server makes inherit the *remaining* time, not the original. So if a client sets 5s and 2s elapse before the server calls another service, that call gets ~3s. This prevents orphaned work and cascading hangs. If the deadline expires, calls fail with `DEADLINE_EXCEEDED`. Note: propagation only works across gRPC hops\u2014if you call HTTP or a queue in between, you must forward the deadline manually.",
+      "similarity": 0.094,
+      "judge": "win"
+    },
+    {
+      "request_id": "r00068",
+      "question": "Why does postgres connection pooling break under load?",
+      "primary": "Postgres connection pooling breaks under load typically due to:\n\n1. **Pool exhaustion** \u2013 All connections are checked out, and new requests queue until a timeout. This often happens when transactions are slow or leak (not returned to the pool).\n2. **Too many idle connections** \u2013 If `max_connections` is high but the pool size is small, the pool becomes a bottleneck.\n3. **Transaction pinning** \u2013 In PgBouncer transaction mode, a connection is pinned for the whole transaction; long transactions reduce effective pool size.\n4. **Prepared statement or session state mismatch** \u2013 In transaction pooling, `SET` or `PREPARE` can break if not reset.\n5. **Network/backend latency** \u2013 Slow queries or lock contention cause connections to pile up.\n\nFix by tuning pool size, setting timeouts, and ensuring connections are always released.",
+      "shadow": "Pooling usually breaks because of **exhaustion and queueing**, not pooling itself:\n\n- **Pool too small**: requests wait for a connection; latency spikes, then timeouts cascade.\n- **Pool too large**: exceeds Postgres `max_connections`, causing `too many clients` errors and memory pressure.\n- **Leaked connections**: a code path doesn't release/return the connection, so the pool drains.\n- **Long transactions**: hold connections idle-in-transaction, blocking others.\n- **Per-instance pools**: N app replicas \u00d7 pool size overshoots the DB limit.\n\nFixes: size pools to `max_connections` minus overhead, set acquire/statement timeouts, always release in `finally`, keep transactions short, and use PgBouncer (transaction mode) for many clients.",
+      "similarity": 0.106,
+      "judge": "win"
+    },
+    {
+      "request_id": "r00051",
+      "question": "What is the best practice for react hydration errors?",
+      "primary": "For React hydration errors, follow these practices:\n\n1. **Avoid browser-only APIs during render** \u2014 guard `window`, `localStorage`, etc. with `useEffect` or `typeof window !== 'undefined'` checks.\n2. **Use `suppressHydrationWarning`** sparingly for unavoidable mismatches (e.g., timestamps).\n3. **Ensure deterministic rendering** \u2014 avoid `Math.random()`, `Date.now()`, or random IDs during render.\n4. **Render client-only components after mount** \u2014 use a `mounted` state flag or dynamic import with `ssr: false`.\n5. **Validate markup** \u2014 mismatched tags (e.g., `<p>` inside `<p>`) cause hydration failures.\n6. **Use `useSyncExternalStore`** for external stores to keep server/client state consistent.",
+      "shadow": "Fix the root cause: server and client must render identical HTML on first pass.\n\n- Don't use `Date.now()`, `Math.random()`, or `localStorage` during render.\n- Gate browser-only values behind `useEffect` + state, or `useSyncExternalStore`.\n- For intentional differences, use `suppressHydrationWarning` (only on that element).\n- Common culprits: invalid HTML nesting (`<p><div>`), locale/timezone formatting, and third-party scripts mutating the DOM.\n\nDebug by diffing the server HTML against the client render. Avoid `dynamic(..., { ssr: false })` as a blanket fix\u2014it hurts SEO and perf.",
+      "similarity": 0.114,
+      "judge": "win"
+    },
+    {
+      "request_id": "r00052",
+      "question": "What should I check first for ci flaky tests issues?",
+      "primary": "First, check the test logs for the **failure reason** and **timing**. Look for:\n\n1. **Shared state/order dependence**: Does the test pass in isolation but fail in the full suite? Run it alone (`--grep` or equivalent).\n2. **Timeouts**: Are there hardcoded sleeps or network calls? Check for slow CI runners.\n3. **Resource contention**: Parallel tests hitting the same DB, port, or file.\n4. **Non-deterministic data**: Random values, current date/time, or unordered API responses.\n\nStart by re-running the exact failing test on the same commit to confirm flakiness, then inspect the surrounding tests for interference.",
+      "shadow": "Check the failure pattern first: is it the same test, same step, or random? Then verify:\n\n1. **Reproduce locally** with the same command/CI image.\n2. **Timing/ordering** \u2014 async waits, race conditions, shared state between tests.\n3. **External deps** \u2014 network, DB, clock, random seeds, timezone.\n4. **Resource limits** \u2014 parallelism, memory, ports, timeouts.\n5. **Recent changes** \u2014 new test, dependency bump, infra change.\n\nStart with the CI logs and rerun the job to confirm flakiness. Quarantine the test if it blocks others, then fix root cause.",
+      "similarity": 0.144,
+      "judge": "win"
+    },
+    {
+      "request_id": "r00002",
+      "question": "Why does vector index recall break under load?",
+      "primary": "Vector index recall degrades under load primarily due to resource contention and algorithmic trade-offs:\n\n1. **CPU/GPU saturation**: ANN algorithms (HNSW, IVF) use heuristics that prune the search space. Under heavy concurrency, thread pools become saturated, causing timeouts that force the algorithm to return partial results before exploring enough graph nodes or clusters.\n\n2. **Memory bandwidth**: High query throughput exhausts cache and memory bandwidth, slowing distance computations and causing the search to hit its internal deadline earlier.\n\n3. **Lock contention**: Shared mutable structures (e.g., growing HNSW graphs, inverted lists) serialize access, increasing latency and triggering early termination.\n\n4. **Queueing**: If requests queue behind slow queries, client-side timeouts may abort searches mid-traversal.\n\nMitigations: provision for peak QPS, use read-only replicas, tune `ef_search`/`nprobe` under realistic load, and monitor p99 latency.",
+      "shadow": "Recall drops under load mainly because the index is being searched *approximately* under constraints that change:\n\n- **Fewer candidates explored**: HNSW `efSearch` or IVF `nprobe` may be lowered, or the search times out and returns partial results.\n- **Concurrent writes**: inserts/deletes mutate graph or cluster structure mid-search, so traversals miss neighbors.\n- **Deleted vectors**: tombstones or stale entries reduce effective recall until compaction.\n- **Memory pressure**: cache eviction or disk-backed segments slow traversal, causing early termination.\n- **Sharding/merging**: results merged from partial shards can miss true neighbors.\n\nCheck: fixed `efSearch`/`nprobe`, timeout settings, write rate vs. compaction, and whether recall is measured per-query or aggregated.",
+      "similarity": 0.15,
+      "judge": "win"
+    },
+    {
+      "request_id": "r00021",
+      "question": "Why does ci flaky tests break under load?",
+      "primary": "CI flaky tests break under load because resource contention exposes hidden assumptions in test code. Under parallel execution, tests compete for CPU, memory, network, or I/O. This causes timeouts, race conditions, and ordering dependencies to surface. Shared state\u2014like databases, caches, or files\u2014can become corrupted when tests run concurrently. Additionally, infrastructure limits (e.g., connection pools, rate limits) get exhausted, causing cascading failures. The tests weren't truly isolated; load simply reveals the coupling.",
+      "shadow": "Flaky tests under load usually stem from timing and resource contention, not logic bugs:\n\n- **Timeouts**: Fixed waits (e.g. `sleep(2)`) fail when CI is slow. Use explicit waits/polling.\n- **Shared resources**: Parallel jobs compete for ports, DBs, temp files, or CPU, causing races.\n- **Order dependence**: Tests pass alone but fail when run concurrently or in a different sequence.\n- **Async/eventual consistency**: Assertions run before background work completes.\n- **External deps**: Network calls to APIs or services throttle under load.\n\nFixes: isolate state, use unique ports/namespaces, replace sleeps with condition-based waits, and cap parallelism.",
+      "similarity": 0.164,
+      "judge": "win"
+    },
+    {
+      "request_id": "r00055",
+      "question": "What should I check first for vector index recall issues?",
+      "primary": "First, verify your **embedding model matches the one used at index time** \u2014 a mismatch is the most common cause of poor recall.\n\nNext, check **metric consistency**: ensure the query uses the same distance metric (cosine, dot product, L2) as the index was built with.\n\nThen, inspect **query preprocessing**: tokenization, casing, stopword removal, and truncation must be identical to the indexing pipeline.\n\nFinally, confirm the **top-K is reasonable** relative to your dataset size and that you're not filtering out relevant candidates before the vector search.",
+      "shadow": "Check the basics first:\n\n1. **Ground truth quality** \u2014 verify your recall calculation uses correct nearest neighbors (exact search on the same vectors).\n2. **Index params** \u2014 for HNSW, check `efSearch`/`efConstruction` and `M`; for IVF, check `nprobe` and `nlist`. Low values tank recall.\n3. **Metric consistency** \u2014 ensure the same distance metric (cosine/L2/IP) at index and query time, and vectors are normalized if needed.\n4. **Data drift** \u2014 confirm queries resemble indexed data; out-of-distribution queries reduce recall.\n5. **Filtering** \u2014 post-filtering after ANN search often causes low recall; use pre-filtering or filtered indexes.\n\nStart with params and metric mismatch \u2014 they're the most common culprits.",
+      "similarity": 0.166,
+      "judge": "win"
+    }
+  ],
+  "errors": []
+}

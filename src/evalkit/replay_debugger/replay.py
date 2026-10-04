@@ -59,11 +59,18 @@ def _call_tool(tools: dict[str, Tool], name: str, args: dict[str, Any]) -> Any:
         return f"ERROR: {type(e).__name__}: {e}"
 
 
+def _gen_kwargs(temperature: float | None) -> dict[str, Any]:
+    """Sampling kwargs for live LLM calls. Real APIs default to temperature ~1, which
+    makes a recorded hop irreproducible; ``None`` leaves the provider default."""
+    return {} if temperature is None else {"temperature": temperature}
+
+
 class _Runtime:
     """Executes nodes and records them; subclasses decide where outputs come from."""
 
-    def __init__(self, llm: LLM, tools: dict[str, Tool]):
+    def __init__(self, llm: LLM, tools: dict[str, Tool], temperature: float | None = 0.0):
         self.llm_impl, self.tools = llm, tools
+        self.gen_kwargs = _gen_kwargs(temperature)
         self.nodes: list[Node] = []
 
     def llm(self, messages: list[Message]) -> str:
@@ -84,7 +91,7 @@ class _Runtime:
     def _live(self, node: Node, llm: LLM | None = None) -> None:
         node.source = "live"
         if node.kind == "llm":
-            c = (llm or self.llm_impl).complete(node.input["messages"])
+            c = (llm or self.llm_impl).complete(node.input["messages"], **self.gen_kwargs)
             node.name = c.model
             node.output, node.tokens_in, node.tokens_out, node.cost_usd = (
                 c.text, c.tokens_in, c.tokens_out, c.cost_usd)
@@ -93,17 +100,18 @@ class _Runtime:
 
 
 def record(task: str, llm: LLM, tools: dict[str, Tool], *, task_id: str = "task",
-           max_hops: int = 8, meta: dict[str, Any] | None = None) -> Cassette:
+           max_hops: int = 8, meta: dict[str, Any] | None = None,
+           temperature: float | None = 0.0) -> Cassette:
     """Run the agent live and capture every hop into a :class:`Cassette`."""
-    rt = _Runtime(llm, tools)
+    rt = _Runtime(llm, tools, temperature)
     answer = run_agent(task, rt, max_hops=max_hops)
     return Cassette(task_id, task, rt.nodes, answer, llm.model, dict(meta or {}))
 
 
 class _ReplayRuntime(_Runtime):
     def __init__(self, cassette: Cassette, override: Override, llm: LLM,
-                 tools: dict[str, Tool], after: AfterMode):
-        super().__init__(llm, tools)
+                 tools: dict[str, Tool], after: AfterMode, temperature: float | None = 0.0):
+        super().__init__(llm, tools, temperature)
         self.cassette, self.override, self.after = cassette, override, after
         self.cache: dict[str, deque[Node]] = defaultdict(deque)
         for n in cassette.nodes[override.index + 1:]:
@@ -122,10 +130,12 @@ class _ReplayRuntime(_Runtime):
         elif i == at:
             if node.kind != self.cassette.nodes[at].kind:
                 raise ReplayDivergence(f"node {at} is {node.kind}, cassette has a different kind")
-            node.output = self.override.resolve(node)
+            ov = self.override
+            if ov.output is None and node.kind == "llm" and ov.llm is not None:
+                self._live(node, llm=ov.llm)  # keeps the swap model's tokens and cost
+            else:
+                node.output = ov.resolve(node)
             node.source = "override"
-            if node.kind == "llm" and self.override.llm is not None:
-                node.name = self.override.llm.model
         elif self.after == "cached" and self.cache.get(node.key):
             self._serve(node, self.cache[node.key].popleft(), "cassette")
         else:
@@ -147,6 +157,11 @@ class ReplayResult:
         return sum(1 for n in self.replayed.nodes if n.source == "live")
 
     @property
+    def cost_usd(self) -> float:
+        """API spend of this replay (cassette-served nodes are free)."""
+        return sum(n.cost_usd for n in self.replayed.nodes if n.source != "cassette")
+
+    @property
     def first_divergence(self) -> int | None:
         """First node whose output differs from the original run."""
         a, b = self.original.nodes, self.replayed.nodes
@@ -160,13 +175,15 @@ class Replayer:
     """Counterfactual replay of a cassette with one node swapped."""
 
     def __init__(self, llm: LLM, tools: dict[str, Tool], *, after: AfterMode = "cached",
-                 max_hops: int = 8):
+                 max_hops: int = 8, temperature: float | None = 0.0):
         self.llm, self.tools, self.after, self.max_hops = llm, tools, after, max_hops
+        self.temperature = temperature
 
     def replay(self, cassette: Cassette, override: Override) -> ReplayResult:
         if not 0 <= override.index < len(cassette.nodes):
             raise IndexError(f"node {override.index} out of range (0..{len(cassette.nodes) - 1})")
-        rt = _ReplayRuntime(cassette, override, self.llm, self.tools, self.after)
+        rt = _ReplayRuntime(cassette, override, self.llm, self.tools, self.after,
+                            self.temperature)
         answer = run_agent(cassette.task, rt, max_hops=self.max_hops)
         out = Cassette(cassette.task_id, cassette.task, rt.nodes, answer, cassette.model,
                        {**cassette.meta, "override_index": override.index})
@@ -178,7 +195,7 @@ class NodeTrial:
     index: int
     kind: str
     name: str
-    status: str  # flipped | still_failing | no_alternative | identical | error
+    status: str  # flipped | still_failing | unstable | no_alternative | identical | error
     alternative: Any = None
     replay_answer: str | None = None
     detail: str = ""
@@ -189,6 +206,11 @@ class BisectReport:
     task_id: str
     baseline_passed: bool
     trials: list[NodeTrial] = field(default_factory=list)
+    cost_usd: float = 0.0  # reference-model calls + live replay hops
+
+    @property
+    def unstable(self) -> list[int]:
+        return [t.index for t in self.trials if t.status == "unstable"]
 
     @property
     def culprits(self) -> list[int]:
@@ -202,21 +224,30 @@ class BisectReport:
 
 def bisect(cassette: Cassette, checker: Checker, *, llm: LLM, tools: dict[str, Tool],
            ref_llm: LLM | None = None, oracle_tools: dict[str, Tool] | None = None,
-           after: AfterMode = "cached", max_hops: int = 8) -> BisectReport:
+           after: AfterMode = "cached", max_hops: int = 8,
+           temperature: float | None = 0.0) -> BisectReport:
     """Swap each node with its known-good alternative and record which swaps flip FAIL→PASS.
 
     LLM nodes are regenerated by ``ref_llm`` on the exact recorded messages; tool
     nodes are re-executed against ``oracle_tools``. Nodes whose alternative equals
     the recorded output are skipped (``identical``) — they cannot be the cause.
+
+    Real models are not bit-reproducible even at temperature 0. When the
+    reference model *is* the model that recorded a hop and still answers
+    differently, the difference is sampling noise, not a known-good fix: the node
+    is replayed and reported as ``unstable`` but never blamed as a culprit. Use a
+    different (stronger) reference model to get LLM-node verdicts.
     """
     report = BisectReport(cassette.task_id, checker(cassette.final_answer))
     if report.baseline_passed:
         return report
-    replayer = Replayer(llm, tools, after=after, max_hops=max_hops)
+    replayer = Replayer(llm, tools, after=after, max_hops=max_hops, temperature=temperature)
     for node in cassette.nodes:
         trial = NodeTrial(node.index, node.kind, node.name, "no_alternative")
         if node.kind == "llm" and ref_llm is not None:
-            alt = ref_llm.complete(node.input["messages"]).text
+            c = ref_llm.complete(node.input["messages"], **_gen_kwargs(temperature))
+            report.cost_usd += c.cost_usd
+            alt = c.text
         elif node.kind == "tool" and oracle_tools is not None and node.name in oracle_tools:
             alt = _call_tool(oracle_tools, node.name, node.input["args"])
         else:
@@ -232,9 +263,15 @@ def bisect(cassette: Cassette, checker: Checker, *, llm: LLM, tools: dict[str, T
         except ReplayDivergence as e:
             trial.status, trial.detail = "error", str(e)
         else:
+            report.cost_usd += res.cost_usd
             trial.replay_answer = res.replayed.final_answer
-            trial.status = "flipped" if checker(trial.replay_answer) else "still_failing"
+            passed = checker(trial.replay_answer)
+            trial.status = "flipped" if passed else "still_failing"
             trial.detail = f"{res.live_calls} live calls after swap"
+            if node.kind == "llm" and ref_llm is not None and ref_llm.model == node.name:
+                trial.status = "unstable"
+                trial.detail = (f"same model re-sampled a different hop (nondeterministic); "
+                                f"replay {'passes' if passed else 'still fails'}")
         report.trials.append(trial)
     return report
 
@@ -262,4 +299,7 @@ def format_bisect(r: BisectReport) -> str:
         t = next(t for t in r.trials if t.index == r.root_cause)
         lines.append(f"   ROOT CAUSE: node {t.index} ({t.kind} {t.name})"
                      + (f"; also repairing: {r.culprits[1:]}" if len(r.culprits) > 1 else ""))
+    if r.unstable:
+        lines.append(f"   unstable (re-sampled differently by the same model, not blamed): "
+                     f"{r.unstable}")
     return "\n".join(lines)

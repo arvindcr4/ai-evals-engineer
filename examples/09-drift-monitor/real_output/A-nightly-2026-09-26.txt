@@ -1,0 +1,10 @@
+[CRITICAL] 2026-09-26 zscore refusal_rate 0.1875 vs baseline 0.0375 (z=+7.1)
+[WARNING ] 2026-09-26 cusum  empty_rate drifting up for 7 days (CUSUM=5.2)
+[CRITICAL] 2026-09-26 zscore answer_chars_mean 272.6 vs baseline 388.2 (z=-6.0)
+[CRITICAL] 2026-09-26 zscore tool_error_rate 0.142 vs baseline 0.04088 (z=+4.6)
+[CRITICAL] 2026-09-26 zscore latency_p50 2.563 vs baseline 1.694 (z=+7.8)
+[CRITICAL] 2026-09-26 zscore latency_p95 4.761 vs baseline 2.884 (z=+6.5)
+[CRITICAL] 2026-09-26 zscore judge_score 0.5 vs baseline 0.9554 (z=-9.5)
+[CRITICAL] 2026-09-26 psi    answer_length distribution shifted (PSI=0.75; '250-499' 93% -> 61%)
+[CRITICAL] 2026-09-26 psi    tool_mix distribution shifted (PSI=2.60; 'browse' 0% -> 39%)
+2026-09-26: sampled 80/2000 -> 8 critical / 1 warning | judge 0.500 $0.0063

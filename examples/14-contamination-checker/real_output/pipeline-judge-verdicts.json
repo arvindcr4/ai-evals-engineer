@@ -1,0 +1,488 @@
+{
+  "leaktest": {
+    "negative": {
+      "q04-paraphrase": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses the Sydney–Melbourne rivalry but never mentions Canberra or why it was chosen as the capital.",
+        "cosine": 0.4233,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q05-paraphrase": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses C3 plants and CAM adaptations but never mentions C4 plants, bundle sheath cells, or CO2 concentration around RuBisCO, so it does not contain the eval item or its answer.",
+        "cosine": 0.47,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q07-chat": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only explains basic aggregate functions (MAX, MIN, AVG) and does not mention the second-highest-salary problem, its nested-query solution, or NULL handling.",
+        "cosine": 0.4056,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q08-clean": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage mentions the Kolmogorov-Smirnov test but never states that its statistic is the maximum vertical distance between empirical CDFs, so the answer is not recoverable from it.",
+        "cosine": 0.4292,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s02": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage explains the general method of including rest stops in average-speed calculations but uses different numbers (300 km, 4 h, 1 h stop) and does not contain the eval item's values or answer.",
+        "cosine": 0.4959,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s03": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses list/tuple properties but never states the core mutability distinction or the guidance on when to choose each, so it does not provide the eval item's answer.",
+        "cosine": 0.4128,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s05": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses ocean rankings but never mentions the Pacific Ocean or states that it lies between Asia and the Americas.",
+        "cosine": 0.6087,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s08": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses the opposite scenario (supply increase with demand unchanged), not demand increase with supply unchanged, so it does not contain the eval item or its answer.",
+        "cosine": 0.7298,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s13": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage mentions George Washington being selected by the Electoral College but does not state he was the first President or give the year 1789, so it does not contain the eval item or its answer.",
+        "cosine": 0.4405,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s17": {
+        "status": "clean",
+        "methods": [],
+        "final": "clean",
+        "judge": "YES The training passage states the same core definition and the same purchasing-power effect, so it could let a model memorize the eval item's answer.",
+        "cosine": 0.4841,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s22": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage mentions the Pyrenees and Andorra only to contrast them with the Alps, without stating that the Pyrenees separate France and Spain or that Andorra lies within them.",
+        "cosine": 0.5245,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s24": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "contaminated",
+        "judge": "YES The passage directly states that judicial review was first exercised in Marbury v. Madison, matching the eval item's answer.",
+        "cosine": 0.5689,
+        "containment": 0.0,
+        "overlap": 0.0
+      }
+    }
+  },
+  "leaktest-cos025": {
+    "heavy_paraphrase": {
+      "s23": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage explains herd immunity/community immunity conceptually but does not address why vaccination is important for public health or match the eval item's phrasing closely enough to enable memorization of the specific answer.",
+        "cosine": 0.3554,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s27": {
+        "status": "clean",
+        "methods": [],
+        "final": "clean",
+        "judge": "NO The passage only discusses why antibiotics fail against viruses and antibiotic resistance; it does not mention viral structure, host-cell dependence, or the structural comparison with bacteria that the eval item requires.",
+        "cosine": 0.2819,
+        "containment": 0.0,
+        "overlap": 0.0
+      }
+    },
+    "negative": {
+      "q01-exact": {
+        "status": "clean",
+        "methods": [],
+        "final": "clean",
+        "judge": "NO The passage discusses average speed with rest stops but contains no Pune train problem, its numbers, or its 13:40 answer.",
+        "cosine": 0.2776,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q02-exact": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only gives a general description of the borrow checker and lifetimes; it does not mention vectors, iterators, reallocation, or the specific aliasing scenario in the eval item.",
+        "cosine": 0.292,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q03-edited": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage mentions linear probing and load factor generally but does not explain primary clustering or why lookup performance degrades as load factor approaches one.",
+        "cosine": 0.3202,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q04-paraphrase": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses the Sydney–Melbourne rivalry but never mentions Canberra or the reason it was chosen as the capital.",
+        "cosine": 0.4233,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q05-paraphrase": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses C3 plants and CAM adaptations but never mentions C4 plants, bundle sheath cells, or CO2 concentration around RuBisCO, so it does not contain the eval item or its answer.",
+        "cosine": 0.47,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q07-chat": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only explains basic aggregate functions (MAX, MIN, AVG) and does not mention the second-highest-salary problem, its nested-query solution, or NULL handling.",
+        "cosine": 0.4056,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q08-clean": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage mentions the Kolmogorov-Smirnov test but does not state that its statistic is the maximum vertical distance between empirical CDFs, so it does not provide the eval item's answer.",
+        "cosine": 0.4292,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q09-clean": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only describes slow start and congestion avoidance, not fast retransmit, duplicate ACKs, or fast recovery.",
+        "cosine": 0.2956,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "q11-topical": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses alternative probabilistic filters but never explains bloom filter hash functions, false positives/negatives, or the memory-accuracy tradeoff.",
+        "cosine": 0.3164,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s01": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses the Moon's elliptical orbit and tidal effects but never mentions gravity as the orbital force or the inverse-square law of distance.",
+        "cosine": 0.3448,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s02": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage explains the general method of including rest stops in average-speed calculations but uses different numbers (300 km, 4 h, 1 h stop) and does not contain the eval item's values or answer.",
+        "cosine": 0.4959,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s03": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses list/tuple properties but never states the core mutability distinction or the guidance on when to choose each, so it does not provide the eval item's answer.",
+        "cosine": 0.4128,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s04": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "contaminated",
+        "judge": "YES The passage directly states that the Marshall Plan gave economic assistance to Western Europe, which is the core of the eval item's answer.",
+        "cosine": 0.3914,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s05": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses ocean rankings but never mentions the Pacific Ocean or states that it lies between Asia and the Americas.",
+        "cosine": 0.6087,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s06": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage states that antibiotics are not useful for viral colds but does not mention antibiotic overuse or resistance, so it does not contain the full answer.",
+        "cosine": 0.3852,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s08": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses the opposite scenario (supply increase with demand unchanged), not demand increase with supply unchanged, so it does not contain the eval item or its answer.",
+        "cosine": 0.7298,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s10": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses chlorophyll and internal photosynthesis mechanisms but never states the definition or the two main inputs (carbon dioxide and water) as the eval item requires.",
+        "cosine": 0.3085,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s11": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only gives general rectangle formulas and a different example (3 cm by 4 cm), not the 12 cm by 5 cm values or the answers 60 and 34.",
+        "cosine": 0.2826,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s12": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses iteration and contrasts it with recursion only in general terms, without mentioning base cases or the definition/answer in the eval item.",
+        "cosine": 0.2897,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s13": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "contaminated",
+        "judge": "YES The passage states that George Washington was unanimously selected as the first president under the Constitution, which directly reveals the answer to the eval item.",
+        "cosine": 0.4405,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s16": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The training passage discusses bilateral/unilateral contract distinctions and offer/acceptance generally, but does not state the essential elements (offer, acceptance, consideration, mutual intent, capacity, legality) or the eval item's ",
+        "cosine": 0.2949,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s17": {
+        "status": "clean",
+        "methods": [],
+        "final": "clean",
+        "judge": "YES The passage states the same core definition and consequence—inflation as a sustained rise in the general price level reducing purchasing power—matching the eval item's answer.",
+        "cosine": 0.4841,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s18": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only gives a generic worker-days example with 5 painters and 40 worker-days, not the eval item’s 4 workers/6 days/8 workers setup or its 3-day answer.",
+        "cosine": 0.3891,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s19": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage contrasts short-term weather with long-term climate trends but never states the definitional answer that climate is the long-term average measured over a longer period.",
+        "cosine": 0.3818,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s20": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses related notation distinctions but does not state the definition of Big O or its utility for comparing algorithms as the eval item requires.",
+        "cosine": 0.3651,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s22": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage mentions the Pyrenees and Andorra only to contrast them with the Alps, without stating that the Pyrenees separate France and Spain or that Andorra lies within them.",
+        "cosine": 0.5245,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s24": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "contaminated",
+        "judge": "YES The passage states the same definition of judicial review and names Marbury v. Madison as the case establishing it, directly supplying the eval item's answer.",
+        "cosine": 0.5689,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s25": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses sunk cost versus opportunity cost generally, but never defines opportunity cost or applies it to a student forgoing wages by studying.",
+        "cosine": 0.3536,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s26": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage only gives a generic discount example (a $50 jacket at 20% off), not the eval item's $40 shirt, 25% discount, $30 price, or $10 savings.",
+        "cosine": 0.292,
+        "containment": 0.0,
+        "overlap": 0.0
+      },
+      "s27": {
+        "status": "suspicious",
+        "methods": [
+          "embedding"
+        ],
+        "final": "suspicious",
+        "judge": "NO The passage discusses classification and replication differences but never mentions antibiotics, treatment, or the clinical significance that constitutes the eval item's answer.",
+        "cosine": 0.2602,
+        "containment": 0.0,
+        "overlap": 0.0
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+ "baseline": {
+  "meta": {
+   "model": "deepseek-flash",
+   "prompt_sha": "bc9d99be02ee",
+   "max_tokens": 200,
+   "temperature": 0
+  },
+  "summary": {
+   "n_cases": 80,
+   "success_rate": 1.0,
+   "errors": 0,
+   "latency_p50_s": 0.6918008330030716,
+   "latency_p95_s": 0.9733308277463948,
+   "scorer_pass_rates": {
+    "category": 1.0,
+    "priority": 1.0,
+    "order_id": 1.0,
+    "amount": 1.0
+   },
+   "tokens_in": 16942,
+   "tokens_out": 2034,
+   "cost_usd": 0.0075233999999999995
+  },
+  "failure_patterns": {},
+  "outputs_identical_to_baseline": 80,
+  "sample_outputs": {
+   "t00[channel=email]": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "t00[channel=chat]": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "t01[channel=email]": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-10231\", \"amount\": 49.99}"
+  }
+ },
+ "same-prompt": {
+  "meta": {
+   "model": "deepseek-flash",
+   "prompt_sha": "bc9d99be02ee",
+   "max_tokens": 200,
+   "temperature": 0
+  },
+  "summary": {
+   "n_cases": 80,
+   "success_rate": 1.0,
+   "errors": 0,
+   "latency_p50_s": 0.6440457935023005,
+   "latency_p95_s": 0.893053167441394,
+   "scorer_pass_rates": {
+    "category": 1.0,
+    "priority": 1.0,
+    "order_id": 1.0,
+    "amount": 1.0
+   },
+   "tokens_in": 16942,
+   "tokens_out": 2034,
+   "cost_usd": 0.0075233999999999995
+  },
+  "failure_patterns": {},
+  "outputs_identical_to_baseline": 80
+ },
+ "bad-prompt": {
+  "meta": {
+   "model": "deepseek-flash",
+   "prompt_sha": "88701f736160",
+   "max_tokens": 200,
+   "temperature": 0
+  },
+  "summary": {
+   "n_cases": 80,
+   "success_rate": 0.5875,
+   "errors": 0,
+   "latency_p50_s": 0.8326984595041722,
+   "latency_p95_s": 1.1611984352501168,
+   "scorer_pass_rates": {
+    "category": 1.0,
+    "priority": 0.5875,
+    "order_id": 1.0,
+    "amount": 1.0
+   },
+   "tokens_in": 5422,
+   "tokens_out": 5073,
+   "cost_usd": 0.0077142
+  },
+  "failure_patterns": {
+   "priority": 33
+  },
+  "outputs_identical_to_baseline": 0,
+  "sample_outputs": {
+   "t00[channel=email]": "The customer reports a duplicate subscription charge, which is a billing issue requiring prompt attention to correct the overcharge.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "t00[channel=chat]": "The customer reports a duplicate subscription charge, which is a billing issue requiring prompt attention to correct the overcharge.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "t01[channel=email]": "This is a straightforward refund request tied to a specific order and amount, so it falls under billing with normal priority.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-10231\",\n  \"amount\": 49.99\n}\n```"
+  }
+ },
+ "think": {
+  "meta": {
+   "model": "deepseek-flash+think",
+   "prompt_sha": "bc9d99be02ee",
+   "max_tokens": 200,
+   "temperature": 0
+  },
+  "summary": {
+   "n_cases": 80,
+   "success_rate": 0.9625,
+   "errors": 2,
+   "latency_p50_s": 0.8996809285017662,
+   "latency_p95_s": 1.2612727552113938,
+   "scorer_pass_rates": {
+    "category": 0.975,
+    "priority": 0.9625,
+    "order_id": 0.975,
+    "amount": 0.975
+   },
+   "tokens_in": 18942,
+   "tokens_out": 6552,
+   "cost_usd": 0.013545
+  },
+  "failure_patterns": {
+   "category+priority+order_id+amount": 2,
+   "priority": 1
+  },
+  "outputs_identical_to_baseline": 77
+ },
+ "total_cost_usd": 0.036306
+}

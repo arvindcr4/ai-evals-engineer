@@ -1,0 +1,30 @@
+probe: 137 cases, 27 wrong, 49 crashed (55.5% of 137 scored, 0 unlabeled); confirmed-label subset: 73.1% of 93
+  by axis:
+    adversarial     42.9%  (fail=1 crash=2 / 7)
+    boundary        71.8%  (fail=14 crash=14 / 39)
+    combinatorial   74.4%  (fail=10 crash=19 / 39)
+    format          72.7%  (fail=2 crash=14 / 22)
+    semantic         0.0%  (fail=0 crash=0 / 30)
+  by generator: llm=40.7% of 27, rule=59.1% of 110
+  worst categories:
+    boundary/missing                   100.0% of 6
+    boundary/null                      100.0% of 6
+    boundary/wrong_type                100.0% of 3
+    boundary/invalid_choice            100.0% of 2
+    boundary/overflow                  100.0% of 2
+    format/combining_marks             100.0% of 2
+    format/emoji                       100.0% of 2
+    format/homoglyph                   100.0% of 2
+    adversarial/long_input             100.0% of 1
+    adversarial/nested_quoting         100.0% of 1
+  sample failures:
+    ec-7694597147 boundary/over_max_length: expected=invalid got=approve
+    ec-e3b1f4e578 format/homoglyph: UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1-2: ordinal not in range(256) (line 28)
+    ec-4fe5cbaa15 boundary/null: AttributeError: 'NoneType' object has no attribute 'strip' (line 25)
+    ec-937930e8b5 boundary/whitespace_only: expected=approve got=invalid [provisional]
+    ec-76b2835213 boundary/wrong_type: AttributeError: 'int' object has no attribute 'strip' (line 25)
+    ec-4796a94408 boundary/missing: KeyError: 'employee_note' (line 25)
+    ec-87eb7df606 boundary/below_min: expected=invalid got=approve
+    ec-1c717cebb2 boundary/above_max: expected=invalid got=reject
+    ec-7926be15c7 boundary/null: TypeError: float() argument must be a string or a real number, not 'NoneType' (line 32)
+    ec-d54db5bdc1 boundary/zero: expected=invalid got=approve

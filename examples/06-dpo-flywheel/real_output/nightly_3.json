@@ -1,0 +1,54 @@
+{
+  "started": "2026-10-04T14:27:01+00:00",
+  "backend": "dry",
+  "events_total": 38,
+  "events_new": 6,
+  "pairs_total": 23,
+  "pairs_new": 2,
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1,
+    "near_duplicate": 4
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 0,
+      "cache_hits": 30,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "judge": {
+      "calls": 0,
+      "cache_hits": 92,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "total_cost_usd": 0.0
+  },
+  "dataset": "out/real/flywheel/datasets/2026-10-04",
+  "data_sha256": "8f3f7c0d0f3172bb95deb412527650fb183a1f78889a757790554a636dbf43ac",
+  "train": {
+    "backend": "dry",
+    "status": "planned",
+    "adapter_path": "out/real/flywheel/adapters/2026-10-04",
+    "metrics": {
+      "rows": 23,
+      "steps": 2,
+      "problems": 0
+    }
+  },
+  "gate": {
+    "incumbent": "out/real/flywheel/adapters/2026-10-03",
+    "incumbent_score": 0.7607,
+    "candidate_score": 0.7876,
+    "min_win": 0.01,
+    "promoted": true
+  },
+  "status": "promoted"
+}

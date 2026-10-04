@@ -6,23 +6,43 @@ import argparse
 import json
 
 from evalkit.context_eviction.harness import (
+    CostMeter,
     cells_to_dicts,
     default_reader,
     format_table,
     run_scenario,
     sweep,
 )
-from evalkit.context_eviction.memory import STRATEGIES, make_memory
+from evalkit.context_eviction.memory import STRATEGIES, extractive_summarizer, make_memory
 from evalkit.context_eviction.scenario import Scenario, generate
-from evalkit.core.llm import LLM, get_llm
+from evalkit.core.llm import MockLLM, get_llm
 
 
-def _models(spec: str | None) -> tuple[LLM, LLM | None]:
-    """``mock`` → offline extractive reader + summarizer; otherwise one real model for both."""
-    if spec is None or spec == "mock" or spec.startswith("mock:"):
-        return default_reader(), None
-    llm = get_llm(spec)
-    return llm, llm
+def _is_mock(spec: str | None) -> bool:
+    return spec is None or spec == "mock" or spec.startswith("mock:")
+
+
+def _models(a: argparse.Namespace) -> tuple[CostMeter, CostMeter]:
+    """Reader and summarizer, each wrapped in a cost meter.
+
+    ``mock`` → the offline extractive reader / summarizer (the idealized
+    components); otherwise a real model. ``--llm`` sets both roles and
+    ``--reader`` / ``--summarizer`` override one, so reader and summarizer
+    errors can be separated.
+    """
+    r_spec = a.reader or a.llm
+    s_spec = a.summarizer or a.llm
+    reader = default_reader() if _is_mock(r_spec) else get_llm(r_spec)
+    summarizer = (MockLLM(model="mock-summarizer", responder=extractive_summarizer)
+                  if _is_mock(s_spec) else get_llm(s_spec))
+    return CostMeter(reader), CostMeter(summarizer)
+
+
+def _cost_line(meters: dict[str, CostMeter]) -> str:
+    parts = [f"{role} {m.model}: {m.calls} calls, {m.tokens_in}+{m.tokens_out} tok, "
+             f"${m.cost_usd:.4f}" for role, m in meters.items()]
+    total = sum(m.cost_usd for m in meters.values())
+    return "llm usage: " + "; ".join(parts) + f"; total ${total:.4f}"
 
 
 def _ints(s: str) -> list[int]:
@@ -34,14 +54,17 @@ def _run(a: argparse.Namespace) -> int:
     unknown = set(strategies) - set(STRATEGIES)
     if unknown:
         raise SystemExit(f"unknown strategies {sorted(unknown)}; choose from {sorted(STRATEGIES)}")
-    reader, summarizer = _models(a.llm)
+    reader, summarizer = _models(a)
     cells = sweep(strategies, _ints(a.noise), budget=a.budget, trials=a.trials, seed=a.seed,
                   reader=reader, summarizer=summarizer, n_facts=a.facts, n_updates=a.updates,
-                  pinned_updates=a.pinned_updates, hard_noise=a.hard_noise)
+                  pinned_updates=a.pinned_updates, hard_noise=a.hard_noise, workers=a.workers)
+    meters = {"reader": reader, "summarizer": summarizer}
     if a.json:
-        print(json.dumps({"budget": a.budget, "cells": cells_to_dicts(cells)}, indent=2))
+        print(json.dumps({"budget": a.budget, "cells": cells_to_dicts(cells),
+                          "usage": {k: m.to_dict() for k, m in meters.items()}}, indent=2))
     else:
         print(format_table(cells, a.budget))
+        print(_cost_line(meters))
     return 0
 
 
@@ -64,7 +87,7 @@ def _export(a: argparse.Namespace) -> int:
 
 def _inspect(a: argparse.Namespace) -> int:
     sc = _scenario(a)
-    reader, summarizer = _models(a.llm)
+    reader, summarizer = _models(a)
     mem = make_memory(a.strategy, sc.system, a.budget, llm=summarizer)
     print(f"scenario seed={sc.seed} noise={sc.noise}: {len(sc.turns)} turns; planted:")
     for t in sc.turns:
@@ -79,6 +102,7 @@ def _inspect(a: argparse.Namespace) -> int:
     if a.show_context:
         print("\ncontext for the last probe:")
         print("\n".join("  " + x for x in mem.context(sc.probes[-1].question)))
+    print(_cost_line({"reader": reader, "summarizer": summarizer}))
     return 0
 
 
@@ -98,12 +122,16 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         sp.add_argument("--hard-noise", type=float, default=0.1,
                         help="fraction of user noise turns that are slot-vocabulary distractors")
         sp.add_argument("--llm", default="mock", help="reader/summarizer model spec")
+        sp.add_argument("--reader", help="reader model spec (overrides --llm)")
+        sp.add_argument("--summarizer", help="summarizer model spec (overrides --llm)")
 
     r = sub.add_parser("run", help="sweep strategies over noise levels")
     r.add_argument("--strategies", default="fifo,window,summary,retrieval")
     r.add_argument("--noise", default="0,50,200,800", help="comma-separated noise-turn counts")
     r.add_argument("--trials", type=int, default=3)
     r.add_argument("--json", action="store_true")
+    r.add_argument("--workers", type=int, default=1,
+                   help="parallel (strategy, scenario) jobs; use ~8 with a real API")
     common(r)
     r.set_defaults(func=_run)
 

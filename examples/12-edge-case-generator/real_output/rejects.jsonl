@@ -1,0 +1,14 @@
+{"id": "ec-e3b1f4e578", "reason": "duplicate", "detail": "homoglyph"}
+{"id": "ec-3f0a788170", "reason": "copy_of_seed", "detail": "over_escalation_threshold"}
+{"id": "ec-5691514564", "reason": "copy_of_seed", "detail": "valid_claim"}
+{"id": "ec-32f2173e7a", "reason": "copy_of_seed", "detail": "valid_claim"}
+{"id": "ec-475fd2f7a3", "reason": "copy_of_seed", "detail": "valid_claim"}
+{"id": "ec-4c91777591", "reason": "copy_of_seed", "detail": "valid_claim"}
+{"id": "ec-ac09f34f7a", "reason": "copy_of_seed", "detail": "homoglyph"}
+{"id": "ec-aeb3c46ff1", "reason": "copy_of_seed", "detail": "rtl_override"}
+{"id": "ec-5c43459590", "reason": "copy_of_seed", "detail": "zero_width_space"}
+{"id": "ec-854f811dc2", "reason": "copy_of_seed", "detail": "combining_marks"}
+{"id": "ec-84b99f6f71", "reason": "copy_of_seed", "detail": "fullwidth"}
+{"id": "ec-2995696448", "reason": "copy_of_seed", "detail": "emoji"}
+{"id": "ec-06afdc14a2", "reason": "copy_of_seed", "detail": "mixed_language"}
+{"id": "ec-8af7e19ae6", "reason": "near_duplicate", "detail": "ec-cdbb93857f"}

@@ -40,9 +40,11 @@ def cmd_generate(a: argparse.Namespace) -> int:
     cases = [] if a.no_rules else RuleGenerator(spec, seed=a.seed).generate(axes)
     errors: list[str] = []
     if a.llm:
-        gen = LLMGenerator(spec, get_llm(a.llm), n_per_axis=a.n_llm)
+        gen = LLMGenerator(spec, get_llm(a.llm), n_per_axis=a.n_llm,
+                           temperature=a.temperature)
         cases += gen.generate(axes)
         errors = gen.errors
+        u = gen.usage
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     write_jsonl(a.out, cases)
     per_gen: dict[str, int] = {}
@@ -51,6 +53,11 @@ def cmd_generate(a: argparse.Namespace) -> int:
         per_gen[g] = per_gen.get(g, 0) + 1
     print(f"generated {len(cases)} candidate cases -> {a.out}")
     print("  " + ", ".join(f"{k}={v}" for k, v in sorted(per_gen.items())))
+    if a.llm:
+        print(f"  llm usage: {u['calls']} calls, {u['tokens_in']} in / {u['tokens_out']} out "
+              f"tokens, ${u['cost_usd']:.4f}; phantom cases {gen.stats['phantom']}, "
+              f"repaired {gen.stats['repaired']} (resent/duplicate replies dropped: "
+              f"{gen.stats['resent']})")
     for e in errors:
         print(f"  llm warning: {e}")
     return 0
@@ -58,10 +65,12 @@ def cmd_generate(a: argparse.Namespace) -> int:
 
 def cmd_validate(a: argparse.Namespace) -> int:
     spec = load_spec(a.spec)
-    rep = Validator(spec, near_dup=a.near_dup, min_novelty=a.min_novelty).run(_cases(a.inp))
+    rep = Validator(spec, near_dup=a.near_dup, min_novelty=a.min_novelty,
+                    check_claims=not a.no_claim_check).run(_cases(a.inp))
     oracle = load_callable(a.oracle, _spec_dir(a.spec)) if a.oracle else None
     llm = get_llm(a.label_llm) if a.label_llm else None
-    propose_labels(spec, rep.kept, oracle=oracle, llm=llm, min_confidence=a.min_confidence)
+    usage = propose_labels(spec, rep.kept, oracle=oracle, llm=llm,
+                           min_confidence=a.min_confidence)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     write_jsonl(a.out, rep.kept)
     if a.rejects:
@@ -70,6 +79,12 @@ def cmd_validate(a: argparse.Namespace) -> int:
     print(f"validated: kept {s['kept']}, rejected {s['rejected']} {s['rejected_by_reason']}")
     print(f"  schema-invalid kept on purpose: {s['schema_invalid_kept']}; "
           f"needs_human_review: {s['needs_human_review']} -> {a.out}")
+    if llm is not None:
+        dis = sum(any(r.startswith("oracle_llm_disagree") for r in c.review_reasons)
+                  for c in rep.kept)
+        print(f"  label llm: {usage['calls']} calls, {usage['tokens_in']} in / "
+              f"{usage['tokens_out']} out tokens, ${usage['cost_usd']:.4f}; "
+              f"oracle/llm disagreements: {dis}")
     return 0
 
 
@@ -107,6 +122,8 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     g.add_argument("--seed", type=int, default=0)
     g.add_argument("--llm", help="also generate with a model, e.g. mock or openai:gpt-4o-mini")
     g.add_argument("--n-llm", type=int, default=4, help="LLM cases per axis")
+    g.add_argument("--temperature", type=float, default=0.9,
+                   help="sampling temperature for --llm (0 for reproducible real runs)")
     g.add_argument("--no-rules", action="store_true", help="skip rule-based generators")
     g.set_defaults(func=cmd_generate)
 
@@ -120,6 +137,8 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     v.add_argument("--near-dup", type=float, default=0.95)
     v.add_argument("--min-novelty", type=float, default=0.0)
     v.add_argument("--min-confidence", type=float, default=0.7)
+    v.add_argument("--no-claim-check", action="store_true",
+                   help="keep cases whose input lacks the edge their category claims")
     v.set_defaults(func=cmd_validate)
 
     c = sub.add_parser("coverage", help="coverage report per axis/category + pairwise %%")

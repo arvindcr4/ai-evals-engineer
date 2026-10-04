@@ -1,0 +1,29 @@
+{
+  "backend": "dry",
+  "dataset": "out/real/flywheel/datasets/2026-10-04/train.jsonl",
+  "rows": 23,
+  "problems": [],
+  "approx_tokens": 1575,
+  "effective_batch": 16,
+  "optimizer_steps": 2,
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ],
+    "beta": 0.1,
+    "learning_rate": 5e-06,
+    "num_train_epochs": 1,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 8,
+    "max_length": 1024,
+    "seed": 0
+  },
+  "command": "evalkit dpo-flywheel nightly --backend trl  # would train Qwen/Qwen2.5-0.5B-Instruct"
+}

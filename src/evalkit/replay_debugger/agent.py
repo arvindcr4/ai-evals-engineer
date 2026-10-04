@@ -35,7 +35,9 @@ CALL <tool> {json args}
 or
 FINAL <answer as a number rounded to 2 decimals>"""
 
-_ACTION = re.compile(r"^\s*(CALL\s+(\w+)\s*(\{.*\})|FINAL\s+(.+))\s*$", re.DOTALL)
+_ACTION = re.compile(r"^\s*(CALL\s+(\w+)\s*(\{.*\})|FINAL\s*:?\s+(.+))\s*$", re.DOTALL)
+_FENCE = re.compile(r"^\s*```[\w-]*\s*$")
+_DECOR = re.compile(r"^[\s>*`_-]+|[\s*`_]+$")
 
 
 class Runtime(Protocol):
@@ -44,11 +46,31 @@ class Runtime(Protocol):
     def tool(self, name: str, args: dict[str, Any]) -> Any: ...
 
 
+def _clean(line: str) -> str:
+    """Strip markdown decoration real models wrap an action in (``**FINAL**``, backticks, ``> ``)."""
+    return _DECOR.sub("", line.replace("**FINAL**", "FINAL").replace("**CALL**", "CALL"))
+
+
 def parse_action(text: str) -> tuple[str, str, Any]:
-    """Parse one hop into ``("call", tool, args)``, ``("final", "", answer)`` or ``("error", ...)``."""
-    line = next((ln for ln in text.strip().splitlines() if ln.strip()), "")
-    for candidate in (text.strip(), line):
-        m = _ACTION.match(candidate)
+    """Parse one hop into ``("call", tool, args)``, ``("final", "", answer)`` or ``("error", ...)``.
+
+    Real models do not always reply with the bare protocol line: they prepend a
+    sentence of reasoning, wrap the action in a code fence or bold it, or write
+    ``FINAL: 11.73``. The whole reply is tried first (a ``CALL`` whose JSON spans
+    lines); otherwise the *first* line that is a protocol action wins — one
+    action per hop, so a later line is never executed in the same hop.
+    """
+    lines = [ln for ln in text.strip().splitlines() if not _FENCE.match(ln)]
+    body = "\n".join(lines).strip()
+    m = _ACTION.match(body)
+    if m and m.group(3) is not None:
+        try:
+            return "call", m.group(2), json.loads(m.group(3))
+        except json.JSONDecodeError:
+            pass  # fall through to the line scan (e.g. a CALL line followed by prose)
+    bad_json: str | None = None
+    for raw in lines:
+        m = _ACTION.match(_clean(raw))
         if not m:
             continue
         if m.group(4) is not None:
@@ -56,7 +78,9 @@ def parse_action(text: str) -> tuple[str, str, Any]:
         try:
             return "call", m.group(2), json.loads(m.group(3))
         except json.JSONDecodeError as e:
-            return "error", "", f"bad JSON args: {e}"
+            bad_json = bad_json or f"bad JSON args: {e}"
+    if bad_json:
+        return "error", "", bad_json
     return "error", "", "expected `CALL <tool> {json}` or `FINAL <answer>`"
 
 

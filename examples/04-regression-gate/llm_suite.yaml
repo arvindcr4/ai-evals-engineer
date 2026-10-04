@@ -1,0 +1,37 @@
+# 04 regression gate with a real LLM as the system under test: the "build" is a
+# prompt to DeepSeek V4.1 Flash (thinking off, temperature 0). Same 40 tickets as
+# suite.yaml, crossed with the channel the ticket arrived on (80 cases).
+name: support-ticket-triage-llm
+target:
+  llm: deepseek:deepseek-flash
+  temperature: 0
+  max_tokens: 200
+  workers: 8
+  system: |
+    You are a support-ticket triage service. Read the ticket and answer with ONE JSON object
+    with exactly these keys:
+      "category": one of "billing", "shipping", "account", "technical", "other"
+      "priority": "high" if the customer says it is urgent / asap / immediate, was charged twice,
+                  cannot access anything, or the whole service is down; otherwise "normal"
+      "order_id": the order id exactly as written in upper case (e.g. "ORD-12345"), or null
+      "amount":   the first dollar amount in the ticket as a number (e.g. 49.99), or null
+    Refunds, charges, payments, invoices, receipts, cards and plans are "billing".
+    Example: {"category": "billing", "priority": "normal", "order_id": null, "amount": 9.99}
+  prompt: "Channel: {channel}\nTicket: {text}"
+dataset: dataset.jsonl
+params:
+  channel: [email, chat]
+scorers:
+  - {name: category, type: json_field, field: category}
+  - {name: priority, type: json_field, field: priority}
+  - {name: order_id, type: json_field, field: order_id}
+  - {name: amount, type: json_field, field: amount}
+gate:
+  max_success_drop: 0.02
+  alpha: 0.05
+  require_significance: true
+  # API latency is network-bound: p95 moved 8% between two identical runs and 19–30% for
+  # changed builds,
+  # so the floor is in seconds, not milliseconds.
+  max_p95_latency_increase: 0.5
+  min_latency_increase_ms: 1500

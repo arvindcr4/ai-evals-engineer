@@ -125,4 +125,121 @@ self-preference gap, and learns weights with the expected signs.
   overconfident judge whose probabilities are saturated, a residual self-preference gap remains.
 - Calibrated decisions use a single tie band; held-out ECE improves over the raw judge but is
   noisy at n=200.
-- Each anchor costs two judge calls (both orders), four with `--pointwise`.
+- Each anchor costs two judge calls (both orders), four with `--pointwise`. With deepseek-flash, a full 500-anchor audit with pointwise scores cost about $0.20 (see below).
+
+## Real-model run (DeepSeek, Oct 2026)
+
+```bash
+examples/03-calibrated-judge/real_run.sh          # sources ~/TradingAgents/.env, writes out/real/
+# the core command it runs:
+uv run --no-sync evalkit calibrated-judge audit --anchors anchors.jsonl \
+  --llm deepseek:deepseek-flash --judge-family none --pointwise --workers 8 \
+  --judgments out/real/judgments.jsonl --out-md out/real/audit.md --out-json out/real/audit.json
+uv run --no-sync evalkit calibrated-judge calibrate --anchors anchors.jsonl \
+  --llm deepseek:deepseek-flash --judge-family none --judgments out/real/judgments.jsonl \
+  --out out/real/calibration.json
+```
+
+- **Judge:** `deepseek:deepseek-flash` (DeepSeek V4.1 Flash, thinking off, temperature 0). No
+  second model was needed.
+- **Sample:** all 500 synthetic anchors (`make-anchors --n 500 --seed 0`), both orders plus
+  pointwise scores for both responses: 2,000 calls, 0 failures.
+- **Cost:** main run 572,440 input + 20,098 output tokens = **$0.196**; with the parser probe and
+  a 40-anchor determinism re-run the total spend was about **$0.21**.
+- **Judge family:** DeepSeek belongs to none of the synthetic families (`atlas`/`nova`/`orion` are
+  only stylistic openers), so the main audit and calibration use `--judge-family none`, with no
+  self-preference term. Rerunning the audit from the cached verdicts with each family name
+  measures *style preference* instead, at no extra API cost.
+- Small committed outputs are in `examples/03-calibrated-judge/real_output/`: `audit.md/json`,
+  `calibration.md/json`, `calibration_report.json`, `style_probe.txt`, and the 500 cached
+  verdicts in `judgments.jsonl` (82 KB), so calibration can be reproduced offline.
+
+Audit (500 anchors):
+
+```
+| Agreement with humans (3-way) | 79.6% | high |
+| Agreement on decisive pairs | 93.5% | high |
+| Cohen's κ | 0.657 | → 1 |
+| Position consistency (same verdict after swap) | 85.0% | 100% |
+| First-slot win rate | 55.0% | 50% |
+| Judge prefers longer | 47.5% | = human (51.0%) |
+| Verbosity excess over humans | -3.5 pts | 0 |
+| Length logit coef (controls for human pref) | -1.31 | 0 |
+| Confidence ECE | 0.057 | 0 |
+| Agreement after swap-aggregation | 80.8% | — |
+| Pointwise score vs human: Pearson / Spearman | 0.780 / 0.840 | → 1 |
+| Pointwise length slope (points per log-word, human-controlled) | -1.46 | 0 |
+
+| Confidence bin | n | Stated | Actual |
+| 0.60–0.65 | 39 | 60.0% | 76.9% |
+| 0.70–0.75 | 34 | 70.0% | 88.2% |
+| 0.80–0.85 | 45 | 83.8% | 91.1% |
+| 0.90–0.95 | 94 | 90.0% | 93.6% |
+| 0.95–1.00 | 193 | 96.1% | 97.9% |
+```
+
+Style probe from the cached verdicts (own-style win rate, judge vs human): atlas 44.7% vs 44.9%
+(−0.2 pts, n=302), nova 52.6% vs 54.4% (−1.8 pts, n=308), orion 53.9% vs 51.0% (+2.9 pts, n=206).
+
+Calibration (fit on 300, evaluated on 200 held-out anchors):
+
+```
+| Judge | Agreement | κ | Verbosity excess | Length coef | Self-pref gap | ECE |
+|---|---:|---:|---:|---:|---:|---:|
+| raw judge (AB order) | 82.0% | 0.698 | -3.1 pts | -1.08 | — | 0.069 |
+| swap-aggregated | 81.0% | 0.675 | -4.3 pts | -1.84 | — | 0.093 |
+| swap + length | 80.0% | 0.648 | +0.1 pts | -0.30 | — | 0.050 |
+| swap + length + self (full) | 80.0% | 0.648 | +0.1 pts | -0.30 | — | 0.050 |
+
+Correction: P(A wins) = σ(bias=+0.17, judge_logit=+1.85, log_len_ratio=+2.19, self_family=+0.00), tie band ±0.01.
+```
+
+(With `--judge-family none` the "full" row is the same as "swap + length", because the self
+term is always zero.)
+
+**Comparison with the offline simulated judge.** The simulated judge is built to be badly biased:
+68.8% agreement, a 63.6% first-slot win rate, +9.9 pts verbosity excess, overconfidence (ECE
+0.092), and a +14.6 pt self-preference gap. Calibration raised its held-out agreement from 68.5%
+to 77.0%. The real judge shows a different picture:
+
+- **More accurate:** 79.6% three-way agreement, 93.5% on decisive pairs, and κ 0.66. Pointwise
+  scores track human scores (Spearman 0.84). The anchors make this an easy task: quality is a
+  count of on-topic facts, and the filler sentences are obviously empty. This result does not
+  show that the judge is this good on real human preference data.
+- **Some position bias:** 55.0% first-slot wins and 85% consistency after a swap. At least part
+  of the inconsistency is sampling noise, not order: re-judging 40 anchors at temperature 0
+  matched both earlier verdicts on only 90% of them. DeepSeek is not deterministic at T=0, so the
+  cache file (`--judgments`) is what makes the audit and the calibration reproducible.
+- **Slightly anti-verbose, not verbose:** the judge preferred the longer response 47.5% of the
+  time against 51.0% for humans. The length coefficient is negative (−1.31), and so is the
+  pointwise length slope (−1.46 points per log-word). Our anchors pad length with generic filler,
+  and this judge appears to penalise that padding. The opposite bias is common on real data,
+  where length and substance go together. On the held-out split, the length term moved the
+  verbosity excess from −3.1 to +0.1 pts and the coefficient from −1.08 to −0.30.
+- **Underconfident, not overconfident:** in every bin, stated confidence is below actual accuracy
+  (for example, 60% stated vs 77% actual). The fitted `judge_logit` weight of +1.85 stretches the
+  probabilities, and held-out ECE drops from 0.069 to 0.050.
+- **No measurable style preference:** all three gaps are within ±3 pts, which is noise at
+  n≈200–300. True self-preference cannot be tested here, because no anchor response was written
+  by DeepSeek.
+- **Calibration does not improve agreement for this judge.** Held-out agreement went from 82.0%
+  (raw) to 80.0% (swap + length). A paired bootstrap of the difference over the 200 test anchors
+  gives −2.0 pts, 95% CI [−6.5, +2.5]: no significant change in either direction.
+  Swap-aggregation also did not help agreement (81.0%) and made ECE worse (0.093), because
+  averaging a confident verdict with a tie or a flipped verdict pulls the probability toward 0.5.
+  When a judge is already fairly unbiased on this data, the calibration step mainly removes the
+  remaining length bias and fixes the confidence scale. It does not raise accuracy. A real gain
+  in agreement would need anchors where this judge actually fails.
+
+**Real-model integration fixes (each covered by `tests/test_calibrated_judge_real.py`):**
+judge calls run concurrently (`--workers`, results kept in anchor order); an anchor whose calls
+still fail after the client's retries is dropped and counted, so one failure no longer aborts a
+run that has already paid for 1,000+ calls; API usage (calls, tokens, `cost_usd`) is tracked
+thread-safely, printed, and saved under `usage` in the report JSON; `--judge-family none` is
+supported for judges outside the anchor families; and the parsers now accept percentage
+confidences (`85` → 0.85, where before it was clamped to 1.0), winner strings such as
+`"Response B"`, `"a"` and `"both"`, prose or other brace objects before the verdict JSON, and
+pointwise replies that mention the "1-10" scale. In this run DeepSeek always returned clean JSON
+(`{"winner": "A", "confidence": 0.95}`, `{"score": 3}`), including ties that carry a confidence
+(`{"winner": "tie", "confidence": 0.85}`), so the parser changes are defensive and were not
+needed for this particular run.

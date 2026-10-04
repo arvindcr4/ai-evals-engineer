@@ -10,7 +10,7 @@ OpenRouter…) plugs in with `--llm <spec>`.
 
 ```bash
 uv sync
-uv run pytest -q                       # 295 tests
+uv run pytest -q                       # 484 tests
 uv run evalkit -h                      # one CLI, fourteen systems
 bash examples/07-significance-engine/run.sh
 ```
@@ -45,6 +45,30 @@ examples/NN-<slug>/      sample data + run.sh that drives the CLI end-to-end
 docs/projects/           design notes, sample output and limitations per system
 docs/methodology/        project 15: the three methodology deep-dives
 ```
+
+## Real-model runs (DeepSeek, Oct 2026)
+
+Eleven of the systems were also run against the live DeepSeek API (`deepseek-flash` and
+`deepseek-v4-pro`, thinking off). Real model output exposed integration bugs the mock never
+triggered, such as parsing failures and similarity metrics that broke on paraphrases. Those bugs
+were fixed and pinned with regression tests. Each system's doc has a *Real-model run* section with
+the exact command, sample size, cost and results. A second agent checked every number in those
+sections against the outputs saved in `examples/NN-*/real_output/`. Each run is reproducible with
+`examples/NN-*/real_run.sh`. **Total API spend for all eleven: about $1.21.**
+
+| # | Real-model finding (small samples, see each doc) |
+|---|---|
+| 02 | Lexical agreement is useless across models: one model re-run against itself scores only 0.47 similarity. With v4-pro as primary and flash shadowing it, the pairwise judge prefers flash significantly and flash is 72.7% cheaper per request, so the verdict is PROMOTE. |
+| 03 | deepseek-flash as a judge on 500 anchors: 79.6% three-way agreement, κ 0.66, and far less biased than the simulated judge. Calibration has less to fix. |
+| 04 | At temperature 0 a re-run reproduced 80/80 outputs, so the gate sees no false regression. A prompt with the priority rules removed fails on one specific field. Latency is network-bound, which is why the gate needs a millisecond floor. |
+| 05 | The offline "grounded" baseline turned out to be overfit to the demo set. flash and v4-pro fail on different perturbations, and look-alike entities are what trigger v4-pro's confident lies. |
+| 06 | v4-pro as teacher and flash as judge: 21 clean DPO pairs from the example feedback for $0.017, with no judge parse failures after the fixes. |
+| 08 | flash resisted every injection in the corpus. The fuzzer's findings against the real model are robustness failures (loops and malformed tool output), not injections. |
+| 09 | The real judge correctly rated the original filler answers as off-topic, so the generator gained `--style grounded`. On that data the real judge score detects the decay. |
+| 11 | The real agent never failed on its own with correct tools. With a stale-rate tool fault injected, bisect blamed the `fx_rate` node in 6/6 runs. |
+| 12 | The LLM-generated edge cases included "phantom perturbations", cases that claim a boundary condition they don't actually contain. That led to a new validation check. |
+| 13 | The reader model is not the bottleneck; the summarizer is where real models lose facts under a tight token budget. |
+| 14 | n-gram and MinHash catch ordinary LLM paraphrases of leaked eval items. Heavy restatements defeat every detector, and the LLM judge is only a weak backstop. |
 
 ## Using a real model
 

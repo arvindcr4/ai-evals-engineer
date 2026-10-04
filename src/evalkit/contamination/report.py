@@ -40,6 +40,17 @@ def to_markdown(report: ScanReport, max_rows: int = 200) -> str:
         + f" (n={cfg['n']}, shingle={cfg['shingle']}, embedder={cfg['embedder']}).",
         "",
     ]
+    ju = report.judge_usage
+    if ju:
+        lines += [
+            (
+                f"LLM judge `{ju['model']}`: {ju['calls']} call(s), {ju['yes']} YES / "
+                f"{ju['no']} NO / {ju['unparsed']} unparsed / {ju['errors']} error(s); "
+                f"{ju['tokens_in']:,} in + {ju['tokens_out']:,} out tokens, "
+                f"${ju['cost_usd']:.4f}."
+            ),
+            "",
+        ]
     flagged = sorted(
         (r for r in report.items if r.status != "clean"),
         key=lambda r: (_ORDER[r.status], -r.overlap_ratio, -r.max_containment, -r.max_cosine),

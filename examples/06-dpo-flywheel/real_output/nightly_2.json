@@ -1,0 +1,36 @@
+{
+  "started": "2026-10-04T14:26:51+00:00",
+  "backend": "dry",
+  "events_total": 38,
+  "events_new": 6,
+  "pairs_total": 23,
+  "pairs_new": 2,
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1,
+    "near_duplicate": 4
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 12,
+      "cache_hits": 18,
+      "errors": 0,
+      "tokens_in": 2556,
+      "tokens_out": 569,
+      "cost_usd": 0.005627
+    },
+    "judge": {
+      "calls": 16,
+      "cache_hits": 76,
+      "errors": 0,
+      "tokens_in": 1284,
+      "tokens_out": 80,
+      "cost_usd": 0.000481
+    },
+    "total_cost_usd": 0.006108
+  },
+  "status": "skipped",
+  "reason": "only 2 new pairs (< 10)"
+}

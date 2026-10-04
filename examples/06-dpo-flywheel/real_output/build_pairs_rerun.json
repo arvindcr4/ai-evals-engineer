@@ -1,0 +1,66 @@
+{
+  "train": "out/real/pairs_rerun/train.jsonl",
+  "pairs_kept": 21,
+  "pairs_raw": 25,
+  "by_strategy_kept": {
+    "correction": 8,
+    "similar_up": 7,
+    "teacher": 6
+  },
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1
+  },
+  "pii_redactions": {
+    "email": 1,
+    "card": 1,
+    "phone": 1
+  },
+  "unpaired": {},
+  "judge_parse_failures": 0,
+  "margins_kept": {
+    "correction": {
+      "n": 8,
+      "min": 4.0,
+      "median": 6.0,
+      "mean": 5.875,
+      "max": 7.0
+    },
+    "similar_up": {
+      "n": 7,
+      "min": 4.0,
+      "median": 7.0,
+      "mean": 6.143,
+      "max": 7.0
+    },
+    "teacher": {
+      "n": 6,
+      "min": 6.0,
+      "median": 6.5,
+      "mean": 6.833,
+      "max": 8.0
+    }
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 0,
+      "cache_hits": 18,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "judge": {
+      "calls": 0,
+      "cache_hits": 68,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "total_cost_usd": 0.0
+  },
+  "data_sha256": "d781bf943c4795ac"
+}

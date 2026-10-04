@@ -1,0 +1,17 @@
+widgets-eur-3       7 nodes  answer=11.73      expected=11.73      PASS
+widgets-gbp-2       7 nodes  answer=6.72       expected=6.71       PASS
+widgets-inr-4       7 nodes  answer=1412.70    expected=1412.7     PASS
+widgets-usd-10      5 nodes  answer=42.50      expected=42.5       PASS
+gadgets-eur-7       7 nodes  answer=77.28      expected=77.28      PASS
+gadgets-gbp-12      7 nodes  answer=113.76     expected=113.76     PASS
+gadgets-inr-5       7 nodes  answer=4986.00    expected=4986.0     PASS
+gadgets-usd-9       5 nodes  answer=108.00     expected=108.0      PASS
+gizmos-eur-1        7 nodes  answer=6.90       expected=6.9        PASS
+gizmos-gbp-6        7 nodes  answer=35.55      expected=35.55      PASS
+gizmos-inr-11       7 nodes  answer=6855.75    expected=6855.75    PASS
+gizmos-usd-8        5 nodes  answer=60.00      expected=60.0       PASS
+sprockets-eur-15    7 nodes  answer=11.04      expected=11.04      PASS
+sprockets-gbp-13    7 nodes  answer=8.22       expected=8.22       PASS
+sprockets-inr-20    7 nodes  answer=1329.60    expected=1329.6     PASS
+sprockets-usd-25    5 nodes  answer=20.00      expected=20.0       PASS
+wrote 16 cassettes -> out/real/clean.jsonl  (16/16 pass, api cost $0.00364)

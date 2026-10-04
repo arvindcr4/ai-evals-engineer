@@ -1,0 +1,15 @@
+budget = 120 tokens; recall/stale/miss over all probes; pinned = system-prompt facts, upd = updated facts
+strategy   noise recall  stale   miss pinned    upd  budget   peak    llm
+-------------------------------------------------------------------------
+retrieval     50   1.00   0.00   0.00   1.00   1.00   100%    120    0.0
+retrieval    800   0.70   0.00   0.30   1.00   0.83   100%    120    0.0
+summary       50   0.73   0.00   0.27   1.00   0.83   100%    120   41.7
+summary      800   0.43   0.00   0.57   1.00   0.83   100%    120  635.7
+window        50   0.20   0.00   0.80   1.00   0.25   100%    120    0.0
+window       800   0.10   0.10   0.80   0.50   0.00   100%    120    0.0
+
+recall curve over noise levels:
+  window     |▂▁|  50:0.20 800:0.10
+  summary    |▆▃|  50:0.73 800:0.43
+  retrieval  |█▆|  50:1.00 800:0.70
+llm usage: reader deepseek-flash: 180 calls, 38278+369 tok, $0.0119; summarizer deepseek-flash: 2032 calls, 375768+128596 tok, $0.2670; total $0.2790

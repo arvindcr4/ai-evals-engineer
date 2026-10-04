@@ -8,7 +8,7 @@ from datetime import UTC, datetime, timedelta
 from evalkit.core.llm import get_llm
 from evalkit.drift_monitor.alerts import parse_sink
 from evalkit.drift_monitor.detect import DetectorConfig
-from evalkit.drift_monitor.generate import generate
+from evalkit.drift_monitor.generate import STYLES, generate
 from evalkit.drift_monitor.monitor import DayResult, MonitorConfig, backfill, run_day
 from evalkit.drift_monitor.report import render_markdown, write_report
 from evalkit.drift_monitor.scorers import JudgeScorer, default_scorers
@@ -31,6 +31,9 @@ def _monitor_args(p: argparse.ArgumentParser) -> None:
     p.add_argument(
         "--judge", default=None, help="add an LLM-judge scorer: 'mock' (offline) or any --llm spec"
     )
+    p.add_argument(
+        "--workers", type=int, default=1, help="concurrent scoring threads (for a remote judge)"
+    )
 
 
 def _setup(a: argparse.Namespace):
@@ -40,6 +43,7 @@ def _setup(a: argparse.Namespace):
     cfg = MonitorConfig(
         rate=a.rate,
         max_samples=a.max_samples,
+        workers=max(1, a.workers),
         detector=DetectorConfig(baseline_days=a.baseline_days),
     )
     sinks = [parse_sink(s) for s in (a.sink or ["stdout"])]
@@ -51,13 +55,21 @@ def _summary(r: DayResult) -> str:
         return f"{r.date}: skipped ({r.skipped})"
     crit = sum(x.severity == "critical" for x in r.alerts)
     status = "OK" if not r.alerts else f"{crit} critical / {len(r.alerts) - crit} warning"
-    return f"{r.date}: sampled {r.sampled}/{r.total} -> {status}"
+    extra = ""
+    if "judge_score" in r.metrics:
+        extra = f" | judge {r.metrics['judge_score']:.3f}"
+        if r.metrics.get("judge_unscored_rate"):
+            extra += f" ({r.metrics['judge_unscored_rate']:.0%} unscored)"
+        if r.metrics.get("judge_cost_usd"):
+            extra += f" ${r.metrics['judge_cost_usd']:.4f}"
+    return f"{r.date}: sampled {r.sampled}/{r.total} -> {status}{extra}"
 
 
 def _generate(a: argparse.Namespace) -> int:
-    paths = generate(a.out, a.start, a.days, a.per_day, a.decay_day, a.seed)
+    paths = generate(a.out, a.start, a.days, a.per_day, a.decay_day, a.seed, a.style)
     print(
-        f"wrote {len(paths)} daily logs ({a.per_day}/day) to {a.out}; decay from day {a.decay_day}"
+        f"wrote {len(paths)} daily logs ({a.per_day}/day, {a.style} answers) to {a.out}; "
+        f"decay from day {a.decay_day}"
     )
     return 0
 
@@ -101,6 +113,12 @@ def register(subparsers) -> None:
     g.add_argument("--per-day", type=int, default=2000)
     g.add_argument("--decay-day", type=int, default=20)
     g.add_argument("--seed", type=int, default=7)
+    g.add_argument(
+        "--style",
+        choices=STYLES,
+        default="filler",
+        help="answer text: filler (offline demo) or grounded (on-topic; use with a real judge)",
+    )
     g.set_defaults(func=_generate)
 
     r = sub.add_parser("run", help="nightly job for one date (default: yesterday)")

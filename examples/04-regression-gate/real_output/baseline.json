@@ -1,0 +1,2587 @@
+{
+ "suite": "support-ticket-triage-llm",
+ "meta": {
+  "model": "deepseek-flash",
+  "prompt_sha": "bc9d99be02ee",
+  "max_tokens": 200,
+  "temperature": 0
+ },
+ "summary": {
+  "n_cases": 80,
+  "success_rate": 1.0,
+  "errors": 0,
+  "latency_p50_s": 0.6918008330030716,
+  "latency_p95_s": 0.9733308277463948,
+  "scorer_pass_rates": {
+   "category": 1.0,
+   "priority": 1.0,
+   "order_id": 1.0,
+   "amount": 1.0
+  },
+  "tokens_in": 16942,
+  "tokens_out": 2034,
+  "cost_usd": 0.0075233999999999995
+ },
+ "cases": [
+  {
+   "case_id": "t00[channel=email]",
+   "item_id": "t00",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6530792599951383,
+   "output": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 24,
+   "cost_usd": 9.269999999999999e-05
+  },
+  {
+   "case_id": "t00[channel=chat]",
+   "item_id": "t00",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7451311579934554,
+   "output": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 24,
+   "cost_usd": 9.269999999999999e-05
+  },
+  {
+   "case_id": "t01[channel=email]",
+   "item_id": "t01",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9727103979967069,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-10231\", \"amount\": 49.99}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "error": null,
+   "tokens_in": 217,
+   "tokens_out": 31,
+   "cost_usd": 0.00010229999999999998
+  },
+  {
+   "case_id": "t01[channel=chat]",
+   "item_id": "t01",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9488973100087605,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-10231\", \"amount\": 49.99}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "error": null,
+   "tokens_in": 217,
+   "tokens_out": 31,
+   "cost_usd": 0.00010229999999999998
+  },
+  {
+   "case_id": "t02[channel=email]",
+   "item_id": "t02",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.43761158699635416,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-55120\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 217,
+   "tokens_out": 28,
+   "cost_usd": 9.869999999999999e-05
+  },
+  {
+   "case_id": "t02[channel=chat]",
+   "item_id": "t02",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7256162020057673,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-55120\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 217,
+   "tokens_out": 28,
+   "cost_usd": 9.869999999999999e-05
+  },
+  {
+   "case_id": "t03[channel=email]",
+   "item_id": "t03",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7261618570046267,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 211,
+   "tokens_out": 23,
+   "cost_usd": 9.089999999999999e-05
+  },
+  {
+   "case_id": "t03[channel=chat]",
+   "item_id": "t03",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7918596600065939,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 211,
+   "tokens_out": 23,
+   "cost_usd": 9.089999999999999e-05
+  },
+  {
+   "case_id": "t04[channel=email]",
+   "item_id": "t04",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6059813540050527,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 23,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t04[channel=chat]",
+   "item_id": "t04",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5800500670011388,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 23,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t05[channel=email]",
+   "item_id": "t05",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6992193320038496,
+   "output": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": 120.00}",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "error": null,
+   "tokens_in": 217,
+   "tokens_out": 27,
+   "cost_usd": 9.75e-05
+  },
+  {
+   "case_id": "t05[channel=chat]",
+   "item_id": "t05",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7766454910015455,
+   "output": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": 120.00}",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "error": null,
+   "tokens_in": 217,
+   "tokens_out": 27,
+   "cost_usd": 9.75e-05
+  },
+  {
+   "case_id": "t06[channel=email]",
+   "item_id": "t06",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0400313370046206,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-77311\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 28,
+   "cost_usd": 9.78e-05
+  },
+  {
+   "case_id": "t06[channel=chat]",
+   "item_id": "t06",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9851189929904649,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-77311\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 28,
+   "cost_usd": 9.78e-05
+  },
+  {
+   "case_id": "t07[channel=email]",
+   "item_id": "t07",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5971656350011472,
+   "output": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": 15.50}",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "error": null,
+   "tokens_in": 216,
+   "tokens_out": 27,
+   "cost_usd": 9.719999999999999e-05
+  },
+  {
+   "case_id": "t07[channel=chat]",
+   "item_id": "t07",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6687569390051067,
+   "output": "{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": 15.50}",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "error": null,
+   "tokens_in": 216,
+   "tokens_out": 27,
+   "cost_usd": 9.719999999999999e-05
+  },
+  {
+   "case_id": "t08[channel=email]",
+   "item_id": "t08",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.4747982230037451,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 23,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t08[channel=chat]",
+   "item_id": "t08",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.624294484994607,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 23,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t09[channel=email]",
+   "item_id": "t09",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5892059870093362,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 23,
+   "cost_usd": 9.03e-05
+  },
+  {
+   "case_id": "t09[channel=chat]",
+   "item_id": "t09",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.4381346059963107,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 23,
+   "cost_usd": 9.03e-05
+  },
+  {
+   "case_id": "t10[channel=email]",
+   "item_id": "t10",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.46030834899283946,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-88812\", \"amount\": 230.75}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "error": null,
+   "tokens_in": 219,
+   "tokens_out": 31,
+   "cost_usd": 0.00010290000000000001
+  },
+  {
+   "case_id": "t10[channel=chat]",
+   "item_id": "t10",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7106291820091428,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-88812\", \"amount\": 230.75}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "error": null,
+   "tokens_in": 219,
+   "tokens_out": 31,
+   "cost_usd": 0.00010290000000000001
+  },
+  {
+   "case_id": "t11[channel=email]",
+   "item_id": "t11",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7096075020090211,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-91000\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 215,
+   "tokens_out": 28,
+   "cost_usd": 9.81e-05
+  },
+  {
+   "case_id": "t11[channel=chat]",
+   "item_id": "t11",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5724575860076584,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-91000\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 215,
+   "tokens_out": 28,
+   "cost_usd": 9.81e-05
+  },
+  {
+   "case_id": "t12[channel=email]",
+   "item_id": "t12",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.731889085000148,
+   "output": "{\"category\": \"technical\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 212,
+   "tokens_out": 23,
+   "cost_usd": 9.12e-05
+  },
+  {
+   "case_id": "t12[channel=chat]",
+   "item_id": "t12",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9024049240106251,
+   "output": "{\"category\": \"technical\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 212,
+   "tokens_out": 23,
+   "cost_usd": 9.12e-05
+  },
+  {
+   "case_id": "t13[channel=email]",
+   "item_id": "t13",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8179195539996726,
+   "output": "{\"category\": \"account\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 23,
+   "cost_usd": 9.18e-05
+  },
+  {
+   "case_id": "t13[channel=chat]",
+   "item_id": "t13",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.44937317199946847,
+   "output": "{\"category\": \"account\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 23,
+   "cost_usd": 9.18e-05
+  },
+  {
+   "case_id": "t14[channel=email]",
+   "item_id": "t14",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0691172020015074,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 9.99}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 27,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t14[channel=chat]",
+   "item_id": "t14",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8002548080112319,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 9.99}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 27,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t15[channel=email]",
+   "item_id": "t15",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6398875909944763,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t15[channel=chat]",
+   "item_id": "t15",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5894807120057521,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t16[channel=email]",
+   "item_id": "t16",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8987269219942391,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-12001\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 212,
+   "tokens_out": 28,
+   "cost_usd": 9.719999999999999e-05
+  },
+  {
+   "case_id": "t16[channel=chat]",
+   "item_id": "t16",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7041101780050667,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-12001\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 212,
+   "tokens_out": 28,
+   "cost_usd": 9.719999999999999e-05
+  },
+  {
+   "case_id": "t17[channel=email]",
+   "item_id": "t17",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6464919130085036,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 208,
+   "tokens_out": 24,
+   "cost_usd": 9.12e-05
+  },
+  {
+   "case_id": "t17[channel=chat]",
+   "item_id": "t17",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8184606510039885,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 208,
+   "tokens_out": 24,
+   "cost_usd": 9.12e-05
+  },
+  {
+   "case_id": "t18[channel=email]",
+   "item_id": "t18",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5450496859994018,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 23,
+   "cost_usd": 9.03e-05
+  },
+  {
+   "case_id": "t18[channel=chat]",
+   "item_id": "t18",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7520839869976044,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 23,
+   "cost_usd": 9.03e-05
+  },
+  {
+   "case_id": "t19[channel=email]",
+   "item_id": "t19",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6927010440122103,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t19[channel=chat]",
+   "item_id": "t19",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7508247059886344,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t20[channel=email]",
+   "item_id": "t20",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9996493290091166,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 64.20}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 27,
+   "cost_usd": 9.63e-05
+  },
+  {
+   "case_id": "t20[channel=chat]",
+   "item_id": "t20",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.4188972289994126,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 64.20}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 27,
+   "cost_usd": 9.63e-05
+  },
+  {
+   "case_id": "t21[channel=email]",
+   "item_id": "t21",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6808659649977926,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-33090\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 28,
+   "cost_usd": 9.78e-05
+  },
+  {
+   "case_id": "t21[channel=chat]",
+   "item_id": "t21",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.49113651699735783,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-33090\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 28,
+   "cost_usd": 9.78e-05
+  },
+  {
+   "case_id": "t22[channel=email]",
+   "item_id": "t22",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8136831919982797,
+   "output": "{\"category\": \"account\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 23,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t22[channel=chat]",
+   "item_id": "t22",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9263458210043609,
+   "output": "{\"category\": \"account\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 23,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t23[channel=email]",
+   "item_id": "t23",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9511731449892977,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t23[channel=chat]",
+   "item_id": "t23",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6439015809883131,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t24[channel=email]",
+   "item_id": "t24",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6132508410082664,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-45678\", \"amount\": 18.40}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "error": null,
+   "tokens_in": 219,
+   "tokens_out": 31,
+   "cost_usd": 0.00010290000000000001
+  },
+  {
+   "case_id": "t24[channel=chat]",
+   "item_id": "t24",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6909006219939329,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-45678\", \"amount\": 18.40}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "error": null,
+   "tokens_in": 219,
+   "tokens_out": 31,
+   "cost_usd": 0.00010290000000000001
+  },
+  {
+   "case_id": "t25[channel=email]",
+   "item_id": "t25",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7054550929897232,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 24,
+   "cost_usd": 9.089999999999999e-05
+  },
+  {
+   "case_id": "t25[channel=chat]",
+   "item_id": "t25",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5109191009978531,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 24,
+   "cost_usd": 9.089999999999999e-05
+  },
+  {
+   "case_id": "t26[channel=email]",
+   "item_id": "t26",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5369129230093677,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 24,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t26[channel=chat]",
+   "item_id": "t26",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8598942969983909,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 24,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t27[channel=email]",
+   "item_id": "t27",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5374591180006973,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 212,
+   "tokens_out": 24,
+   "cost_usd": 9.24e-05
+  },
+  {
+   "case_id": "t27[channel=chat]",
+   "item_id": "t27",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.4948109709948767,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 212,
+   "tokens_out": 24,
+   "cost_usd": 9.24e-05
+  },
+  {
+   "case_id": "t28[channel=email]",
+   "item_id": "t28",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6867288950015791,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 24,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t28[channel=chat]",
+   "item_id": "t28",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5688357160106534,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 209,
+   "tokens_out": 24,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t29[channel=email]",
+   "item_id": "t29",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6488938230031636,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 23,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t29[channel=chat]",
+   "item_id": "t29",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8176506469899323,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 23,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t30[channel=email]",
+   "item_id": "t30",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7410575579997385,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t30[channel=chat]",
+   "item_id": "t30",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5392432410008041,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t31[channel=email]",
+   "item_id": "t31",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6670494019926991,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 99.00}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 27,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t31[channel=chat]",
+   "item_id": "t31",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5469524870131863,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 99.00}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 27,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t32[channel=email]",
+   "item_id": "t32",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6736578239942901,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 5.25}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "error": null,
+   "tokens_in": 211,
+   "tokens_out": 27,
+   "cost_usd": 9.57e-05
+  },
+  {
+   "case_id": "t32[channel=chat]",
+   "item_id": "t32",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7501723750028759,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": null, \"amount\": 5.25}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "error": null,
+   "tokens_in": 211,
+   "tokens_out": 27,
+   "cost_usd": 9.57e-05
+  },
+  {
+   "case_id": "t33[channel=email]",
+   "item_id": "t33",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.965118927997537,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-60606\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 28,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t33[channel=chat]",
+   "item_id": "t33",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8680277219973505,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-60606\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 210,
+   "tokens_out": 28,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t34[channel=email]",
+   "item_id": "t34",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8461462819977896,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 208,
+   "tokens_out": 23,
+   "cost_usd": 9e-05
+  },
+  {
+   "case_id": "t34[channel=chat]",
+   "item_id": "t34",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6875626069959253,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 208,
+   "tokens_out": 23,
+   "cost_usd": 9e-05
+  },
+  {
+   "case_id": "t35[channel=email]",
+   "item_id": "t35",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.882101094990503,
+   "output": "{\"category\": \"technical\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 23,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t35[channel=chat]",
+   "item_id": "t35",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7732715539896162,
+   "output": "{\"category\": \"technical\", \"priority\": \"high\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 213,
+   "tokens_out": 23,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t36[channel=email]",
+   "item_id": "t36",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7226556870009517,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-70707\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 28,
+   "cost_usd": 9.78e-05
+  },
+  {
+   "case_id": "t36[channel=chat]",
+   "item_id": "t36",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6984934470092412,
+   "output": "{\"category\": \"shipping\", \"priority\": \"normal\", \"order_id\": \"ORD-70707\", \"amount\": null}",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 214,
+   "tokens_out": 28,
+   "cost_usd": 9.78e-05
+  },
+  {
+   "case_id": "t37[channel=email]",
+   "item_id": "t37",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.4994090960099129,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-24680\", \"amount\": 12.30}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "error": null,
+   "tokens_in": 216,
+   "tokens_out": 31,
+   "cost_usd": 0.000102
+  },
+  {
+   "case_id": "t37[channel=chat]",
+   "item_id": "t37",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.596734666993143,
+   "output": "{\"category\": \"billing\", \"priority\": \"normal\", \"order_id\": \"ORD-24680\", \"amount\": 12.30}",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "error": null,
+   "tokens_in": 216,
+   "tokens_out": 31,
+   "cost_usd": 0.000102
+  },
+  {
+   "case_id": "t38[channel=email]",
+   "item_id": "t38",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.4570332760049496,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t38[channel=chat]",
+   "item_id": "t38",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7315859819937032,
+   "output": "{\"category\": \"account\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t39[channel=email]",
+   "item_id": "t39",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5215027200028999,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t39[channel=chat]",
+   "item_id": "t39",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5065218560048379,
+   "output": "{\"category\": \"technical\", \"priority\": \"normal\", \"order_id\": null, \"amount\": null}",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 207,
+   "tokens_out": 23,
+   "cost_usd": 8.969999999999998e-05
+  }
+ ]
+}

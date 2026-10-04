@@ -1,0 +1,19 @@
+[widgets-eur-3] original (PASS):
+    0 llm  live     deepseek-flash CALL lookup_price {"item": "widget"}
+    1 tool live     lookup_price lookup_price({"item": "widget"}) -> 4.25
+    2 llm  live     deepseek-flash CALL fx_rate {"base": "USD", "quote": "EUR"}
+>>  3 tool live     fx_rate      fx_rate({"base": "USD", "quote": "EUR"}) -> 0.92
+    4 llm  live     deepseek-flash CALL calc {"expr": "3 * 4.25 * 0.92"}
+    5 tool live     calc         calc({"expr": "3 * 4.25 * 0.92"}) -> 11.73
+    6 llm  live     deepseek-flash FINAL 11.73
+   final answer: 11.73
+
+replay with node 3 swapped, after=cached (PASS, 3 live calls, api cost $0.00014):
+    0 llm  cassette deepseek-flash CALL lookup_price {"item": "widget"}
+    1 tool cassette lookup_price lookup_price({"item": "widget"}) -> 4.25
+    2 llm  cassette deepseek-flash CALL fx_rate {"base": "USD", "quote": "EUR"}
+>>  3 tool override fx_rate      fx_rate({"base": "USD", "quote": "EUR"}) -> 1.087
+    4 llm  live     deepseek-flash CALL calc {"expr": "3 * 4.25 / 1.087"}
+    5 tool live     calc         calc({"expr": "3 * 4.25 / 1.087"}) -> 11.7295
+    6 llm  live     deepseek-flash FINAL 11.73
+   final answer: 11.73

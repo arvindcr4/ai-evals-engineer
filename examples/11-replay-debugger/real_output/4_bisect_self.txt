@@ -1,0 +1,56 @@
+widgets-inr-4: baseline FAIL; swapping each node with its known-good alternative
+   node  0 llm  deepseek-flash identical      alt='CALL lookup_price {"item": "widget"}'
+   node  1 tool lookup_price identical      alt='4.25'
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "INR"}'
+   node  3 tool fx_rate      flipped        alt='83.1' -> answer 1412.70
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "4 * 4.25 / 0.012"}'
+   node  5 tool calc         identical      alt='1416.6667'
+   node  6 llm  deepseek-flash identical      alt='FINAL 1416.67'
+   ROOT CAUSE: node 3 (tool fx_rate)
+gadgets-eur-7: baseline FAIL; swapping each node with its known-good alternative
+   node  0 llm  deepseek-flash identical      alt='CALL lookup_price {"item": "gadget"}'
+   node  1 tool lookup_price identical      alt='12.0'
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "EUR"}'
+   node  3 tool fx_rate      flipped        alt='0.92' -> answer 77.28
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "7 * 12.0 * 1.087"}'
+   node  5 tool calc         identical      alt='91.308'
+   node  6 llm  deepseek-flash identical      alt='FINAL 91.31'
+   ROOT CAUSE: node 3 (tool fx_rate)
+gadgets-inr-5: baseline FAIL; swapping each node with its known-good alternative
+   node  0 llm  deepseek-flash identical      alt='CALL lookup_price {"item": "gadget"}'
+   node  1 tool lookup_price identical      alt='12.0'
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "INR"}'
+   node  3 tool fx_rate      flipped        alt='83.1' -> answer 4986.00
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "5 * 12.0 / 0.012"}'
+   node  5 tool calc         identical      alt='5000.0'
+   node  6 llm  deepseek-flash identical      alt='FINAL 5000.00'
+   ROOT CAUSE: node 3 (tool fx_rate)
+gizmos-inr-11: baseline FAIL; swapping each node with its known-good alternative
+   node  0 llm  deepseek-flash identical      alt='CALL lookup_price {"item": "gizmo"}'
+   node  1 tool lookup_price identical      alt='7.5'
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "INR"}'
+   node  3 tool fx_rate      flipped        alt='83.1' -> answer 6855.75
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "11 * 7.5 / 0.012"}'
+   node  5 tool calc         identical      alt='6875.0'
+   node  6 llm  deepseek-flash identical      alt='FINAL 6875.00'
+   ROOT CAUSE: node 3 (tool fx_rate)
+sprockets-gbp-13: baseline FAIL; swapping each node with its known-good alternative
+   node  0 llm  deepseek-flash identical      alt='CALL lookup_price {"item": "sprocket"}'
+   node  1 tool lookup_price identical      alt='0.8'
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "GBP"}'
+   node  3 tool fx_rate      flipped        alt='0.79' -> answer 8.22
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "13 * 0.8 * 1.2658"}'
+   node  5 tool calc         identical      alt='13.1643'
+   node  6 llm  deepseek-flash identical      alt='FINAL 13.16'
+   ROOT CAUSE: node 3 (tool fx_rate)
+sprockets-inr-20: baseline FAIL; swapping each node with its known-good alternative
+   node  0 llm  deepseek-flash identical      alt='CALL lookup_price {"item": "sprockets"}'
+   node  1 tool lookup_price identical      alt='0.8'
+   node  2 llm  deepseek-flash identical      alt='CALL fx_rate {"base": "USD", "quote": "INR"}'
+   node  3 tool fx_rate      flipped        alt='83.1' -> answer 1329.60
+   node  4 llm  deepseek-flash identical      alt='CALL calc {"expr": "20 * 0.8 / 0.012"}'
+   node  5 tool calc         identical      alt='1333.3333'
+   node  6 llm  deepseek-flash identical      alt='FINAL 1333.33'
+   ROOT CAUSE: node 3 (tool fx_rate)
+
+root causes isolated: 6  (api cost $0.00236)

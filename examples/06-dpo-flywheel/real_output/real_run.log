@@ -1,0 +1,285 @@
+== 1. ingest day-1 feedback
+  rejected line 34: messages must contain at least one user turn
+  rejected line 35: unrecognised rating: 'meh'
+{"read": 35, "valid": 33, "invalid": 2, "written": 32, "duplicates": 1, "store": "out/real/feedback.jsonl"}
+== 2. build-pairs with the real teacher + judge (cache: out/real/llm_cache.jsonl)
+{
+  "train": "out/real/pairs/train.jsonl",
+  "pairs_kept": 21,
+  "pairs_raw": 25,
+  "by_strategy_kept": {
+    "correction": 8,
+    "similar_up": 7,
+    "teacher": 6
+  },
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1
+  },
+  "pii_redactions": {
+    "email": 1,
+    "card": 1,
+    "phone": 1
+  },
+  "unpaired": {},
+  "judge_parse_failures": 0,
+  "margins_kept": {
+    "correction": {
+      "n": 8,
+      "min": 4.0,
+      "median": 6.0,
+      "mean": 5.875,
+      "max": 7.0
+    },
+    "similar_up": {
+      "n": 7,
+      "min": 4.0,
+      "median": 7.0,
+      "mean": 6.143,
+      "max": 7.0
+    },
+    "teacher": {
+      "n": 6,
+      "min": 6.0,
+      "median": 6.5,
+      "mean": 6.833,
+      "max": 8.0
+    }
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 18,
+      "cache_hits": 0,
+      "errors": 0,
+      "tokens_in": 3717,
+      "tokens_out": 1065,
+      "cost_usd": 0.009124
+    },
+    "judge": {
+      "calls": 60,
+      "cache_hits": 8,
+      "errors": 0,
+      "tokens_in": 4237,
+      "tokens_out": 300,
+      "cost_usd": 0.001631
+    },
+    "total_cost_usd": 0.010755
+  },
+  "data_sha256": "d781bf943c4795ac"
+}
+== 2b. same build again: must be served from the cache (0 API calls, same sha)
+{
+  "train": "out/real/pairs_rerun/train.jsonl",
+  "pairs_kept": 21,
+  "pairs_raw": 25,
+  "by_strategy_kept": {
+    "correction": 8,
+    "similar_up": 7,
+    "teacher": 6
+  },
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1
+  },
+  "pii_redactions": {
+    "email": 1,
+    "card": 1,
+    "phone": 1
+  },
+  "unpaired": {},
+  "judge_parse_failures": 0,
+  "margins_kept": {
+    "correction": {
+      "n": 8,
+      "min": 4.0,
+      "median": 6.0,
+      "mean": 5.875,
+      "max": 7.0
+    },
+    "similar_up": {
+      "n": 7,
+      "min": 4.0,
+      "median": 7.0,
+      "mean": 6.143,
+      "max": 7.0
+    },
+    "teacher": {
+      "n": 6,
+      "min": 6.0,
+      "median": 6.5,
+      "mean": 6.833,
+      "max": 8.0
+    }
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 0,
+      "cache_hits": 18,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "judge": {
+      "calls": 0,
+      "cache_hits": 68,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "total_cost_usd": 0.0
+  },
+  "data_sha256": "d781bf943c4795ac"
+}
+== 3. nightly run #1 (dry-run backend, gate at 10 new pairs; reuses the same cache)
+{
+  "started": "2026-10-04T14:26:50+00:00",
+  "backend": "dry",
+  "events_total": 32,
+  "events_new": 32,
+  "pairs_total": 21,
+  "pairs_new": 21,
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 0,
+      "cache_hits": 18,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "judge": {
+      "calls": 0,
+      "cache_hits": 68,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "total_cost_usd": 0.0
+  },
+  "dataset": "out/real/flywheel/datasets/2026-10-03",
+  "data_sha256": "d781bf943c4795acea63e10dca8f44ce076c3b962ede124d7ac611e2d9b6f9c8",
+  "train": {
+    "backend": "dry",
+    "status": "planned",
+    "adapter_path": "out/real/flywheel/adapters/2026-10-03",
+    "metrics": {
+      "rows": 21,
+      "steps": 2,
+      "problems": 0
+    }
+  },
+  "gate": {
+    "incumbent": "base",
+    "incumbent_score": 0.7,
+    "candidate_score": 0.7607,
+    "min_win": 0.01,
+    "promoted": true
+  },
+  "status": "promoted"
+}
+== 4. day 2 feedback -> nightly (only the new thumbs-downs hit the API)
+{"read": 6, "valid": 6, "invalid": 0, "written": 6, "duplicates": 0, "store": "out/real/feedback.jsonl"}
+{
+  "started": "2026-10-04T14:26:51+00:00",
+  "backend": "dry",
+  "events_total": 38,
+  "events_new": 6,
+  "pairs_total": 23,
+  "pairs_new": 2,
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1,
+    "near_duplicate": 4
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 12,
+      "cache_hits": 18,
+      "errors": 0,
+      "tokens_in": 2556,
+      "tokens_out": 569,
+      "cost_usd": 0.005627
+    },
+    "judge": {
+      "calls": 16,
+      "cache_hits": 76,
+      "errors": 0,
+      "tokens_in": 1284,
+      "tokens_out": 80,
+      "cost_usd": 0.000481
+    },
+    "total_cost_usd": 0.006108
+  },
+  "status": "skipped",
+  "reason": "only 2 new pairs (< 10)"
+}
+== 5. same day, threshold 2 -> trains, gate decides (real teacher yields fewer new pairs than the mock: near-dups)
+{
+  "started": "2026-10-04T14:27:01+00:00",
+  "backend": "dry",
+  "events_total": 38,
+  "events_new": 6,
+  "pairs_total": 23,
+  "pairs_new": 2,
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1,
+    "near_duplicate": 4
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 0,
+      "cache_hits": 30,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "judge": {
+      "calls": 0,
+      "cache_hits": 92,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "total_cost_usd": 0.0
+  },
+  "dataset": "out/real/flywheel/datasets/2026-10-04",
+  "data_sha256": "8f3f7c0d0f3172bb95deb412527650fb183a1f78889a757790554a636dbf43ac",
+  "train": {
+    "backend": "dry",
+    "status": "planned",
+    "adapter_path": "out/real/flywheel/adapters/2026-10-04",
+    "metrics": {
+      "rows": 23,
+      "steps": 2,
+      "problems": 0
+    }
+  },
+  "gate": {
+    "incumbent": "out/real/flywheel/adapters/2026-10-03",
+    "incumbent_score": 0.7607,
+    "candidate_score": 0.7876,
+    "min_win": 0.01,
+    "promoted": true
+  },
+  "status": "promoted"
+}

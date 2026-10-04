@@ -7,7 +7,9 @@
 | answer_chars_mean | 612.5 | 293.5 | -52.1% |
 | cost_usd_mean | 0.002448 | 0.002213 | -9.6% |
 | empty_rate | 0.003081 | 0.0303 | +883.5% |
+| judge_cost_usd | 0.00479 | 0.003564 | -25.6% |
 | judge_score | 0.9628 | 0.7247 | -24.7% |
+| judge_unscored_rate | 0 | 0 | +0.0% |
 | latency_p50 | 1.723 | 2.964 | +72.0% |
 | latency_p95 | 2.971 | 5.061 | +70.3% |
 | refusal_rate | 0.02686 | 0.1919 | +614.6% |

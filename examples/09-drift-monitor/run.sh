@@ -5,7 +5,9 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 EX=examples/09-drift-monitor
 OUT=$EX/out
-rm -rf "$OUT" && mkdir -p "$OUT"
+mkdir -p "$OUT"
+# Clear previous demo output but keep out/real/ (written by real_run.sh, costs API money).
+find "$OUT" -mindepth 1 -maxdepth 1 ! -name real -exec rm -rf {} +
 
 uv run --no-sync evalkit drift-monitor generate --out "$OUT/logs" \
   --start 2026-09-01 --days 30 --per-day 2000 --decay-day 20 --seed 7

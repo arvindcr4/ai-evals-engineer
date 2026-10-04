@@ -274,6 +274,7 @@ class ScanReport:
     thresholds: dict
     corpus: dict
     items: list[ItemResult]
+    judge_usage: dict = field(default_factory=dict)
 
     @property
     def summary(self) -> dict:
@@ -297,6 +298,7 @@ class ScanReport:
             "config": self.config,
             "thresholds": self.thresholds,
             "items": [asdict(r) for r in self.items],
+            **({"judge_usage": self.judge_usage} if self.judge_usage else {}),
         }
 
     def clean_ids(self) -> list[str]:

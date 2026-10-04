@@ -1,0 +1,87 @@
+replayed 60 requests (60 ok, 0 failed) in 172.96s; shadowed 47 (78.3%), 0 shadow errors -> examples/02-shadow-router/out/real/pairs.jsonl
+# Shadow report: `deepseek-flash` vs `deepseek-v4-pro`
+
+**Verdict: PROMOTE** — judge says candidate wins significantly
+
+47 shadow pairs logged, 47 comparable (both sides succeeded).
+
+| metric | primary | shadow | delta |
+|---|---:|---:|---:|
+| mean cost / request | $0.000692 | $0.000189 | -72.7% |
+| latency p50 | 2.900s | 1.412s | -1.489s |
+| latency p95 | 3.638s | 1.801s | -1.837s |
+| mean output tokens | 161.3 | 146.8 | |
+| error rate | 0.0% | 0.0% | |
+| truncated (finish=length) | 0.0% | 0.0% | |
+
+## Agreement
+
+- exact (normalised): **0.0%**
+- near (token Jaccard ≥ 0.6): **0.0%**
+- mean token Jaccard: 0.277; mean similarity: 0.221
+
+## Judge (`deepseek-v4-pro`, both orders)
+
+- shadow wins 21, losses 1, ties 25
+- win rate (decided pairs) **95.5%** (95% CI 78.2%–99.2%)
+- non-loss rate 97.9%
+- order flips (verdict changed with A/B order, scored tie) 25; unparsed verdicts 0; judge errors 0
+- judge spend: 94 calls, $0.0518
+
+## Largest disagreements
+
+| request | sim | judge | primary | shadow |
+|---|---:|---|---|---|
+| r00044 | 0.39 | loss | The Rust borrow checker enforces memory safety at compile time without a garbage collecto… | The borrow checker enforces Rust's ownership rules at compile time:  - Each value has one… |
+| r00023 | 0.09 | win | gRPC deadline propagation automatically carries the timeout from an incoming request to a… | gRPC deadlines propagate automatically: when a client sets a deadline, the server receive… |
+| r00068 | 0.11 | win | Postgres connection pooling breaks under load typically due to:  1. **Pool exhaustion** –… | Pooling usually breaks because of **exhaustion and queueing**, not pooling itself:  - **P… |
+| r00051 | 0.11 | win | For React hydration errors, follow these practices:  1. **Avoid browser-only APIs during … | Fix the root cause: server and client must render identical HTML on first pass.  - Don't … |
+| r00029 | 0.13 | win | LLM prompt caching typically breaks under load due to **cache eviction** and **TTL expiry… | Prompt caching usually breaks under load for three reasons:  1. **Cache key mismatch**: K… |
+| r00052 | 0.14 | win | First, check the test logs for the **failure reason** and **timing**. Look for:  1. **Sha… | Check the failure pattern first: is it the same test, same step, or random? Then verify: … |
+| r00002 | 0.15 | win | Vector index recall degrades under load primarily due to resource contention and algorith… | Recall drops under load mainly because the index is being searched *approximately* under … |
+| r00021 | 0.16 | win | CI flaky tests break under load because resource contention exposes hidden assumptions in… | Flaky tests under load usually stem from timing and resource contention, not logic bugs: … |
+
+wrote examples/02-shadow-router/out/real/report_judge_pro/report.md, examples/02-shadow-router/out/real/report_judge_pro/report.html, examples/02-shadow-router/out/real/report_judge_pro/report.json
+# Shadow report: `deepseek-flash` vs `deepseek-v4-pro`
+
+**Verdict: PROMOTE** — judge says candidate wins significantly
+
+47 shadow pairs logged, 47 comparable (both sides succeeded).
+
+| metric | primary | shadow | delta |
+|---|---:|---:|---:|
+| mean cost / request | $0.000692 | $0.000189 | -72.7% |
+| latency p50 | 2.900s | 1.412s | -1.489s |
+| latency p95 | 3.638s | 1.801s | -1.837s |
+| mean output tokens | 161.3 | 146.8 | |
+| error rate | 0.0% | 0.0% | |
+| truncated (finish=length) | 0.0% | 0.0% | |
+
+## Agreement
+
+- exact (normalised): **0.0%**
+- near (token Jaccard ≥ 0.6): **0.0%**
+- mean token Jaccard: 0.277; mean similarity: 0.221
+
+## Judge (`deepseek-flash`, both orders)
+
+- shadow wins 35, losses 0, ties 12
+- win rate (decided pairs) **100.0%** (95% CI 90.1%–100.0%)
+- non-loss rate 100.0%
+- order flips (verdict changed with A/B order, scored tie) 11; unparsed verdicts 0; judge errors 0
+- judge spend: 94 calls, $0.0118
+
+## Largest disagreements
+
+| request | sim | judge | primary | shadow |
+|---|---:|---|---|---|
+| r00023 | 0.09 | win | gRPC deadline propagation automatically carries the timeout from an incoming request to a… | gRPC deadlines propagate automatically: when a client sets a deadline, the server receive… |
+| r00068 | 0.11 | win | Postgres connection pooling breaks under load typically due to:  1. **Pool exhaustion** –… | Pooling usually breaks because of **exhaustion and queueing**, not pooling itself:  - **P… |
+| r00051 | 0.11 | win | For React hydration errors, follow these practices:  1. **Avoid browser-only APIs during … | Fix the root cause: server and client must render identical HTML on first pass.  - Don't … |
+| r00029 | 0.13 | win | LLM prompt caching typically breaks under load due to **cache eviction** and **TTL expiry… | Prompt caching usually breaks under load for three reasons:  1. **Cache key mismatch**: K… |
+| r00076 | 0.14 | win | Best practices for S3 lifecycle rules:  1. **Use versioning-aware transitions** – Apply r… | Use lifecycle rules to automate cost and retention:  - **Transition** to cheaper storage:… |
+| r00025 | 0.14 | win | Feature flag cleanup often breaks under load due to **race conditions** and **cache stamp… | Feature flag cleanup usually breaks under load because the flag isn't just a boolean—it's… |
+| r00067 | 0.14 | win | To improve vector index recall, first identify the cause:  1. **Check your metric** – Ens… | Improve recall by: (1) increasing `nprobe`/`efSearch`/`ef` at query time (biggest lever);… |
+| r00052 | 0.14 | win | First, check the test logs for the **failure reason** and **timing**. Look for:  1. **Sha… | Check the failure pattern first: is it the same test, same step, or random? Then verify: … |
+
+wrote examples/02-shadow-router/out/real/report_judge_flash/report.md, examples/02-shadow-router/out/real/report_judge_flash/report.html, examples/02-shadow-router/out/real/report_judge_flash/report.json

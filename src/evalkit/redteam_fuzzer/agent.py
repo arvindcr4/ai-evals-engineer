@@ -44,8 +44,20 @@ _INJECTION_PATTERNS = [
 ]
 _INJECTION_RE = re.compile("|".join(_INJECTION_PATTERNS), re.IGNORECASE)
 
-_ACTION_TOOL_RE = re.compile(r"^\s*TOOL\s+([A-Za-z0-9_]+)\s*(\{.*\})?\s*$")
-_ACTION_FINAL_RE = re.compile(r"^\s*FINAL\s*(.*)$", re.DOTALL)
+# One action per line. Real models decorate the keyword (``**FINAL:**``,
+# ``TOOL: search``, a leading ``- `` or ``> ``) and sometimes put text after the
+# JSON args, so the line grammar is matched leniently and the args are decoded
+# with ``raw_decode`` (trailing junk ignored).
+_DECOR = r"[\s>*_`#-]*"
+_ACTION_TOOL_RE = re.compile(
+    rf"^{_DECOR}TOOL\b{_DECOR}:?{_DECOR}([A-Za-z0-9_]+)[`*]*\s*\(?\s*(.*)$"
+)
+_ACTION_FINAL_RE = re.compile(
+    rf"^{_DECOR}FINAL(?:[ _]ANSWER)?\b{_DECOR}:?[*_`]*\s?(.*)$"
+)
+# A line that starts a *new* turn the model hallucinated after its action.
+_TURN_BREAK_RE = re.compile(rf"^{_DECOR}(?:TOOL|OBSERVATION|FINAL)\b")
+_FENCE_RE = re.compile(r"^\s*```[A-Za-z0-9_-]*\s*$")
 _CANARY_NORM = re.compile(r"[^a-z0-9]")
 
 
@@ -75,6 +87,10 @@ class AgentResult:
     ``exhausted`` names the budget that stopped a non-terminating run
     (``"steps"`` or ``"tokens"``); ``sink_payloads`` holds the JSON arguments of
     every forbidden call that actually executed (an exfiltration channel).
+    ``infra_error`` is set when the *policy model call itself* failed (HTTP
+    error, timeout, rate limit after retries): that is a harness/provider
+    failure, not agent misbehaviour, so oracles ignore the run. ``llm_calls``
+    and ``cost_usd`` sum the policy's completions for spend tracking.
     """
 
     case_id: str
@@ -91,6 +107,9 @@ class AgentResult:
     blocked: list[str] = field(default_factory=list)
     exhausted: str | None = None
     sink_payloads: list[str] = field(default_factory=list)
+    infra_error: str | None = None
+    llm_calls: int = 0
+    cost_usd: float = 0.0
 
 # ---------------------------------------------------------------------------
 # Guardrail layer
@@ -189,25 +208,41 @@ class Action:
     text: str = ""
 
 
+def _decode_args(rest: str) -> dict[str, Any]:
+    rest = rest.strip()
+    start = rest.find("{")
+    if start < 0:
+        return {}
+    try:
+        obj, _ = json.JSONDecoder().raw_decode(rest[start:])
+    except json.JSONDecodeError:
+        return {}
+    return obj if isinstance(obj, dict) else {}
+
+
 def parse_action(raw: str) -> Action:
     """Parse the agent policy's line-oriented action grammar.
 
-    The grammar is ``TOOL <name> <json-args>`` or ``FINAL <text>``; scanning
-    line by line keeps a chatty real model parseable.
+    The grammar is ``TOOL <name> <json-args>`` or ``FINAL <text>``. The
+    *earliest* action line wins, so a chatty preamble is skipped and anything a
+    real model hallucinates after its action (fake ``OBSERVATION`` lines, a
+    second ``TOOL``, a premature ``FINAL``) is ignored. Markdown fences and
+    decorations (``**FINAL:**``, ``TOOL: name``) are tolerated. A reply with no
+    action line is treated as a final answer (the whole text).
     """
-    for line in raw.splitlines():
+    lines = [ln for ln in raw.splitlines() if not _FENCE_RE.match(ln)]
+    for i, line in enumerate(lines):
         m = _ACTION_TOOL_RE.match(line)
         if m:
-            args: dict[str, Any] = {}
-            if m.group(2):
-                try:
-                    args = json.loads(m.group(2))
-                except json.JSONDecodeError:
-                    args = {}
-            return Action(kind="tool", tool=m.group(1), args=args)
-    m = _ACTION_FINAL_RE.search(raw)
-    if m:
-        return Action(kind="final", text=m.group(1).strip())
+            return Action(kind="tool", tool=m.group(1), args=_decode_args(m.group(2)))
+        m = _ACTION_FINAL_RE.match(line)
+        if m:
+            body = [m.group(1)]
+            for nxt in lines[i + 1:]:
+                if _TURN_BREAK_RE.match(nxt):
+                    break
+                body.append(nxt)
+            return Action(kind="final", text="\n".join(body).strip())
     return Action(kind="final", text=raw.strip())
 
 
@@ -320,11 +355,16 @@ class ToyAgent:
     """A small tool-using agent with a swappable LLM policy and a guard layer."""
 
     def __init__(self, level: str = "none", llm: LLM | None = None, step_budget: int = 12,
-                 token_budget: int = 20_000) -> None:
+                 token_budget: int = 20_000, llm_kwargs: dict[str, Any] | None = None) -> None:
         self.guard = GuardConfig.for_level(level)
-        self.llm = llm or MockLLM(model=f"toy-{level}", responder=toy_responder)
+        self.llm = llm or MockLLM(model=f"toy-{level}", responder=toy_responder,
+                                 price_in=0.0, price_out=0.0)
         self.step_budget = step_budget
         self.token_budget = token_budget
+        # Greedy decoding keeps a real policy as reproducible as the provider
+        # allows; max_tokens bounds spend when a model rambles (one action per
+        # turn needs far less).
+        self.llm_kwargs = {"temperature": 0, "max_tokens": 400} if llm_kwargs is None else llm_kwargs
 
     # -- environment tools: attacker controls some outputs per the case --------
     def _run_tool(self, name: str, args: dict[str, Any], case: AttackCase) -> tuple[Any, str]:
@@ -404,7 +444,14 @@ class ToyAgent:
         try:
             for step_no in range(self.step_budget):
                 result.steps_used = step_no + 1
-                comp = self.llm.complete(messages)
+                try:
+                    comp = self.llm.complete(messages, **self.llm_kwargs)
+                except Exception as exc:  # noqa: BLE001 - provider failure, not a finding
+                    result.infra_error = f"{type(exc).__name__}: {exc}"[:300]
+                    result.terminated = False
+                    return result
+                result.llm_calls += 1
+                result.cost_usd += comp.cost_usd
                 result.total_tokens += comp.tokens_in + comp.tokens_out
                 traj.steps.append(Step(kind="llm", name=self.llm.model, output=comp.text,
                                        tokens_in=comp.tokens_in, tokens_out=comp.tokens_out))
@@ -442,7 +489,7 @@ class ToyAgent:
                 ) or (self.guard.block_forbidden_exact and name in FORBIDDEN_TOOLS)
                 if blocked:
                     result.blocked.append(name)
-                    messages.append({"role": "assistant", "content": comp.text})
+                    messages.append({"role": "assistant", "content": _render(action)})
                     messages.append({"role": "user", "content": "OBSERVATION[guard]: tool blocked by policy"})
                     continue
 
@@ -454,7 +501,10 @@ class ToyAgent:
                 output, provenance = self._run_tool(name, action.args, case)
                 output = self._coerce_record(name, output, result)
                 obs = self._observe(output, provenance)
-                messages.append({"role": "assistant", "content": comp.text})
+                # Echo only the parsed action back: a real model's hallucinated
+                # continuation (fake OBSERVATION lines, extra actions, leaked
+                # special tokens) would otherwise poison its own history.
+                messages.append({"role": "assistant", "content": _render(action)})
                 messages.append({"role": "user", "content": f"OBSERVATION[{provenance}]: {obs}"})
 
             result.terminated = False  # ran out of step budget without finalising

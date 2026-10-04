@@ -1,0 +1,16 @@
+coverage for expense-claim-triage: 137 cases
+  by axis:     adversarial=7, boundary=39, combinatorial=39, format=22, semantic=30
+  by field:    amount=11, category=4, currency=4, employee_note=51, expense_date=8, has_receipt=3
+  generators:  llm:deepseek-flash=27, rule:adversarial=5, rule:boundary=37, rule:format=9, rule:pairwise=39, rule:semantic=20
+  schema:      valid=70 invalid=67
+  labels:      invalid=67, approve=53, reject=4, escalate=13
+  review:      44 flagged needs_human_review
+  categories:  100% of expected axis categories hit
+  pairwise:    372/372 level pairs = 100.0%
+    adversarial    alone: 2.7%
+    boundary       alone: 21.5%
+    combinatorial  alone: 100.0%
+    format         alone: 9.4%
+    semantic       alone: 2.7%
+  llm vs rules: 27 llm cases; novelty vs rule cases mean 0.39 (median 0.45, min 0.05); novelty vs seeds llm 0.4165 vs rule 0.2646
+    12 llm cases in 12 categories no rule produced: adversarial/numeric_ambiguity, adversarial/receipt_contradiction, boundary/escalation_threshold_exact, boundary/other_category_escalation, boundary/over_escalation_threshold, boundary/receipt_present_over_threshold, boundary/receipt_threshold_exact, boundary/under_threshold_no_receipt, format/amount_currency_mismatch, format/currency_symbol_in_note, format/note_amount_conflict, format/zero_width_space

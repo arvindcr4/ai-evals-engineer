@@ -100,6 +100,25 @@ def scrub_pii(text: str) -> tuple[str, Counter]:
     return text, counts
 
 
+# Phrases a grounded teacher uses when it talks *about* its reference context
+# instead of answering ("I don't have a verified answer for that..."). Seen with
+# deepseek-v4-pro in ~1/3 of teacher answers despite an explicit instruction; a
+# model trained on them learns to cite references it will never have at serve time.
+_CONTEXT_LEAK = re.compile(
+    r"verified (?:\w+ ){0,2}(?:answers?|steps|information|documentation|examples?)"
+    r"|reference (?:answers?|material)|(?:the|these) examples? (?:I|you) (?:have|were given|was given)"
+    r"|I(?:'ve| have)(?: been)? (?:given|provided)|I was (?:given|provided)"
+    r"|\bmy (?:documentation|references|reference material|sources)\b"
+    r"|(?:information|documentation|context|references?) (?:available|provided|given) to me"
+    r"|(?:answers?|information|documentation|references?) I (?:can reference|have been given|was given|was provided)",
+    re.IGNORECASE,
+)
+
+
+def leaks_context(text: str) -> bool:
+    return _CONTEXT_LEAK.search(text.replace("’", "'")) is not None
+
+
 def is_refusal(text: str) -> bool:
     low = text.lower().replace("’", "'")
     return any(marker in low for marker in REFUSAL_MARKERS)
@@ -169,6 +188,7 @@ class FilterConfig:
     near_dup_threshold: float = 0.85
     scrub_pii: bool = True
     drop_refusal_chosen: bool = True
+    drop_context_leaks: bool = True
 
 
 def filter_pairs(
@@ -225,6 +245,8 @@ def _structural_reason(p, cfg: FilterConfig, decon: Decontaminator | None) -> st
         return "length"
     if cfg.drop_refusal_chosen and is_refusal(p.chosen):
         return "refusal"
+    if cfg.drop_context_leaks and p.strategy == "teacher" and leaks_context(p.chosen):
+        return "context_leak"
     trusted = cfg.trust_corrections and p.strategy == "correction"
     if not trusted and (p.margin is None or p.margin < cfg.min_margin):
         return "low_margin"

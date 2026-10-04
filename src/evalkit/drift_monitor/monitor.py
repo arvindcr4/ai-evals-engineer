@@ -17,6 +17,7 @@ class MonitorConfig:
     salt: str = "drift-v1"
     max_samples: int | None = None
     min_samples: int = 20
+    workers: int = 1
     detector: DetectorConfig = field(default_factory=DetectorConfig)
 
 
@@ -50,7 +51,7 @@ def run_day(
             [],
             skipped=f"only {len(sample)} samples (< {cfg.min_samples})",
         )
-    agg = aggregate(sample, scorers or default_scorers())
+    agg = aggregate(sample, scorers or default_scorers(), cfg.workers)
     store.save_day(day, total, agg.n, agg.metrics, agg.dists)
     alerts = detect(day, store, cfg.detector)
     store.save_alerts(day, alerts)

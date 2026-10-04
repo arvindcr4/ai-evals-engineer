@@ -12,7 +12,7 @@ from evalkit.core.trajectory import read_jsonl
 from .data import load_cases, load_items, save
 from .perturb import OPERATORS, PerturbConfig, perturb
 from .rag import LLMRAG, BaselineRAG, RAGSystem, mock_rag_llm
-from .scoring import run_cases, summarize, to_markdown
+from .scoring import rescore, run_cases, summarize, to_markdown
 
 
 def _perturb(args: argparse.Namespace) -> int:
@@ -46,12 +46,30 @@ def build_system(kind: str, llm_spec: str | None, top_k: int) -> tuple[RAGSystem
 def _run(args: argparse.Namespace) -> int:
     cases = load_cases(args.cases)[: args.limit or None]
     system, name = build_system(args.system, args.llm, args.top_k)
-    results = run_cases(cases, system, args.name or name)
+    results = run_cases(cases, system, args.name or name, workers=args.workers,
+                        repeats=args.repeats)
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     save(args.out, results)
     lies = sum(r.lie for r in results)
     correct = sum(r.correct for r in results)
-    print(f"{args.name or name}: {len(results)} cases, {correct} correct, {lies} lies -> {args.out}")
+    bad = sum(r.malformed for r in results)
+    line = f"{args.name or name}: {len(results)} cases, {correct} correct, {lies} lies"
+    if bad:
+        line += f", {bad} malformed"
+    if isinstance(system, LLMRAG) and system.calls:
+        line += (f" | {system.calls} calls, {system.tokens_in} in / {system.tokens_out} out "
+                 f"tokens, ${system.cost_usd:.4f}")
+    print(f"{line} -> {args.out}")
+    return 0
+
+
+def _rescore(args: argparse.Namespace) -> int:
+    results = rescore(load_cases(args.cases), list(read_jsonl(args.results)))
+    Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+    save(args.out, results)
+    lies = sum(r.lie for r in results)
+    print(f"rescored {len(results)} replies, {sum(r.correct for r in results)} correct, "
+          f"{lies} lies -> {args.out}")
     return 0
 
 
@@ -102,7 +120,17 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     pr.add_argument("--name", default=None, help="label for this system in reports")
     pr.add_argument("--top-k", type=int, default=6)
     pr.add_argument("--limit", type=int, default=0)
+    pr.add_argument("--workers", type=int, default=1,
+                    help="concurrent calls (use ~8 for a hosted LLM; baselines are instant)")
+    pr.add_argument("--repeats", type=int, default=1,
+                    help="run every case N times; the report adds an Unstable (flip) rate")
     pr.set_defaults(func=_run)
+
+    rs = sub.add_parser("rescore", help="re-grade saved replies with the current scorer (no calls)")
+    rs.add_argument("--cases", required=True)
+    rs.add_argument("--results", required=True, help="results JSONL from a previous run")
+    rs.add_argument("--out", required=True)
+    rs.set_defaults(func=_rescore)
 
     rp = sub.add_parser("report", help="aggregate results into Markdown + JSON tables")
     rp.add_argument("results", nargs="+", help="one or more results JSONL files")

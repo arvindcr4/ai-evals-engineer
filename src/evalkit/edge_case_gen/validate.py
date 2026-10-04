@@ -21,6 +21,7 @@ from typing import Any
 
 from evalkit.core.llm import LLM
 from evalkit.edge_case_gen.cases import EdgeCase, canonical
+from evalkit.edge_case_gen.claims import claim_holds
 from evalkit.edge_case_gen.llm_gen import llm_label
 from evalkit.edge_case_gen.spec import TaskSpec, validate_input
 
@@ -92,10 +93,15 @@ class Validator:
     ``near_dup`` is the shingle-Jaccard threshold above which two cases with
     identical structured fields count as duplicates; ``min_novelty`` drops cases
     whose whole input is that close to a seed (novelty = 1 − max similarity).
+    ``check_claims`` rejects cases whose input lacks the edge their category
+    names (see :mod:`claims`), e.g. a ``zero_width`` case with no zero-width
+    character, which real models return often.
     """
 
-    def __init__(self, spec: TaskSpec, near_dup: float = 0.95, min_novelty: float = 0.0):
+    def __init__(self, spec: TaskSpec, near_dup: float = 0.95, min_novelty: float = 0.0,
+                 check_claims: bool = True):
         self.spec = spec
+        self.check_claims = check_claims
         self.near_dup = near_dup
         self.min_novelty = min_novelty
         self._seed_sh = [shingles(canonical(s)) for s in spec.seeds]
@@ -130,6 +136,11 @@ class Validator:
             if key in seen:
                 rep.rejected.append({"id": c.id, "reason": "duplicate", "detail": c.category})
                 continue
+            if self.check_claims and claim_holds(self.spec, c.category, c.input,
+                                                 c.field) is False:
+                rep.rejected.append({"id": c.id, "reason": "claim_not_in_input",
+                                     "detail": f"{c.axis}/{c.category}: {c.description[:120]}"})
+                continue
             errors = validate_input(self.spec, c.input)
             sh = shingles(self._text(c.input))
             bucket = by_struct.setdefault(self._bucket(c.input, errors), [])
@@ -151,14 +162,17 @@ class Validator:
 
 
 def propose_labels(spec: TaskSpec, cases: list[EdgeCase], oracle: Oracle | None = None,
-                   llm: LLM | None = None, min_confidence: float = 0.7) -> None:
+                   llm: LLM | None = None, min_confidence: float = 0.7) -> dict:
     """Fill ``label`` in place and set ``needs_human_review`` with reasons.
+
+    Returns the LLM usage (calls, tokens, cost) spent on label proposals.
 
     Schema-invalid inputs get ``spec.invalid_label`` when the spec defines one.
     Otherwise the oracle labels; the LLM labels when there is no oracle and is
     cross-checked when there is. Semantic cases always go to review, since the
     oracle reads structured fields and cannot judge what the text means.
     """
+    usage: dict = {"calls": 0, "tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0}
     for c in cases:
         reasons: list[str] = []
         c.label, c.label_source = None, None
@@ -171,7 +185,7 @@ def propose_labels(spec: TaskSpec, cases: list[EdgeCase], oracle: Oracle | None 
                 except Exception as e:  # noqa: BLE001 - an oracle crash is a review signal
                     reasons.append(f"oracle_error: {type(e).__name__}: {e}")
             if llm is not None:
-                lab, conf = llm_label(spec, llm, c.input)
+                lab, conf = llm_label(spec, llm, c.input, usage=usage)
                 if c.label is None and lab is not None:
                     c.label, c.label_source = lab, "llm"
                     if conf < min_confidence:
@@ -184,3 +198,4 @@ def propose_labels(spec: TaskSpec, cases: list[EdgeCase], oracle: Oracle | None 
             reasons.append(f"{c.axis}_axis")
         c.review_reasons = reasons
         c.needs_human_review = bool(reasons)
+    return usage

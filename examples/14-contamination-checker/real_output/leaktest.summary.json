@@ -1,0 +1,226 @@
+{
+  "items": 40,
+  "generator": "deepseek-flash",
+  "detectors": {
+    "verbatim": {
+      "items": 40,
+      "flagged": 40,
+      "contaminated": 40,
+      "cross_flags": 0,
+      "pipeline": 40,
+      "by_method": {
+        "ngram": 39,
+        "minhash": 40,
+        "embedding": 40
+      },
+      "flag_rate": 1.0,
+      "contaminated_rate": 1.0,
+      "pipeline_rate": 1.0,
+      "method_rate": {
+        "ngram": 0.975,
+        "minhash": 1.0,
+        "embedding": 1.0
+      },
+      "doc_cosine": {
+        "min": 0.52,
+        "median": 0.9022,
+        "max": 0.9258
+      }
+    },
+    "light_edit": {
+      "items": 40,
+      "flagged": 40,
+      "contaminated": 23,
+      "cross_flags": 0,
+      "pipeline": 40,
+      "by_method": {
+        "ngram": 20,
+        "minhash": 28,
+        "embedding": 40
+      },
+      "flag_rate": 1.0,
+      "contaminated_rate": 0.575,
+      "pipeline_rate": 1.0,
+      "method_rate": {
+        "ngram": 0.5,
+        "minhash": 0.7,
+        "embedding": 1.0
+      },
+      "doc_cosine": {
+        "min": 0.3976,
+        "median": 0.8127,
+        "max": 0.9555
+      }
+    },
+    "paraphrase": {
+      "items": 40,
+      "flagged": 39,
+      "contaminated": 5,
+      "cross_flags": 0,
+      "pipeline": 39,
+      "by_method": {
+        "ngram": 0,
+        "minhash": 0,
+        "embedding": 39
+      },
+      "flag_rate": 0.975,
+      "contaminated_rate": 0.125,
+      "pipeline_rate": 0.975,
+      "method_rate": {
+        "ngram": 0.0,
+        "minhash": 0.0,
+        "embedding": 0.975
+      },
+      "doc_cosine": {
+        "min": 0.3881,
+        "median": 0.6451,
+        "max": 0.8467
+      }
+    },
+    "heavy_paraphrase": {
+      "items": 40,
+      "flagged": 11,
+      "contaminated": 0,
+      "cross_flags": 0,
+      "pipeline": 11,
+      "by_method": {
+        "ngram": 0,
+        "minhash": 0,
+        "embedding": 11
+      },
+      "flag_rate": 0.275,
+      "contaminated_rate": 0.0,
+      "pipeline_rate": 0.275,
+      "method_rate": {
+        "ngram": 0.0,
+        "minhash": 0.0,
+        "embedding": 0.275
+      },
+      "doc_cosine": {
+        "min": 0.0685,
+        "median": 0.3115,
+        "max": 0.7193
+      }
+    },
+    "answer_only": {
+      "items": 40,
+      "flagged": 38,
+      "contaminated": 11,
+      "cross_flags": 0,
+      "pipeline": 38,
+      "by_method": {
+        "ngram": 4,
+        "minhash": 3,
+        "embedding": 38
+      },
+      "flag_rate": 0.95,
+      "contaminated_rate": 0.275,
+      "pipeline_rate": 0.95,
+      "method_rate": {
+        "ngram": 0.1,
+        "minhash": 0.075,
+        "embedding": 0.95
+      },
+      "doc_cosine": {
+        "min": 0.3068,
+        "median": 0.6728,
+        "max": 0.9493
+      }
+    },
+    "negative": {
+      "items": 40,
+      "flagged": 11,
+      "contaminated": 0,
+      "cross_flags": 1,
+      "pipeline": 1,
+      "by_method": {
+        "ngram": 0,
+        "minhash": 0,
+        "embedding": 11
+      },
+      "flag_rate": 0.275,
+      "contaminated_rate": 0.0,
+      "pipeline_rate": 0.025,
+      "method_rate": {
+        "ngram": 0.0,
+        "minhash": 0.0,
+        "embedding": 0.275
+      },
+      "doc_cosine": {
+        "min": 0.0698,
+        "median": 0.3164,
+        "max": 0.7298
+      }
+    }
+  },
+  "judge_model": "deepseek-flash",
+  "judge": {
+    "verbatim": {
+      "pairs": 40,
+      "yes": 40,
+      "no": 0,
+      "unparsed": 0,
+      "errors": 0,
+      "minority_ids": [],
+      "yes_rate": 1.0
+    },
+    "light_edit": {
+      "pairs": 40,
+      "yes": 40,
+      "no": 0,
+      "unparsed": 0,
+      "errors": 0,
+      "minority_ids": [],
+      "yes_rate": 1.0
+    },
+    "paraphrase": {
+      "pairs": 40,
+      "yes": 40,
+      "no": 0,
+      "unparsed": 0,
+      "errors": 0,
+      "minority_ids": [],
+      "yes_rate": 1.0
+    },
+    "heavy_paraphrase": {
+      "pairs": 40,
+      "yes": 39,
+      "no": 1,
+      "unparsed": 0,
+      "errors": 0,
+      "minority_ids": [
+        "s20: NO The passage conveys the same underlying concept in abstract, generic wording without using the terms \"Big O notation,\" \"algorithm,\" or the specific phrasing "
+      ],
+      "yes_rate": 0.975
+    },
+    "answer_only": {
+      "pairs": 40,
+      "yes": 39,
+      "no": 1,
+      "unparsed": 0,
+      "errors": 0,
+      "minority_ids": [
+        "s15: NO The passage conveys the same factual content in different wording, but it is a general textbook explanation rather than a verbatim copy of the eval item or i"
+      ],
+      "yes_rate": 0.975
+    },
+    "negative": {
+      "pairs": 40,
+      "yes": 1,
+      "no": 39,
+      "unparsed": 0,
+      "errors": 0,
+      "minority_ids": [
+        "s24: YES The passage directly states that judicial review was first exercised in Marbury v. Madison, which is the exact answer to the eval item."
+      ],
+      "yes_rate": 0.025
+    }
+  },
+  "usage": {
+    "calls": 341,
+    "tokens_in": 59092,
+    "tokens_out": 10499,
+    "cost_usd": 0.030326,
+    "failures": []
+  }
+}

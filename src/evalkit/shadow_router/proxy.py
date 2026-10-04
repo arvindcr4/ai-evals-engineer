@@ -54,10 +54,32 @@ class Side:
     latency_s: float = 0.0
     cost_usd: float = 0.0
     error: str | None = None
+    finish_reason: str | None = None
 
     @classmethod
     def from_completion(cls, c: Completion) -> Side:
-        return cls(c.model, c.text, c.tokens_in, c.tokens_out, c.latency_s, c.cost_usd)
+        return cls(
+            c.model,
+            c.text,
+            c.tokens_in,
+            c.tokens_out,
+            c.latency_s,
+            c.cost_usd,
+            finish_reason=finish_reason_of(c),
+        )
+
+
+def finish_reason_of(c: Completion) -> str:
+    """The upstream ``finish_reason`` (e.g. ``length`` on truncation), else ``stop``.
+
+    Real OpenAI-compatible backends report it in ``raw``; offline models have no
+    raw payload and always finish normally.
+    """
+    try:
+        reason = c.raw["choices"][0].get("finish_reason")
+    except (KeyError, IndexError, TypeError, AttributeError):
+        reason = None
+    return str(reason) if reason else "stop"
 
 
 @dataclass
@@ -223,7 +245,7 @@ def completion_response(c: Completion, request_id: str) -> dict:
             {
                 "index": 0,
                 "message": {"role": "assistant", "content": c.text},
-                "finish_reason": "stop",
+                "finish_reason": finish_reason_of(c),
             }
         ],
         "usage": {

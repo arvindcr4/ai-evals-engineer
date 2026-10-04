@@ -9,7 +9,7 @@ abstains — and how often it tells a confident, ungrounded lie.
 from .data import Case, Doc, QAItem, load_cases, load_items
 from .perturb import OPERATORS, PerturbConfig, perturb
 from .rag import ABSTAIN, CONFLICT, LLMRAG, BaselineRAG, build_prompt, mock_rag_llm
-from .scoring import metrics, parse_response, run_cases, score_case, summarize, to_markdown
+from .scoring import metrics, parse_response, rescore, run_cases, score_case, summarize, to_markdown
 
 __all__ = [
     "ABSTAIN",
@@ -28,6 +28,7 @@ __all__ = [
     "mock_rag_llm",
     "parse_response",
     "perturb",
+    "rescore",
     "run_cases",
     "score_case",
     "summarize",

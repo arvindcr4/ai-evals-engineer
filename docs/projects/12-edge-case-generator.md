@@ -31,6 +31,7 @@ spec.yaml ──► generate ──► candidates.jsonl ──► validate ─�
 | `generators.py` | `RuleGenerator`, one deterministic method per axis, plus `field_levels()`, which gives the named test levels for each field (`nominal`, `min`, `below_min`, `over_max_length`, `invalid_choice`, `date_format`, …). |
 | `pairwise.py` | AETG-style greedy all-pairs **covering array** and a pairwise-coverage metric. |
 | `llm_gen.py` | `LLMGenerator`: a structured JSON prompt per axis, a fence- and prose-tolerant JSON parser, and an offline `mock_responder` that returns plausible JSON. It also contains `llm_label`, which proposes labels. |
+| `claims.py` | `claim_holds`: mechanically checks that a case really contains the edge its category names (zero-width/RTL/combining/fullwidth/emoji characters, markup, `at_max_length`, `above_max`, …). Returns `None` for categories that cannot be checked. |
 | `validate.py` | `Validator` (structural rejects, exact and near-duplicate removal, novelty against seeds) and `propose_labels` (schema, then oracle, then LLM, plus the human-review flag). |
 | `coverage.py` | Counts per axis, category, field and generator, missing expected categories, and pairwise level coverage (overall and per axis). |
 | `probe.py` | Runs a callable on the golden set and records pass, fail or crash. It groups failures by axis and category and marks a failure as *provisional* when its label still needs review. |
@@ -206,3 +207,130 @@ question a human reviewer should settle before the label goes into the golden se
   survive as separate cases.
 - `field_levels` uses fixed perturbation tables (homoglyphs, languages, emoji). They are
   broad, but they do not cover every locale.
+
+## Real-model run (DeepSeek, Oct 2026)
+
+**Command:** `examples/12-edge-case-generator/real_run.sh`. It sources `~/TradingAgents/.env`
+and writes to `out/real/`; small copies are in `examples/12-edge-case-generator/real_output/`.
+
+```bash
+evalkit edge-case-gen generate --spec spec.yaml --out out/real/candidates.jsonl \
+  --llm deepseek:deepseek-flash --n-llm 10 --seed 7 --temperature 0
+evalkit edge-case-gen validate --spec spec.yaml --in out/real/candidates.jsonl \
+  --out out/real/golden.jsonl --rejects out/real/rejects.jsonl \
+  --oracle expense_system.py:reference --label-llm deepseek:deepseek-flash
+evalkit edge-case-gen coverage --spec spec.yaml --in out/real/golden.jsonl --json out/real/coverage.json
+evalkit edge-case-gen probe --spec spec.yaml --in out/real/golden.jsonl --system expense_system.py:naive_triage
+evalkit edge-case-gen probe --spec spec.yaml --in out/real/golden.jsonl --system expense_system.py:robust_triage
+```
+
+**Models:** `deepseek-flash` with thinking off is used for both roles: generator (`--llm`,
+10 cases per axis over 4 axes, plus one repair round) and label cross-checker
+(`--label-llm`, temperature 0). The reference oracle remains the primary labeller.
+**Sample:** 40 LLM candidates (6 generation calls) and 70 label calls. This is one run on one
+small spec, so the numbers below are anecdotes, not estimates.
+**Cost:** the final run cost $0.0189 ($0.0138 generation + $0.0051 labels; 22.1k input and
+10.2k output tokens). All development runs together cost about $0.10.
+
+### Results (final run)
+
+```
+generated 151 candidate cases -> out/real/candidates.jsonl
+  llm:deepseek-flash=40, rule:adversarial=5, rule:boundary=37, rule:format=10, rule:pairwise=39, rule:semantic=20
+  llm usage: 6 calls, 9332 in / 9173 out tokens, $0.0138; phantom cases 12, repaired 8 (resent/duplicate replies dropped: 4)
+  llm warning: adversarial: reply truncated at the max-token limit
+  llm warning: adversarial: malformed/truncated JSON, salvaged 2 complete cases (Invalid \uXXXX escape: ...)
+validated: kept 137, rejected 14 {'duplicate': 1, 'copy_of_seed': 12, 'near_duplicate': 1}
+  label llm: 70 calls, 12787 in / 1071 out tokens, $0.0051; oracle/llm disagreements: 29
+  llm vs rules: 27 llm cases; novelty vs rule cases mean 0.39 (median 0.45, min 0.05); novelty vs seeds llm 0.4165 vs rule 0.2646
+    12 llm cases in 12 categories no rule produced: adversarial/numeric_ambiguity, adversarial/receipt_contradiction,
+    boundary/escalation_threshold_exact, boundary/other_category_escalation, boundary/over_escalation_threshold,
+    boundary/receipt_present_over_threshold, boundary/receipt_threshold_exact, boundary/under_threshold_no_receipt,
+    format/amount_currency_mismatch, format/currency_symbol_in_note, format/note_amount_conflict, format/zero_width_space
+probe (naive_triage): 137 cases, 27 wrong, 49 crashed (55.5% of 137 scored); confirmed-label subset: 73.1% of 93
+  by generator: llm=40.7% of 27, rule=59.1% of 110
+probe (robust_triage): 137 cases, 0 wrong, 0 crashed
+```
+
+| | offline mock (`run.sh`) | DeepSeek flash (`real_run.sh`) |
+|---|---|---|
+| LLM candidates → kept | 16 → 16 | 40 → 27 (68 %) |
+| Rejected LLM candidates | 0 | 12 copies of a seed (all 12 first-pass phantoms; the originals stay in the candidate file even when a repair replaced them), 1 near-dup (a repaired `rtl_override`); 0 `claim_not_in_input` |
+| Phantom cases on first pass (input identical to a seed or claimed edge absent) | 0 | 12 of 32 (38 %): 7 format cases that described an edge but returned the seed unchanged, plus 5 boundary "control cases" the model copied from seeds on purpose; the repair round produced 8 valid replacements (all 7 format, 1 boundary), 7 of which were kept |
+| Novelty vs rule cases (mean / median) | 0.18 / 0.16 | 0.39 / 0.45 |
+| Novelty vs seeds, LLM vs rule cases | 0.14 vs 0.26 | 0.42 vs 0.26 |
+| LLM cases in categories no rule produces | 11 of 16 | 12 of 27 |
+| naive_triage failure rate on LLM cases | 56.2 % of 16 | 40.7 % of 27 |
+| robust_triage failure rate | 0 % | 0 % |
+| Pairwise coverage | 100 % | 100 % (from the rule covering array, not from the LLM) |
+
+### What the real model revealed
+
+The fixes below are each covered by a regression test in `tests/test_edge_case_gen_real.py`.
+
+1. **Phantom perturbations.** This was the main finding. In the final run the generator
+   flagged 12 of 32 first-pass cases: 7 format cases *describe* an edge (Cyrillic homoglyph,
+   RTL override, zero-width space, combining accent, fullwidth, emoji, mixed language) but
+   return the seed input unchanged, and 5 boundary cases are seed copies the model labelled
+   "control case". All 12 were rejected as `copy_of_seed`; none reached the claim check in
+   that run. The development runs (not saved) also produced phantoms whose input *was*
+   changed but still lacked the claimed edge (4 of 10 format cases in an early probe).
+   Examples from those runs: "zero-width space (U+200B) after 'Café'" on plain text; "combining
+   acute on e" with no combining mark; "date written as 14/03/2026" with the seed's ISO date
+   unchanged; `at_max_length` "exactly 280 characters" on a 479-character note; an
+   `instruction_like` case whose only change was the currency `XEU`. The mock never does
+   this, so the pipeline would have labelled these cases and counted them as coverage of
+   categories they do not test.
+   Fixes:
+   - The prompt now asks for `\uXXXX` escapes and says the input must really contain the
+     edge.
+   - `claims.py` checks the claim mechanically. The validator rejects failures as
+     `claim_not_in_input`, and copies of a seed are rejected as before.
+   - `LLMGenerator` sends one repair turn listing the phantom cases.
+   - Every rule-generated case is asserted to pass its own claim check.
+2. **The repair reply resends the whole list.** Asked for replacements, the model returned
+   all N cases again plus the fixes. The generator now keeps only unseen inputs, at most one
+   per phantom, and counts the rest as `resent`.
+3. **Degenerate, truncated replies.** At least one axis per run (adversarial or format) runs
+   into the token cap, either by repeating cases or by writing a very long note. The JSON then
+   ends mid-`\u` escape, and the whole axis used to be lost as "unparseable". Now
+   `salvage_cases` recovers every complete case object, `finish_reason=length` is reported,
+   `max_tokens` is capped at 4000, and the prompt caps strings at 300 characters.
+4. **Accounting.** `generate` and `validate` now print calls, tokens and `$` from
+   `Completion.cost_usd`. Before this, label-LLM spend was invisible.
+5. **Determinism.** `--temperature` exists now; the old value was a hard-coded 0.9. Even at
+   temperature 0, DeepSeek's outputs differ between runs: the 5 development runs (outputs not
+   saved) kept 18–31 LLM cases with different category mixes. Reproducibility therefore comes from the
+   committed JSONL, not from re-running.
+6. **Offline mock gap.** The mock's `smart_quotes` mutation is itself a phantom whenever the
+   seed text has no " the ". The claim check catches it on the test spec. The mock now also
+   answers a repair turn with an empty list instead of crashing.
+
+**What the LLM cases add.** They are clearly more novel than the rule cases (0.39 mean
+distance from the nearest rule case, against 0.18 for the mock). They also concentrate on
+*policy* edges that the schema-driven rules cannot see, because the rules do not read the
+policy text:
+- exactly 75 USD without a receipt;
+- exactly 1000 USD;
+- a foreign currency that crosses a threshold only after conversion;
+- a note whose amount or currency contradicts the structured fields.
+
+They found one realistic production bug the rules hit only through synthetic tables. The
+model habitually writes em-dashes (`—`), `€` and `₹`, and 11 of the 27 LLM cases crashed
+`naive_triage`'s latin-1 audit log, including boundary cases that were not meant to test
+encoding at all.
+
+**What they don't add.** They contributed nothing to pairwise coverage, which comes entirely
+from the covering array. They rarely produced schema-invalid inputs on purpose (null,
+missing, wrong-type), and those inputs are the bulk of `naive_triage`'s crashes. The LLM
+cases' lower failure rate (40.7 % against 59.1 % for rule cases) reflects this; it is not
+evidence that the LLM cases are worse. Axis drift also occurs: the model filed
+`bidi_override` and `invisible_unicode` under the semantic axis in one run.
+
+**LLM as label cross-checker.** It is unreliable here. On 29 of 70 schema-valid cases, the
+model disagreed with the written-policy oracle. In 18 of them it said `escalate` where the
+policy says `approve`, including plain 142.50 USD meals claims with a receipt. It also called
+exactly 75 USD without a receipt `reject`, although the policy says "over 75". Every
+disagreement I spot-checked was a model error. The disagreements are correctly routed to
+`needs_human_review`, but they inflate the review queue. With this model, use the LLM only
+as a second opinion; do not let it be the primary labeller.

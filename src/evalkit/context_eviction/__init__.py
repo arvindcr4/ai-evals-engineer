@@ -38,6 +38,7 @@ __all__ = [
     "Turn",
     "WindowMemory",
     "classify",
+    "clean_answer",
     "count_tokens",
     "extractive_reader",
     "format_table",

@@ -28,7 +28,8 @@ EXPECTED = 11.73
 def test_parse_action():
     assert parse_action('CALL calc {"expr": "1+1"}') == ("call", "calc", {"expr": "1+1"})
     assert parse_action("FINAL 12.50") == ("final", "", "12.50")
-    assert parse_action("thinking...\nFINAL 3")[0] == "error"
+    assert parse_action("thinking...\nFINAL 3") == ("final", "", "3")
+    assert parse_action("The FINAL answer is 3")[0] == "error"
     assert parse_action("CALL calc {not json}")[0] == "error"
 
 

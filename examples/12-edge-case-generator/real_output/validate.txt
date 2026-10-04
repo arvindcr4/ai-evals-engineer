@@ -1,0 +1,3 @@
+validated: kept 137, rejected 14 {'duplicate': 1, 'copy_of_seed': 12, 'near_duplicate': 1}
+  schema-invalid kept on purpose: 67; needs_human_review: 44 -> out/real/golden.jsonl
+  label llm: 70 calls, 12787 in / 1071 out tokens, $0.0051; oracle/llm disagreements: 29

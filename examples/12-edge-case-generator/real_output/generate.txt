@@ -1,0 +1,5 @@
+generated 151 candidate cases -> out/real/candidates.jsonl
+  llm:deepseek-flash=40, rule:adversarial=5, rule:boundary=37, rule:format=10, rule:pairwise=39, rule:semantic=20
+  llm usage: 6 calls, 9332 in / 9173 out tokens, $0.0138; phantom cases 12, repaired 8 (resent/duplicate replies dropped: 4)
+  llm warning: adversarial: reply truncated at the max-token limit
+  llm warning: adversarial: malformed/truncated JSON, salvaged 2 complete cases (Invalid \uXXXX escape: line 29 column 7438 (char 8566))

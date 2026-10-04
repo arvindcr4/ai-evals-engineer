@@ -85,18 +85,33 @@ class OpenAICompatibleLLM:
     api_key: str | None = None
     price_in: float = 0.0
     price_out: float = 0.0
-    timeout: float = 60.0
+    timeout: float = 120.0
+    extra_body: dict = field(default_factory=dict)
+    max_retries: int = 4
 
     def complete(self, messages: list[Message], **kwargs) -> Completion:
         key = self.api_key or os.environ.get("EVALKIT_API_KEY") or os.environ.get("OPENAI_API_KEY")
+        body = {"model": self.model, "messages": messages, **self.extra_body, **kwargs}
         t0 = time.perf_counter()
-        r = httpx.post(
-            f"{self.base_url.rstrip('/')}/chat/completions",
-            headers={"Authorization": f"Bearer {key}"},
-            json={"model": self.model, "messages": messages, **kwargs},
-            timeout=self.timeout,
-        )
-        r.raise_for_status()
+        for attempt in range(self.max_retries + 1):
+            try:
+                r = httpx.post(
+                    f"{self.base_url.rstrip('/')}/chat/completions",
+                    headers={"Authorization": f"Bearer {key}"},
+                    json=body,
+                    timeout=self.timeout,
+                )
+                if r.status_code in (429, 500, 502, 503, 504) and attempt < self.max_retries:
+                    raise httpx.HTTPStatusError("retryable", request=r.request, response=r)
+                r.raise_for_status()
+                break
+            except (httpx.TransportError, httpx.HTTPStatusError) as e:
+                retryable = isinstance(e, httpx.TransportError) or (
+                    e.response.status_code in (429, 500, 502, 503, 504)
+                )
+                if not retryable or attempt >= self.max_retries:
+                    raise
+                time.sleep(min(30.0, 2.0**attempt))
         data = r.json()
         usage = data.get("usage", {})
         tin, tout = usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0)
@@ -109,6 +124,13 @@ class OpenAICompatibleLLM:
             cost_usd=(tin * self.price_in + tout * self.price_out) / 1e6,
             raw=data,
         )
+
+
+# USD per 1M tokens (cache-miss input, output) at DeepSeek peak rates, Oct 2026.
+DEEPSEEK_PRICES = {
+    "deepseek-flash": (0.30, 1.20),
+    "deepseek-v4-pro": (1.32, 3.96),
+}
 
 
 def get_llm(spec: str | None = None) -> LLM:
@@ -124,10 +146,19 @@ def get_llm(spec: str | None = None) -> LLM:
     if spec.startswith("openai:"):
         return OpenAICompatibleLLM(model=spec.split(":", 1)[1])
     if spec.startswith("deepseek:"):
+        # ``deepseek:deepseek-flash`` runs with thinking off (fast, cheap);
+        # append ``+think`` to enable the reasoning mode.
+        model = spec.split(":", 1)[1]
+        think = model.endswith("+think")
+        model = model.removesuffix("+think")
+        price_in, price_out = DEEPSEEK_PRICES.get(model, (0.0, 0.0))
         return OpenAICompatibleLLM(
-            model=spec.split(":", 1)[1],
+            model=model,
             base_url="https://api.deepseek.com/v1",
             api_key=os.environ.get("DEEPSEEK_API_KEY"),
+            price_in=price_in,
+            price_out=price_out,
+            extra_body={"thinking": {"type": "enabled" if think else "disabled"}},
         )
     if "|" in spec:
         base, model = spec.split("|", 1)

@@ -1,0 +1,29 @@
+# The "bad PR": someone "simplifies" the triage prompt. Same suite name, dataset,
+# params, scorers and gate as llm_suite.yaml — only the prompt changed, so case ids
+# pair up with the baseline. The shorter prompt drops the priority rules, the
+# billing hint and the JSON example, and asks for a one-line rationale first.
+name: support-ticket-triage-llm
+target:
+  llm: deepseek:deepseek-flash
+  temperature: 0
+  max_tokens: 200
+  workers: 8
+  system: |
+    You triage customer support tickets. Explain your reasoning in one sentence, then give a
+    JSON object with keys category (billing, shipping, account, technical or other),
+    priority (high or normal), order_id and amount.
+  prompt: "Channel: {channel}\nTicket: {text}"
+dataset: dataset.jsonl
+params:
+  channel: [email, chat]
+scorers:
+  - {name: category, type: json_field, field: category}
+  - {name: priority, type: json_field, field: priority}
+  - {name: order_id, type: json_field, field: order_id}
+  - {name: amount, type: json_field, field: amount}
+gate:
+  max_success_drop: 0.02
+  alpha: 0.05
+  require_significance: true
+  max_p95_latency_increase: 0.5
+  min_latency_increase_ms: 1500

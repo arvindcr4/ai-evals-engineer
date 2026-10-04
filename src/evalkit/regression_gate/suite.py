@@ -100,11 +100,14 @@ class Scorer:
 
     def score(self, output: Any, case: Case) -> tuple[bool, Any, Any]:
         """Return ``(passed, got, expected)``."""
-        if self.type == "json_field" and isinstance(output, str):
-            try:
-                output = json.loads(_strip_fences(output))
-            except json.JSONDecodeError:
+        if isinstance(output, str) and (self.type == "json_field" or (
+                self.field and self.type in ("exact", "numeric", "regex"))):
+            # LLM targets return text: JSON may be bare, fenced, or follow a
+            # sentence of prose ("The ticket is about billing.\n{...}").
+            parsed = extract_json(output)
+            if parsed is _MISSING:
                 return False, output, self.expected_value(case)
+            output = parsed
         got = _get_path(output, self.field) if self.field else output
         exp = self.pattern if self.type == "regex" else self.expected_value(case)
         if got is _MISSING:
@@ -115,7 +118,7 @@ class Scorer:
             if exp is None or got is None:
                 return exp is None and got is None, got, exp
             try:
-                g, e = float(got), float(exp)
+                g, e = _to_number(got), float(exp)
             except (TypeError, ValueError):
                 return False, got, exp
             tol = self.tolerance * abs(e) if self.relative else self.tolerance
@@ -138,6 +141,43 @@ _MISSING = object()
 def _strip_fences(text: str) -> str:
     m = re.search(r"```(?:json)?\s*(.*?)```", text, re.DOTALL)
     return m.group(1) if m else text
+
+
+def extract_json(text: str) -> Any:
+    """Parse JSON from model output: bare, inside ``` fences, or embedded in prose.
+
+    Returns the module-private ``_MISSING`` sentinel when nothing parses. For
+    embedded JSON the *last* complete object/array wins, because models put the
+    answer after their reasoning ("billing because ... \n{...}").
+    """
+    for candidate in (text, _strip_fences(text)):
+        try:
+            return json.loads(candidate.strip())
+        except json.JSONDecodeError:
+            pass
+    decoder = json.JSONDecoder()
+    found: Any = _MISSING
+    i = 0
+    while i < len(text):
+        if text[i] in "{[":
+            try:
+                obj, end = decoder.raw_decode(text, i)
+            except json.JSONDecodeError:
+                i += 1
+                continue
+            found, i = obj, end
+        else:
+            i += 1
+    return found
+
+
+def _to_number(value: Any) -> float:
+    """``float()`` that also accepts what LLMs write: "$1,234.50", " 49.99 "."""
+    if isinstance(value, str):
+        value = value.strip().replace(",", "").removeprefix("$").removeprefix("USD").strip()
+    if isinstance(value, bool):
+        raise TypeError("bool is not a number")
+    return float(value)
 
 
 def _get_path(obj: Any, path: str | None) -> Any:

@@ -10,6 +10,7 @@ from pathlib import Path
 
 from evalkit.dpo_flywheel.feedback import FeedbackStore, create_app, load_events
 from evalkit.dpo_flywheel.filters import FilterConfig
+from evalkit.dpo_flywheel.llm_cache import MeteredLLM
 from evalkit.dpo_flywheel.nightly import (
     TRAINERS,
     MockEvaluator,
@@ -47,14 +48,18 @@ def _golden(path: str | None) -> list[str]:
     return [g for g in out if g]
 
 
-def _builder(args) -> PairBuilder:
+def _builder(args, default_cache: Path | None = None) -> PairBuilder:
     strategies = tuple(s.strip() for s in args.strategies.split(",") if s.strip())
     bad = set(strategies) - set(STRATEGIES)
     if bad:
         raise SystemExit(f"unknown strategies: {sorted(bad)}")
-    teacher = None if args.teacher == "none" else resolve_llm(args.teacher or args.llm, teacher=True)
-    judge = LLMJudge(resolve_llm(args.judge)) if args.judge else HeuristicJudge()
-    return PairBuilder(strategies=strategies, teacher=teacher, judge=judge, n_candidates=args.n_candidates)
+    cache = None if args.no_cache else (Path(args.cache) if args.cache else default_cache)
+    teacher = None
+    if args.teacher != "none":
+        teacher = MeteredLLM(resolve_llm(args.teacher or args.llm, teacher=True), cache_path=cache)
+    judge = LLMJudge(MeteredLLM(resolve_llm(args.judge), cache_path=cache)) if args.judge else HeuristicJudge()
+    return PairBuilder(strategies=strategies, teacher=teacher, judge=judge, n_candidates=args.n_candidates,
+                       teacher_refs=args.teacher_refs, workers=args.workers)
 
 
 def _filters(args) -> FilterConfig:
@@ -85,7 +90,9 @@ def _cmd_build(args) -> int:
     m = result.manifest
     print(json.dumps({"train": str(path), "pairs_kept": m["pairs_kept"], "pairs_raw": m["pairs_raw"],
                       "by_strategy_kept": m["by_strategy_kept"], "drops": m["drops"],
-                      "pii_redactions": m["pii_redactions"], "data_sha256": m["data_sha256"][:16]}, indent=2))
+                      "pii_redactions": m["pii_redactions"], "unpaired": m["unpaired"],
+                      "judge_parse_failures": m["judge_parse_failures"], "margins_kept": m["margins_kept"],
+                      "llm_usage": m["llm_usage"], "data_sha256": m["data_sha256"][:16]}, indent=2))
     return 0
 
 
@@ -103,7 +110,8 @@ def _cmd_nightly(args) -> int:
         train=train,
         filters=_filters(args),
     )
-    record = run_nightly(cfg, _builder(args), TRAINERS[backend](), MockEvaluator(seed=args.seed))
+    builder = _builder(args, default_cache=Path(args.root) / "llm_cache.jsonl")
+    record = run_nightly(cfg, builder, TRAINERS[backend](), MockEvaluator(seed=args.seed))
     print(json.dumps(record, indent=2))
     return 0 if record["status"] in {"skipped", "promoted", "rejected"} else 2
 
@@ -118,6 +126,12 @@ def _pair_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--n-candidates", type=int, default=3)
     p.add_argument("--min-margin", type=float, default=1.0, help="judge score gap chosen - rejected")
     p.add_argument("--no-scrub", action="store_true", help="disable PII scrubbing")
+    p.add_argument("--teacher-refs", type=int, default=3,
+                   help="trusted answers (thumbs-up/corrections) shown to the teacher as product context")
+    p.add_argument("--workers", type=int, default=4, help="concurrent events during pair building")
+    p.add_argument("--cache", default=None,
+                   help="JSONL completion cache for teacher/judge (nightly default: <root>/llm_cache.jsonl)")
+    p.add_argument("--no-cache", action="store_true", help="never read or write the completion cache")
 
 
 def register(subparsers) -> None:

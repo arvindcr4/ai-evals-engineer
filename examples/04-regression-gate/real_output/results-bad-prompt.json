@@ -1,0 +1,2587 @@
+{
+ "suite": "support-ticket-triage-llm",
+ "meta": {
+  "model": "deepseek-flash",
+  "prompt_sha": "88701f736160",
+  "max_tokens": 200,
+  "temperature": 0
+ },
+ "summary": {
+  "n_cases": 80,
+  "success_rate": 0.5875,
+  "errors": 0,
+  "latency_p50_s": 0.8326984595041722,
+  "latency_p95_s": 1.1611984352501168,
+  "scorer_pass_rates": {
+   "category": 1.0,
+   "priority": 0.5875,
+   "order_id": 1.0,
+   "amount": 1.0
+  },
+  "tokens_in": 5422,
+  "tokens_out": 5073,
+  "cost_usd": 0.0077142
+ },
+ "cases": [
+  {
+   "case_id": "t00[channel=email]",
+   "item_id": "t00",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.796553819993278,
+   "output": "The customer reports a duplicate subscription charge, which is a billing issue requiring prompt attention to correct the overcharge.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 56,
+   "cost_usd": 8.790000000000001e-05
+  },
+  {
+   "case_id": "t00[channel=chat]",
+   "item_id": "t00",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6895825929968851,
+   "output": "The customer reports a duplicate subscription charge, which is a billing issue requiring prompt attention to correct the overcharge.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 56,
+   "cost_usd": 8.790000000000001e-05
+  },
+  {
+   "case_id": "t01[channel=email]",
+   "item_id": "t01",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7597972670046147,
+   "output": "This is a straightforward refund request tied to a specific order and amount, so it falls under billing with normal priority.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-10231\",\n  \"amount\": 49.99\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "error": null,
+   "tokens_in": 73,
+   "tokens_out": 64,
+   "cost_usd": 9.869999999999999e-05
+  },
+  {
+   "case_id": "t01[channel=chat]",
+   "item_id": "t01",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8367414480017032,
+   "output": "This is a straightforward refund request tied to a specific order, so it falls under billing with normal priority.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-10231\",\n  \"amount\": 49.99\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-10231",
+    "amount": 49.99
+   },
+   "error": null,
+   "tokens_in": 73,
+   "tokens_out": 62,
+   "cost_usd": 9.629999999999998e-05
+  },
+  {
+   "case_id": "t02[channel=email]",
+   "item_id": "t02",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5376847500010626,
+   "output": "The package is overdue with no tracking updates, so this is a shipping issue that needs attention.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-55120\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 73,
+   "tokens_out": 57,
+   "cost_usd": 9.029999999999999e-05
+  },
+  {
+   "case_id": "t02[channel=chat]",
+   "item_id": "t02",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8353707710048184,
+   "output": "The customer is reporting a missing package with no tracking updates, which is a shipping issue that should be prioritized as high since it involves a potentially lost order.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-55120\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-55120",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 73,
+   "tokens_out": 69,
+   "cost_usd": 0.00010469999999999998
+  },
+  {
+   "case_id": "t03[channel=email]",
+   "item_id": "t03",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7005701229936676,
+   "output": "The user cannot access their account due to a password reset email not arriving, which is an account access issue requiring prompt attention.  \n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 67,
+   "tokens_out": 59,
+   "cost_usd": 9.089999999999999e-05
+  },
+  {
+   "case_id": "t03[channel=chat]",
+   "item_id": "t03",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7250356620061211,
+   "output": "The user cannot access their account due to a password reset email not arriving, which is an account access issue requiring prompt attention.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 67,
+   "tokens_out": 58,
+   "cost_usd": 8.969999999999998e-05
+  },
+  {
+   "case_id": "t04[channel=email]",
+   "item_id": "t04",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7348253429954639,
+   "output": "The ticket describes an app crash, which is a technical issue, and crashes are typically high priority since they block core functionality.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 58,
+   "cost_usd": 8.939999999999999e-05
+  },
+  {
+   "case_id": "t04[channel=chat]",
+   "item_id": "t04",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5930379100027494,
+   "output": "The issue is a technical app crash unrelated to billing or shipping, so it should be categorized as technical with high priority since it blocks core functionality.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 62,
+   "cost_usd": 9.419999999999999e-05
+  },
+  {
+   "case_id": "t05[channel=email]",
+   "item_id": "t05",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.831975956010865,
+   "output": "The payment failure with funds already deducted indicates a billing issue requiring urgent attention, so it should be high priority.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 120.00\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "error": null,
+   "tokens_in": 73,
+   "tokens_out": 59,
+   "cost_usd": 9.269999999999999e-05
+  },
+  {
+   "case_id": "t05[channel=chat]",
+   "item_id": "t05",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7974323560047196,
+   "output": "The payment failure with funds already deducted is a high-priority billing issue requiring immediate investigation.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 120.00\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 120.0
+   },
+   "error": null,
+   "tokens_in": 73,
+   "tokens_out": 55,
+   "cost_usd": 8.790000000000001e-05
+  },
+  {
+   "case_id": "t06[channel=email]",
+   "item_id": "t06",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7130917890026467,
+   "output": "The package was delivered to the wrong location, so this is a shipping issue that needs prompt attention to recover the misdelivered item.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-77311\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 65,
+   "cost_usd": 9.9e-05
+  },
+  {
+   "case_id": "t06[channel=chat]",
+   "item_id": "t06",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.97064997900452,
+   "output": "The customer reports a delivery misplacement, which is a shipping issue that needs prompt attention to locate or recover the package.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-77311\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-77311",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 62,
+   "cost_usd": 9.539999999999999e-05
+  },
+  {
+   "case_id": "t07[channel=email]",
+   "item_id": "t07",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7619424069998786,
+   "output": "The customer is requesting a refund for a duplicate charge, which is a billing issue that should be handled with high priority given the urgency implied by \"asap.\"\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 15.50\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "error": null,
+   "tokens_in": 72,
+   "tokens_out": 69,
+   "cost_usd": 0.00010439999999999999
+  },
+  {
+   "case_id": "t07[channel=chat]",
+   "item_id": "t07",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.766402756999014,
+   "output": "The customer is requesting a refund for a duplicate charge, which is a billing issue that needs prompt attention.  \n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 15.50\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 15.5
+   },
+   "error": null,
+   "tokens_in": 72,
+   "tokens_out": 59,
+   "cost_usd": 9.24e-05
+  },
+  {
+   "case_id": "t08[channel=email]",
+   "item_id": "t08",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7297389050072525,
+   "output": "This is a technical issue preventing the user from saving profile settings, so it should be categorized as technical with high priority since it blocks a core account function.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 64,
+   "cost_usd": 9.659999999999999e-05
+  },
+  {
+   "case_id": "t08[channel=chat]",
+   "item_id": "t08",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7695959679986117,
+   "output": "This is a technical issue preventing the user from saving profile settings, which is a functional problem but not a billing or order-related emergency, so it warrants normal priority.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 66,
+   "cost_usd": 9.9e-05
+  },
+  {
+   "case_id": "t09[channel=email]",
+   "item_id": "t09",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5683201589999953,
+   "output": "This is an account-related request with no urgency indicators, so it should be categorized as account with normal priority and no order or amount details.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 61,
+   "cost_usd": 9.27e-05
+  },
+  {
+   "case_id": "t09[channel=chat]",
+   "item_id": "t09",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8616653949866304,
+   "output": "This is an account-related request with no urgency indicators, so it should be handled at normal priority with no order or billing details involved.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 60,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t10[channel=email]",
+   "item_id": "t10",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8334209629974794,
+   "output": "The customer is reporting a delayed refund on a specific order, which is a billing issue that warrants high priority given the unresolved financial matter.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-88812\",\n  \"amount\": 230.75\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "error": null,
+   "tokens_in": 75,
+   "tokens_out": 68,
+   "cost_usd": 0.0001041
+  },
+  {
+   "case_id": "t10[channel=chat]",
+   "item_id": "t10",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0465799149969826,
+   "output": "The customer is reporting a delayed refund on a specific order, which is a billing issue that warrants high priority given the unresolved financial matter.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-88812\",\n  \"amount\": 230.75\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-88812",
+    "amount": 230.75
+   },
+   "error": null,
+   "tokens_in": 75,
+   "tokens_out": 68,
+   "cost_usd": 0.0001041
+  },
+  {
+   "case_id": "t11[channel=email]",
+   "item_id": "t11",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6585504089889582,
+   "output": "The customer is asking about delivery timing for an existing order, so this is a shipping inquiry with normal priority.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-91000\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 71,
+   "tokens_out": 60,
+   "cost_usd": 9.329999999999999e-05
+  },
+  {
+   "case_id": "t11[channel=chat]",
+   "item_id": "t11",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8265107079932932,
+   "output": "The customer is asking about delivery timing for an existing order, so this is a shipping inquiry with normal priority.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-91000\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-91000",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 71,
+   "tokens_out": 60,
+   "cost_usd": 9.329999999999999e-05
+  },
+  {
+   "case_id": "t12[channel=email]",
+   "item_id": "t12",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7648394099960569,
+   "output": "This is a technical outage affecting an entire team, so it should be treated as high priority with no order or billing details involved.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 68,
+   "tokens_out": 59,
+   "cost_usd": 9.12e-05
+  },
+  {
+   "case_id": "t12[channel=chat]",
+   "item_id": "t12",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.648404338004184,
+   "output": "This is a site-wide outage affecting an entire team, so it's a high-priority technical issue with no billing, shipping, or order context.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 68,
+   "tokens_out": 63,
+   "cost_usd": 9.6e-05
+  },
+  {
+   "case_id": "t13[channel=email]",
+   "item_id": "t13",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6608780200040201,
+   "output": "This is an account access issue with high priority since the customer is completely locked out, and no order or billing details are involved.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 59,
+   "cost_usd": 9.18e-05
+  },
+  {
+   "case_id": "t13[channel=chat]",
+   "item_id": "t13",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.863874072994804,
+   "output": "The issue is a 2FA/authentication problem preventing account access, so it falls under account with high priority since the user is fully locked out.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 64,
+   "cost_usd": 9.779999999999999e-05
+  },
+  {
+   "case_id": "t14[channel=email]",
+   "item_id": "t14",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7594739769992884,
+   "output": "The customer is requesting both subscription cancellation and a refund, which is a billing matter requiring prompt handling.  \n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 9.99\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 58,
+   "cost_usd": 9.059999999999999e-05
+  },
+  {
+   "case_id": "t14[channel=chat]",
+   "item_id": "t14",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8009991700091632,
+   "output": "The customer is requesting both subscription cancellation and a refund, which is a billing matter requiring prompt handling.  \n```json\n{\"category\": \"billing\", \"priority\": \"high\", \"order_id\": null, \"amount\": 9.99}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 9.99
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 52,
+   "cost_usd": 8.340000000000001e-05
+  },
+  {
+   "case_id": "t15[channel=email]",
+   "item_id": "t15",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9303681760065956,
+   "output": "The ticket describes a technical malfunction during checkout, so it falls under technical with high priority since it blocks purchases.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 55,
+   "cost_usd": 8.49e-05
+  },
+  {
+   "case_id": "t15[channel=chat]",
+   "item_id": "t15",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7339066069980618,
+   "output": "The ticket describes a technical malfunction (page freezing) during the checkout process, which blocks a customer from completing a purchase and warrants high priority.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 61,
+   "cost_usd": 9.209999999999999e-05
+  },
+  {
+   "case_id": "t16[channel=email]",
+   "item_id": "t16",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9313594670093153,
+   "output": "The customer's package was sent to an outdated address, which is a shipping issue that needs prompt handling to redirect or resolve delivery.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-12001\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 68,
+   "tokens_out": 64,
+   "cost_usd": 9.719999999999999e-05
+  },
+  {
+   "case_id": "t16[channel=chat]",
+   "item_id": "t16",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9109812050010078,
+   "output": "The customer's package was shipped to an outdated address, which is a shipping issue requiring prompt correction before delivery is finalized.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-12001\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-12001",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 68,
+   "tokens_out": 62,
+   "cost_usd": 9.479999999999999e-05
+  },
+  {
+   "case_id": "t17[channel=email]",
+   "item_id": "t17",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0515144520031754,
+   "output": "The customer is reporting a billing page displaying an incorrect plan, which is a billing-related issue that could affect charges and requires prompt attention.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 64,
+   "tokens_out": 61,
+   "cost_usd": 9.240000000000001e-05
+  },
+  {
+   "case_id": "t17[channel=chat]",
+   "item_id": "t17",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.091763788004755,
+   "output": "The customer reports a billing page displaying the wrong plan, which is a billing-related issue that could affect charges, so it warrants high priority.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 64,
+   "tokens_out": 62,
+   "cost_usd": 9.36e-05
+  },
+  {
+   "case_id": "t18[channel=email]",
+   "item_id": "t18",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9308479229948716,
+   "output": "The user is reporting an account issue where their desired username is already taken, likely needing account recovery or verification, which is not billing, shipping, or technical.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 65,
+   "cost_usd": 9.75e-05
+  },
+  {
+   "case_id": "t18[channel=chat]",
+   "item_id": "t18",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7417213580047246,
+   "output": "The user is reporting an account issue where their desired username is taken, likely needing account recovery or verification, which is not billing, shipping, or technical.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 64,
+   "cost_usd": 9.63e-05
+  },
+  {
+   "case_id": "t19[channel=email]",
+   "item_id": "t19",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.1758402389968978,
+   "output": "Reasoning: This is a technical bug report about search functionality, not related to billing, shipping, or account issues, and no order or payment details are present.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 66,
+   "cost_usd": 9.81e-05
+  },
+  {
+   "case_id": "t19[channel=chat]",
+   "item_id": "t19",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8678220069996314,
+   "output": "The ticket describes a technical bug where search results return empty, which is a functional defect rather than a billing, shipping, or account issue, and it lacks any order or payment context.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 70,
+   "cost_usd": 0.00010290000000000001
+  },
+  {
+   "case_id": "t20[channel=email]",
+   "item_id": "t20",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6255272709968267,
+   "output": "The customer is explicitly requesting a refund of $64.20, which is a billing matter requiring normal priority handling.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": 64.20\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 60,
+   "cost_usd": 9.27e-05
+  },
+  {
+   "case_id": "t20[channel=chat]",
+   "item_id": "t20",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.1014633989980211,
+   "output": "The customer is explicitly requesting a refund of a specific amount, which is a billing matter requiring normal priority handling.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": 64.20\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 64.2
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 59,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t21[channel=email]",
+   "item_id": "t21",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.875247775009484,
+   "output": "The courier tracking issue relates to a shipment problem, so it falls under shipping with normal priority since it's not an urgent account or billing matter.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-33090\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 68,
+   "cost_usd": 0.0001026
+  },
+  {
+   "case_id": "t21[channel=chat]",
+   "item_id": "t21",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.017766869001207,
+   "output": "The tracking number issue relates to a shipment in transit, so it falls under shipping with normal priority since the order isn't reported lost or delayed beyond a tracking glitch.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-33090\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-33090",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 72,
+   "cost_usd": 0.0001074
+  },
+  {
+   "case_id": "t22[channel=email]",
+   "item_id": "t22",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8073113950085826,
+   "output": "The user is locked out of their account and needs urgent help, so this is an account issue with high priority and no order or billing details involved.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 63,
+   "cost_usd": 9.63e-05
+  },
+  {
+   "case_id": "t22[channel=chat]",
+   "item_id": "t22",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.682528220990207,
+   "output": "This is an account access issue requiring urgent assistance, so it should be categorized as account with high priority, and since no order or billing details are involved, order_id and amount are null.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 71,
+   "cost_usd": 0.0001059
+  },
+  {
+   "case_id": "t23[channel=email]",
+   "item_id": "t23",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0139925309922546,
+   "output": "The ticket describes a product functionality failure following a software update, which is a technical issue rather than billing, shipping, or account-related.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 60,
+   "cost_usd": 9.09e-05
+  },
+  {
+   "case_id": "t23[channel=chat]",
+   "item_id": "t23",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.84610573099053,
+   "output": "The ticket describes a post-update dashboard loading failure, which is a technical issue affecting access to the product, so it should be treated as high priority.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 64,
+   "cost_usd": 9.57e-05
+  },
+  {
+   "case_id": "t24[channel=email]",
+   "item_id": "t24",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7314348679938121,
+   "output": "This is a refund request for a damaged item, so it falls under billing with high priority due to the product issue.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-45678\",\n  \"amount\": 18.40\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "error": null,
+   "tokens_in": 75,
+   "tokens_out": 65,
+   "cost_usd": 0.0001005
+  },
+  {
+   "case_id": "t24[channel=chat]",
+   "item_id": "t24",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6405023840052309,
+   "output": "The ticket is a refund request for a damaged item, which falls under billing and warrants high priority due to the product issue.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-45678\",\n  \"amount\": 18.40\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-45678",
+    "amount": 18.4
+   },
+   "error": null,
+   "tokens_in": 75,
+   "tokens_out": 66,
+   "cost_usd": 0.0001017
+  },
+  {
+   "case_id": "t25[channel=email]",
+   "item_id": "t25",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8719319139927393,
+   "output": "The customer is reporting a late delivery, which falls under shipping, and while it's a service failure it doesn't indicate an urgent safety or financial issue, so priority is normal.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 70,
+   "cost_usd": 0.00010290000000000001
+  },
+  {
+   "case_id": "t25[channel=chat]",
+   "item_id": "t25",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.1362152980000246,
+   "output": "The customer is reporting a significantly delayed delivery, which falls under shipping and warrants normal priority since it's a complaint about a past late delivery rather than an urgent active issue.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 68,
+   "cost_usd": 0.0001005
+  },
+  {
+   "case_id": "t26[channel=email]",
+   "item_id": "t26",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.189439351001056,
+   "output": "The customer is requesting a missing invoice, which is a billing-related inquiry with normal priority since it's not urgent but requires resolution.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 60,
+   "cost_usd": 9.15e-05
+  },
+  {
+   "case_id": "t26[channel=chat]",
+   "item_id": "t26",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.1604278140002862,
+   "output": "The customer is asking about a missing invoice, which is a billing-related request with normal priority since it's not urgent.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 58,
+   "cost_usd": 8.91e-05
+  },
+  {
+   "case_id": "t27[channel=email]",
+   "item_id": "t27",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8025026589893969,
+   "output": "The customer needs their payment method updated and receipt details corrected, which is a billing-related request requiring account/payment action.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 68,
+   "tokens_out": 58,
+   "cost_usd": 9e-05
+  },
+  {
+   "case_id": "t27[channel=chat]",
+   "item_id": "t27",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8340827590000117,
+   "output": "The customer needs their payment method updated and receipt corrected, which is a billing matter requiring prompt attention since a declined card may block their order.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 68,
+   "tokens_out": 62,
+   "cost_usd": 9.479999999999999e-05
+  },
+  {
+   "case_id": "t28[channel=email]",
+   "item_id": "t28",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9309678230056306,
+   "output": "The customer is reporting a shipping delay, which is a logistics issue requiring normal priority since it's not urgent but needs tracking follow-up.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 61,
+   "cost_usd": 9.27e-05
+  },
+  {
+   "case_id": "t28[channel=chat]",
+   "item_id": "t28",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0565965749992756,
+   "output": "The customer reports a shipment delay, which is a shipping issue of normal priority since no urgent or financial impact is indicated.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 65,
+   "tokens_out": 58,
+   "cost_usd": 8.91e-05
+  },
+  {
+   "case_id": "t29[channel=email]",
+   "item_id": "t29",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.9473490329983179,
+   "output": "The user needs help with an expired profile verification link, which is an account-related issue of normal priority with no order or payment details involved.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 61,
+   "cost_usd": 9.3e-05
+  },
+  {
+   "case_id": "t29[channel=chat]",
+   "item_id": "t29",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.6776695060107158,
+   "output": "The user needs help with an expired profile verification link, which is an account-related issue that isn't urgent enough to be high priority.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 60,
+   "cost_usd": 9.18e-05
+  },
+  {
+   "case_id": "t30[channel=email]",
+   "item_id": "t30",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0001681589928921,
+   "output": "The issue is a technical app malfunction (blank screen after splash), which is not billing/shipping/account-related and has no order context, so it should be categorized as technical with normal priority.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 73,
+   "cost_usd": 0.0001065
+  },
+  {
+   "case_id": "t30[channel=chat]",
+   "item_id": "t30",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.293604938997305,
+   "output": "The issue is a technical app malfunction, so it should be categorized as technical with high priority since it prevents the user from using the app at all.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 63,
+   "cost_usd": 9.45e-05
+  },
+  {
+   "case_id": "t31[channel=email]",
+   "item_id": "t31",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0732934359984938,
+   "output": "The customer reports a billing discrepancy where they were charged $99.00 instead of the expected $79.00, so this is a billing issue that should be prioritized as high since it involves an incorrect charge.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 99.00\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 79,
+   "cost_usd": 0.0001158
+  },
+  {
+   "case_id": "t31[channel=chat]",
+   "item_id": "t31",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.1900545579992468,
+   "output": "The customer reports a billing discrepancy where they were charged more than the stated plan price, so this is a billing issue with high priority since it involves a potential overcharge.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 99.00\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 99.0
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 71,
+   "cost_usd": 0.0001062
+  },
+  {
+   "case_id": "t32[channel=email]",
+   "item_id": "t32",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.028876840005978,
+   "output": "The customer is reporting a missing partial refund, which is a billing issue that needs investigation, though it's not an urgent account or service outage.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": 5.25\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "error": null,
+   "tokens_in": 67,
+   "tokens_out": 66,
+   "cost_usd": 9.93e-05
+  },
+  {
+   "case_id": "t32[channel=chat]",
+   "item_id": "t32",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8161376179923536,
+   "output": "The customer is reporting a missing partial refund, which is a billing issue that needs investigation, so it should be categorized as billing with high priority.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": 5.25\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "high",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": null,
+    "amount": 5.25
+   },
+   "error": null,
+   "tokens_in": 67,
+   "tokens_out": 66,
+   "cost_usd": 9.93e-05
+  },
+  {
+   "case_id": "t33[channel=email]",
+   "item_id": "t33",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7495666489994619,
+   "output": "Damaged shipments need prompt resolution, so this is a high-priority shipping issue tied to the referenced order.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-60606\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 60,
+   "cost_usd": 9.18e-05
+  },
+  {
+   "case_id": "t33[channel=chat]",
+   "item_id": "t33",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0027791539905593,
+   "output": "Damaged shipments need prompt handling, so this is a high-priority shipping issue tied to the given order.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"high\",\n  \"order_id\": \"ORD-60606\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "high",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-60606",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 66,
+   "tokens_out": 60,
+   "cost_usd": 9.18e-05
+  },
+  {
+   "case_id": "t34[channel=email]",
+   "item_id": "t34",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0627292120043421,
+   "output": "The user is reporting a technical issue with password change, which falls under account management but the failure suggests a technical problem; I'll categorize it as account since it's about their account access, with normal priority as it's not urgent.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 64,
+   "tokens_out": 80,
+   "cost_usd": 0.00011520000000000001
+  },
+  {
+   "case_id": "t34[channel=chat]",
+   "item_id": "t34",
+   "params": {
+    "channel": "chat"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.5832027300057234,
+   "output": "The issue is an account access problem, so it falls under \"account\" with high priority since the user is locked out of their account.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 64,
+   "tokens_out": 61,
+   "cost_usd": 9.240000000000001e-05
+  },
+  {
+   "case_id": "t35[channel=email]",
+   "item_id": "t35",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7849634070007596,
+   "output": "The ticket describes a software malfunction (freeze/crash) rather than a billing, shipping, or account issue, and the audit urgency makes it high priority.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 65,
+   "cost_usd": 9.87e-05
+  },
+  {
+   "case_id": "t35[channel=chat]",
+   "item_id": "t35",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8401396260014735,
+   "output": "The ticket describes a software malfunction (export freezing/crashing) with urgency tied to an audit, so it's a technical issue warranting high priority, with no order or billing details present.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 69,
+   "tokens_out": 72,
+   "cost_usd": 0.00010709999999999999
+  },
+  {
+   "case_id": "t36[channel=email]",
+   "item_id": "t36",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.852728311001556,
+   "output": "The tracking status has not updated beyond \"label created,\" indicating a potential shipping delay that should be investigated with the carrier.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-70707\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 62,
+   "cost_usd": 9.539999999999999e-05
+  },
+  {
+   "case_id": "t36[channel=chat]",
+   "item_id": "t36",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.0769631319999462,
+   "output": "The tracking status hasn't updated beyond \"label created,\" which suggests a shipping/logistics issue rather than billing or account trouble, so it belongs in the shipping category with normal priority since it's not an urgent outage.\n\n```json\n{\n  \"category\": \"shipping\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-70707\",\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "expected": {
+    "category": "shipping",
+    "priority": "normal",
+    "order_id": "ORD-70707",
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 70,
+   "tokens_out": 81,
+   "cost_usd": 0.0001182
+  },
+  {
+   "case_id": "t37[channel=email]",
+   "item_id": "t37",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7235783149953932,
+   "output": "The customer is requesting a refund for a returned order, which is a billing matter requiring normal priority handling.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-24680\",\n  \"amount\": 12.30\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "error": null,
+   "tokens_in": 72,
+   "tokens_out": 62,
+   "cost_usd": 9.599999999999999e-05
+  },
+  {
+   "case_id": "t37[channel=chat]",
+   "item_id": "t37",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.8335939259995939,
+   "output": "The customer is requesting a refund for a returned order, which is a billing matter requiring normal priority handling.\n\n```json\n{\n  \"category\": \"billing\",\n  \"priority\": \"normal\",\n  \"order_id\": \"ORD-24680\",\n  \"amount\": 12.30\n}\n```",
+   "got": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "expected": {
+    "category": "billing",
+    "priority": "normal",
+    "order_id": "ORD-24680",
+    "amount": 12.3
+   },
+   "error": null,
+   "tokens_in": 72,
+   "tokens_out": 62,
+   "cost_usd": 9.599999999999999e-05
+  },
+  {
+   "case_id": "t38[channel=email]",
+   "item_id": "t38",
+   "params": {
+    "channel": "email"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.815565893004532,
+   "output": "The issue is an account-related problem where a confirmation email for an email address change is not being received, which likely requires technical or account support to resolve.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 64,
+   "cost_usd": 9.57e-05
+  },
+  {
+   "case_id": "t38[channel=chat]",
+   "item_id": "t38",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 1.1344620189920533,
+   "output": "The issue is an account-related problem where a confirmation email isn't being received, which is likely a technical/email delivery issue but tied to account management, and without urgency indicators it defaults to normal priority with no order or amount involved.\n\n```json\n{\n  \"category\": \"account\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "account",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 80,
+   "cost_usd": 0.0001149
+  },
+  {
+   "case_id": "t39[channel=email]",
+   "item_id": "t39",
+   "params": {
+    "channel": "email"
+   },
+   "success": false,
+   "checks": {
+    "category": true,
+    "priority": false,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7881038740015356,
+   "output": "This is a technical issue that blocks a core function, so it should be high priority with no order or billing details involved.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"high\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "high",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 58,
+   "cost_usd": 8.85e-05
+  },
+  {
+   "case_id": "t39[channel=chat]",
+   "item_id": "t39",
+   "params": {
+    "channel": "chat"
+   },
+   "success": true,
+   "checks": {
+    "category": true,
+    "priority": true,
+    "order_id": true,
+    "amount": true
+   },
+   "latency_s": 0.7176963380043162,
+   "output": "The ticket describes a technical issue with file uploads timing out, which is a technical problem of normal priority with no order or billing details involved.\n\n```json\n{\n  \"category\": \"technical\",\n  \"priority\": \"normal\",\n  \"order_id\": null,\n  \"amount\": null\n}\n```",
+   "got": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "expected": {
+    "category": "technical",
+    "priority": "normal",
+    "order_id": null,
+    "amount": null
+   },
+   "error": null,
+   "tokens_in": 63,
+   "tokens_out": 62,
+   "cost_usd": 9.329999999999998e-05
+  }
+ ]
+}

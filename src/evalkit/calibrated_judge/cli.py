@@ -21,6 +21,7 @@ from evalkit.calibrated_judge.judge import (
     PairwiseJudge,
     PointwiseJudge,
     SimulatedJudge,
+    Usage,
     sim_judge_from_args,
 )
 from evalkit.core.llm import LLM, get_llm
@@ -32,18 +33,38 @@ def _judge_llm(args: argparse.Namespace) -> LLM:
     return get_llm(args.llm)
 
 
+def _family(args: argparse.Namespace) -> str | None:
+    """``--judge-family none`` → no self-preference term (judge is in no anchor family)."""
+    fam = (args.judge_family or "").strip().lower()
+    return None if fam in ("", "none", "null") else fam
+
+
 def _judgments(args: argparse.Namespace, anchors: list, pointwise: bool = False
-               ) -> list[Judgment]:
+               ) -> tuple[list[Judgment], Usage | None]:
     if args.judgments and Path(args.judgments).exists() and not args.rejudge:
         print(f"reusing judgments from {args.judgments}", file=sys.stderr)
-        return load_judgments(args.judgments)
+        return load_judgments(args.judgments), None
     llm = _judge_llm(args)
-    rows = collect_judgments(anchors, PairwiseJudge(llm), PointwiseJudge(llm) if pointwise
-                             else None)
+    pair = PairwiseJudge(llm)
+    point = PointwiseJudge(llm) if pointwise else None
+    step = max(1, len(anchors) // 10)
+
+    def progress(done: int, total: int) -> None:
+        if done % step == 0 or done == total:
+            spent = pair.usage.cost_usd + (point.usage.cost_usd if point else 0.0)
+            print(f"  judged {done}/{total} anchors (${spent:.4f})", file=sys.stderr)
+
+    rows = collect_judgments(anchors, pair, point, workers=args.workers,
+                             progress=progress if args.workers > 1 else None)
+    usage = pair.usage.merge(point.usage) if point else pair.usage
     if args.judgments:
         save_judgments(args.judgments, rows)
-    print(f"judged {len(rows)} anchors × 2 orders with {llm.model}", file=sys.stderr)
-    return rows
+    print(f"judged {len(rows)}/{len(anchors)} anchors × 2 orders with {llm.model}: "
+          f"{usage.calls} calls, {usage.tokens_in}+{usage.tokens_out} tokens, "
+          f"${usage.cost_usd:.4f}, {usage.errors} failed anchors", file=sys.stderr)
+    if not rows:
+        raise SystemExit("every judge call failed; check the model spec / API key")
+    return rows, usage
 
 
 def _write(md: str, payload: dict, args: argparse.Namespace) -> None:
@@ -64,16 +85,20 @@ def _cmd_make(args: argparse.Namespace) -> int:
 
 def _cmd_audit(args: argparse.Namespace) -> int:
     anchors = load_anchors(args.anchors)
-    rows = _judgments(args, anchors, pointwise=args.pointwise)
-    rep = audit(anchors, rows, args.judge_family)
+    rows, usage = _judgments(args, anchors, pointwise=args.pointwise)
+    rep = audit(anchors, rows, _family(args))
+    if usage is not None:
+        rep["usage"] = usage.to_dict()
     _write(audit_markdown(rep), rep, args)
     return 0
 
 
 def _cmd_calibrate(args: argparse.Namespace) -> int:
     anchors = load_anchors(args.anchors)
-    rows = _judgments(args, anchors)
-    model, rep = calibrate(anchors, rows, args.judge_family, args.train_frac, args.seed)
+    rows, usage = _judgments(args, anchors)
+    model, rep = calibrate(anchors, rows, _family(args), args.train_frac, args.seed)
+    if usage is not None:
+        rep["usage"] = usage.to_dict()
     if args.out:
         model.save(args.out)
         print(f"calibration model written to {args.out}", file=sys.stderr)
@@ -98,7 +123,10 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         sp.add_argument("--llm", default="sim",
                         help="judge model spec (default: built-in simulated biased judge)")
         sp.add_argument("--judge-family", default="nova",
-                        help="model family of the judge, for self-preference")
+                        help="model family of the judge, for self-preference; 'none' when "
+                        "the judge belongs to no anchor family (e.g. a real API judge)")
+        sp.add_argument("--workers", type=int, default=1,
+                        help="concurrent anchors when calling an API judge")
         sp.add_argument("--judgments", help="cache file: reused if present, else written")
         sp.add_argument("--rejudge", action="store_true", help="ignore an existing cache")
         sp.add_argument("--seed", type=int, default=0)

@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shadow Routing Report</title><style>
+:root{--bg:#fcfcfb;--card:#ffffff;--ink:#0b0b0b;--ink2:#52514e;--line:#e4e3df;
+--s1:#2a78d6;--s2:#eb6834;--good:#0ca30c;--warn:#fab219;--bad:#d03b3b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1a1a19;--card:#232322;
+--ink:#fff;--ink2:#c3c2b7;--line:#383835;--s1:#3987e5;--s2:#d95926}}
+:root[data-theme="dark"]{--bg:#1a1a19;--card:#232322;--ink:#fff;--ink2:#c3c2b7;--line:#383835;
+--s1:#3987e5;--s2:#d95926}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.muted{color:var(--ink2)}.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:12px;margin:16px 0}.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px}.tile b{display:block;font-size:22px}.badge{display:inline-block;padding:2px 10px;
+border-radius:999px;font-weight:600;color:#fff}.PROMOTE{background:var(--good)}
+.HOLD{background:#8a6d00}.BLOCK{background:var(--bad)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+td.n{text-align:right;font-variant-numeric:tabular-nums}.scroll{overflow-x:auto}
+svg{max-width:680px;display:block}svg text{fill:var(--ink2);font-size:11px}.legend span{display:inline-flex;align-items:center;
+gap:6px;margin-right:14px}.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+</style></head><body><main>
+<h1>Shadow report: deepseek-flash vs deepseek-v4-pro</h1>
+<p><span class="badge PROMOTE">PROMOTE</span> <span class="muted">judge says candidate wins significantly</span></p>
+<p class="muted">47 pairs logged · 47 comparable</p>
+<div class="tiles"><div class="tile"><span class="muted">cost delta</span><b>-72.7%</b></div><div class="tile"><span class="muted">exact agreement</span><b>0%</b></div><div class="tile"><span class="muted">near agreement</span><b>0%</b></div><div class="tile"><span class="muted">judge win rate</span><b>95%</b></div><div class="tile"><span class="muted">shadow error rate</span><b>0.0%</b></div><div class="tile"><span class="muted">p95 latency delta</span><b>-1.84s</b></div></div>
+<h2>Answer similarity distribution</h2><svg viewBox="0 0 560 180" width="100%" role="img" aria-label="similarity histogram"><line x1="28" x2="532" y1="152" y2="152" stroke="var(--line)"/><rect x="29.0" y="145.5" width="48.4" height="6.5" rx="3" fill="var(--s1)"><title>similarity 0.0–0.1: 1 pairs</title></rect><text x="53.2" y="141.5" text-anchor="middle">1</text><rect x="79.4" y="28.0" width="48.4" height="124.0" rx="3" fill="var(--s1)"><title>similarity 0.1–0.2: 19 pairs</title></rect><text x="103.6" y="24.0" text-anchor="middle">19</text><rect x="129.8" y="28.0" width="48.4" height="124.0" rx="3" fill="var(--s1)"><title>similarity 0.2–0.3: 19 pairs</title></rect><text x="154.0" y="24.0" text-anchor="middle">19</text><rect x="180.2" y="112.8" width="48.4" height="39.2" rx="3" fill="var(--s1)"><title>similarity 0.3–0.4: 6 pairs</title></rect><text x="204.4" y="108.8" text-anchor="middle">6</text><rect x="230.6" y="138.9" width="48.4" height="13.1" rx="3" fill="var(--s1)"><title>similarity 0.4–0.5: 2 pairs</title></rect><text x="254.8" y="134.9" text-anchor="middle">2</text><rect x="281.0" y="152.0" width="48.4" height="0.0" rx="3" fill="var(--s1)"><title>similarity 0.5–0.6: 0 pairs</title></rect><rect x="331.4" y="152.0" width="48.4" height="0.0" rx="3" fill="var(--s1)"><title>similarity 0.6–0.7: 0 pairs</title></rect><rect x="381.8" y="152.0" width="48.4" height="0.0" rx="3" fill="var(--s1)"><title>similarity 0.7–0.8: 0 pairs</title></rect><rect x="432.2" y="152.0" width="48.4" height="0.0" rx="3" fill="var(--s1)"><title>similarity 0.8–0.9: 0 pairs</title></rect><rect x="482.6" y="152.0" width="48.4" height="0.0" rx="3" fill="var(--s1)"><title>similarity 0.9–1.0: 0 pairs</title></rect><text x="28.0" y="170" text-anchor="middle">0.0</text><text x="128.8" y="170" text-anchor="middle">0.2</text><text x="229.6" y="170" text-anchor="middle">0.4</text><text x="330.4" y="170" text-anchor="middle">0.6</text><text x="431.2" y="170" text-anchor="middle">0.8</text><text x="532.0" y="170" text-anchor="middle">1.0</text></svg>
+<h2>Latency</h2><div class="legend muted"><span><i class="sw" style="background:var(--s1)"></i>primary (deepseek-v4-pro)</span><span><i class="sw" style="background:var(--s2)"></i>shadow (deepseek-flash)</span></div><svg viewBox="0 0 560 150" width="100%" role="img" aria-label="latency"><text x="8" y="40">p50</text><rect x="70" y="20" width="342.8" height="18" rx="3" fill="var(--s1)"><title>primary p50: 2.900s</title></rect><text x="418.8" y="33">2.90s</text><rect x="70" y="42" width="166.9" height="18" rx="3" fill="var(--s2)"><title>shadow p50: 1.412s</title></rect><text x="242.9" y="55">1.41s</text><text x="8" y="100">p95</text><rect x="70" y="80" width="430.0" height="18" rx="3" fill="var(--s1)"><title>primary p95: 3.638s</title></rect><text x="506.0" y="93">3.64s</text><rect x="70" y="102" width="212.8" height="18" rx="3" fill="var(--s2)"><title>shadow p95: 1.801s</title></rect><text x="288.8" y="115">1.80s</text></svg>
+<h2>Largest disagreements</h2><div class="scroll"><table><thead><tr><th>request</th><th>sim</th>
+<th>judge</th><th>primary</th><th>shadow</th></tr></thead><tbody><tr><td>r00040</td><td class=n>0.14</td><td>loss</td><td>Nginx rate limiting typically &quot;breaks&quot; under load due to the **burst** and **nodelay** parameters, not a flaw in the algorithm. 
+
+Without `nodelay`, excess requests are queued. Under high concurrency, this queue fills instantly, causing high latency and cascading timeouts that feel like a total outage. 
+
+Additionally, if you use the default `zone` size (e.g., `10m`), the shared memory can fill up under massive traffic. When the zone is full, nginx stops tracking new IPs and applies the limit globally to all traffic (or stops limiting, depending on version), causing erratic behavior.
+
+**Fix:** Use `burst` with `nodelay` to drop excess traffic instantly, and increase the `zone` size to safely store all client states.</td><td>Nginx `limit_req` is per-worker, not global. Under load, each worker enforces its own bucket, so effective limits multiply by worker count. Also, `burst` queues requests; once full, excess returns 503, which spikes under load.
+
+Fixes:
+- Use `limit_req_zone ... zone=...:10m` with shared memory (already shared across workers—verify it&#x27;s not per-worker).
+- Set `limit_req_status 429` and tune `burst`/`nodelay`.
+- For true global limits across instances, use a shared store (Redis) or an edge/WAF layer.
+
+Check `worker_processes` and whether limits are applied per `server`/`location` correctly.</td></tr><tr><td>r00023</td><td class=n>0.09</td><td>win</td><td>gRPC deadline propagation automatically carries the timeout from an incoming request to any outgoing requests made while handling it. The deadline is attached to the gRPC metadata (as `grpc-timeout`) and is automatically injected into child calls by the client stub.
+
+This ensures that if a parent request times out, all downstream work is cancelled too, preventing wasted resources. The propagated deadline is always the earliest of the parent&#x27;s remaining time and any deadline you explicitly set on the child call. You can opt out per-call using `CallOptions` with `WithPropagateDeadline(false)` in Go, or equivalent options in other languages.</td><td>gRPC deadlines propagate automatically: when a client sets a deadline, the server receives it as the `grpc-timeout` header, and any downstream gRPC calls the server makes inherit the *remaining* time, not the original. So if a client sets 5s and 2s elapse before the server calls another service, that call gets ~3s. This prevents orphaned work and cascading hangs. If the deadline expires, calls fail with `DEADLINE_EXCEEDED`. Note: propagation only works across gRPC hops—if you call HTTP or a queue in between, you must forward the deadline manually.</td></tr><tr><td>r00068</td><td class=n>0.11</td><td>win</td><td>Postgres connection pooling breaks under load typically due to:
+
+1. **Pool exhaustion** – All connections are checked out, and new requests queue until a timeout. This often happens when transactions are slow or leak (not returned to the pool).
+2. **Too many idle connections** – If `max_connections` is high but the pool size is small, the pool becomes a bottleneck.
+3. **Transaction pinning** – In PgBouncer transaction mode, a connection is pinned for the whole transaction; long transactions reduce effective pool size.
+4. **Prepared statement or session state mismatch** – In transaction pooling, `SET` or `PREPARE` can break if not reset.
+5. **Network/backend latency** – Slow queries or lock contention cause connections to pile up.
+
+Fix by tuning pool size, setting timeouts, and ensuring connections are always released.</td><td>Pooling usually breaks because of **exhaustion and queueing**, not pooling itself:
+
+- **Pool too small**: requests wait for a connection; latency spikes, then timeouts cascade.
+- **Pool too large**: exceeds Postgres `max_connections`, causing `too many clients` errors and memory pressure.
+- **Leaked connections**: a code path doesn&#x27;t release/return the connection, so the pool drains.
+- **Long transactions**: hold connections idle-in-transaction, blocking others.
+- **Per-instance pools**: N app replicas × pool size overshoots the DB limit.
+
+Fixes: size pools to `max_connections` minus overhead, set acquire/statement timeouts, always release in `finally`, keep transactions short, and use PgBouncer (transaction mode) for many clients.</td></tr><tr><td>r00051</td><td class=n>0.11</td><td>win</td><td>For React hydration errors, follow these practices:
+
+1. **Avoid browser-only APIs during render** — guard `window`, `localStorage`, etc. with `useEffect` or `typeof window !== &#x27;undefined&#x27;` checks.
+2. **Use `suppressHydrationWarning`** sparingly for unavoidable mismatches (e.g., timestamps).
+3. **Ensure deterministic rendering** — avoid `Math.random()`, `Date.now()`, or random IDs during render.
+4. **Render client-only components after mount** — use a `mounted` state flag or dynamic import with `ssr: false`.
+5. **Validate markup** — mismatched tags (e.g., `&lt;p&gt;` inside `&lt;p&gt;`) cause hydration failures.
+6. **Use `useSyncExternalStore`** for external stores to keep server/client state consistent.</td><td>Fix the root cause: server and client must render identical HTML on first pass.
+
+- Don&#x27;t use `Date.now()`, `Math.random()`, or `localStorage` during render.
+- Gate browser-only values behind `useEffect` + state, or `useSyncExternalStore`.
+- For intentional differences, use `suppressHydrationWarning` (only on that element).
+- Common culprits: invalid HTML nesting (`&lt;p&gt;&lt;div&gt;`), locale/timezone formatting, and third-party scripts mutating the DOM.
+
+Debug by diffing the server HTML against the client render. Avoid `dynamic(..., { ssr: false })` as a blanket fix—it hurts SEO and perf.</td></tr><tr><td>r00052</td><td class=n>0.14</td><td>win</td><td>First, check the test logs for the **failure reason** and **timing**. Look for:
+
+1. **Shared state/order dependence**: Does the test pass in isolation but fail in the full suite? Run it alone (`--grep` or equivalent).
+2. **Timeouts**: Are there hardcoded sleeps or network calls? Check for slow CI runners.
+3. **Resource contention**: Parallel tests hitting the same DB, port, or file.
+4. **Non-deterministic data**: Random values, current date/time, or unordered API responses.
+
+Start by re-running the exact failing test on the same commit to confirm flakiness, then inspect the surrounding tests for interference.</td><td>Check the failure pattern first: is it the same test, same step, or random? Then verify:
+
+1. **Reproduce locally** with the same command/CI image.
+2. **Timing/ordering** — async waits, race conditions, shared state between tests.
+3. **External deps** — network, DB, clock, random seeds, timezone.
+4. **Resource limits** — parallelism, memory, ports, timeouts.
+5. **Recent changes** — new test, dependency bump, infra change.
+
+Start with the CI logs and rerun the job to confirm flakiness. Quarantine the test if it blocks others, then fix root cause.</td></tr><tr><td>r00002</td><td class=n>0.15</td><td>win</td><td>Vector index recall degrades under load primarily due to resource contention and algorithmic trade-offs:
+
+1. **CPU/GPU saturation**: ANN algorithms (HNSW, IVF) use heuristics that prune the search space. Under heavy concurrency, thread pools become saturated, causing timeouts that force the algorithm to return partial results before exploring enough graph nodes or clusters.
+
+2. **Memory bandwidth**: High query throughput exhausts cache and memory bandwidth, slowing distance computations and causing the search to hit its internal deadline earlier.
+
+3. **Lock contention**: Shared mutable structures (e.g., growing HNSW graphs, inverted lists) serialize access, increasing latency and triggering early termination.
+
+4. **Queueing**: If requests queue behind slow queries, client-side timeouts may abort searches mid-traversal.
+
+Mitigations: provision for peak QPS, use read-only replicas, tune `ef_search`/`nprobe` under realistic load, and monitor p99 latency.</td><td>Recall drops under load mainly because the index is being searched *approximately* under constraints that change:
+
+- **Fewer candidates explored**: HNSW `efSearch` or IVF `nprobe` may be lowered, or the search times out and returns partial results.
+- **Concurrent writes**: inserts/deletes mutate graph or cluster structure mid-search, so traversals miss neighbors.
+- **Deleted vectors**: tombstones or stale entries reduce effective recall until compaction.
+- **Memory pressure**: cache eviction or disk-backed segments slow traversal, causing early termination.
+- **Sharding/merging**: results merged from partial shards can miss true neighbors.
+
+Check: fixed `efSearch`/`nprobe`, timeout settings, write rate vs. compaction, and whether recall is measured per-query or aggregated.</td></tr><tr><td>r00021</td><td class=n>0.16</td><td>win</td><td>CI flaky tests break under load because resource contention exposes hidden assumptions in test code. Under parallel execution, tests compete for CPU, memory, network, or I/O. This causes timeouts, race conditions, and ordering dependencies to surface. Shared state—like databases, caches, or files—can become corrupted when tests run concurrently. Additionally, infrastructure limits (e.g., connection pools, rate limits) get exhausted, causing cascading failures. The tests weren&#x27;t truly isolated; load simply reveals the coupling.</td><td>Flaky tests under load usually stem from timing and resource contention, not logic bugs:
+
+- **Timeouts**: Fixed waits (e.g. `sleep(2)`) fail when CI is slow. Use explicit waits/polling.
+- **Shared resources**: Parallel jobs compete for ports, DBs, temp files, or CPU, causing races.
+- **Order dependence**: Tests pass alone but fail when run concurrently or in a different sequence.
+- **Async/eventual consistency**: Assertions run before background work completes.
+- **External deps**: Network calls to APIs or services throttle under load.
+
+Fixes: isolate state, use unique ports/namespaces, replace sleeps with condition-based waits, and cap parallelism.</td></tr><tr><td>r00055</td><td class=n>0.17</td><td>win</td><td>First, verify your **embedding model matches the one used at index time** — a mismatch is the most common cause of poor recall.
+
+Next, check **metric consistency**: ensure the query uses the same distance metric (cosine, dot product, L2) as the index was built with.
+
+Then, inspect **query preprocessing**: tokenization, casing, stopword removal, and truncation must be identical to the indexing pipeline.
+
+Finally, confirm the **top-K is reasonable** relative to your dataset size and that you&#x27;re not filtering out relevant candidates before the vector search.</td><td>Check the basics first:
+
+1. **Ground truth quality** — verify your recall calculation uses correct nearest neighbors (exact search on the same vectors).
+2. **Index params** — for HNSW, check `efSearch`/`efConstruction` and `M`; for IVF, check `nprobe` and `nlist`. Low values tank recall.
+3. **Metric consistency** — ensure the same distance metric (cosine/L2/IP) at index and query time, and vectors are normalized if needed.
+4. **Data drift** — confirm queries resemble indexed data; out-of-distribution queries reduce recall.
+5. **Filtering** — post-filtering after ANN search often causes low recall; use pre-filtering or filtered indexes.
+
+Start with params and metric mismatch — they&#x27;re the most common culprits.</td></tr></tbody></table></div>
+</main></body></html>

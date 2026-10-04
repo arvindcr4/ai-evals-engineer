@@ -1,0 +1,16 @@
+{"task_id": "widgets-eur-3", "input": "What do 3 widgets cost in EUR?", "expected": 11.73}
+{"task_id": "widgets-gbp-2", "input": "How much are 2 widgets in GBP?", "expected": 6.71}
+{"task_id": "widgets-inr-4", "input": "I want to buy 4 widgets. What is the total in INR?", "expected": 1412.7}
+{"task_id": "widgets-usd-10", "input": "Price of 10 widgets, in USD please.", "expected": 42.5}
+{"task_id": "gadgets-eur-7", "input": "How much are 7 gadgets in EUR?", "expected": 77.28}
+{"task_id": "gadgets-gbp-12", "input": "I want to buy 12 gadgets. What is the total in GBP?", "expected": 113.76}
+{"task_id": "gadgets-inr-5", "input": "Price of 5 gadgets, in INR please.", "expected": 4986.0}
+{"task_id": "gadgets-usd-9", "input": "What do 9 gadgets cost in USD?", "expected": 108.0}
+{"task_id": "gizmos-eur-1", "input": "I want to buy 1 gizmos. What is the total in EUR?", "expected": 6.9}
+{"task_id": "gizmos-gbp-6", "input": "Price of 6 gizmos, in GBP please.", "expected": 35.55}
+{"task_id": "gizmos-inr-11", "input": "What do 11 gizmos cost in INR?", "expected": 6855.75}
+{"task_id": "gizmos-usd-8", "input": "How much are 8 gizmos in USD?", "expected": 60.0}
+{"task_id": "sprockets-eur-15", "input": "Price of 15 sprockets, in EUR please.", "expected": 11.04}
+{"task_id": "sprockets-gbp-13", "input": "What do 13 sprockets cost in GBP?", "expected": 8.22}
+{"task_id": "sprockets-inr-20", "input": "How much are 20 sprockets in INR?", "expected": 1329.6}
+{"task_id": "sprockets-usd-25", "input": "I want to buy 25 sprockets. What is the total in USD?", "expected": 20.0}

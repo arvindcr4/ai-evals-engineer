@@ -1,0 +1,15 @@
+================ 1. baseline (main prompt)
+support-ticket-triage-llm: 80 cases, success 100.0%, p95 973.3 ms, errors 0, cost $0.0075
+baseline written to out/real/baseline.json
+================ same-prompt
+support-ticket-triage-llm: 80 cases, success 100.0%, p95 893.1 ms, errors 0, cost $0.0075
+regression-gate: PASS
+-> exit code 0
+================ bad-prompt
+support-ticket-triage-llm: 80 cases, success 58.8%, p95 1161.2 ms, errors 0, cost $0.0077
+regression-gate: FAIL: task success dropped 41.2 pts (limit 2.0), significant at p=0.0002
+-> exit code 1
+================ think
+support-ticket-triage-llm: 80 cases, success 96.2%, p95 1261.3 ms, errors 2, cost $0.0135
+regression-gate: PASS
+-> exit code 0

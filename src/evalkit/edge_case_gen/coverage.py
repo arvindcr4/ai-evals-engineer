@@ -10,9 +10,10 @@ from __future__ import annotations
 import itertools
 from collections import Counter
 
-from evalkit.edge_case_gen.cases import AXIS_CATEGORIES, EdgeCase
+from evalkit.edge_case_gen.cases import AXIS_CATEGORIES, EdgeCase, canonical
 from evalkit.edge_case_gen.generators import field_levels
 from evalkit.edge_case_gen.spec import TaskSpec
+from evalkit.edge_case_gen.validate import jaccard, shingles
 
 
 def level_universe(spec: TaskSpec) -> dict[str, list[str]]:
@@ -52,6 +53,40 @@ def pairwise_stats(spec: TaskSpec, cases: list[EdgeCase]) -> dict:
     }
 
 
+def llm_vs_rules(cases: list[EdgeCase]) -> dict | None:
+    """What the model-written cases add over the rule-based ones.
+
+    ``novelty_vs_rules`` is 1 − the highest shingle-Jaccard similarity between an
+    LLM case's whole input and any rule case (the same measure the validator
+    uses against seeds); ``new_categories`` are axis/category pairs no rule hit.
+    """
+    gen = [(c, str(c.provenance.get("generator", ""))) for c in cases]
+    llm = [c for c, g in gen if g.startswith("llm:")]
+    rules = [c for c, g in gen if g.startswith("rule:")]
+    if not llm:
+        return None
+    rule_sh = [shingles(canonical(c.input)) for c in rules]
+    nov = sorted(1.0 - max((jaccard(shingles(canonical(c.input)), r) for r in rule_sh),
+                           default=0.0) for c in llm)
+    rule_cats = {(c.axis, c.category) for c in rules}
+    new = sorted({f"{c.axis}/{c.category}" for c in llm} - {f"{a}/{k}" for a, k in rule_cats})
+    seed_nov = [c.novelty for c in llm if c.novelty is not None]
+    return {
+        "n_llm": len(llm),
+        "n_rule": len(rules),
+        "novelty_vs_rules_mean": round(sum(nov) / len(nov), 4),
+        "novelty_vs_rules_median": round(nov[len(nov) // 2], 4),
+        "novelty_vs_rules_min": round(nov[0], 4),
+        "novelty_vs_seeds_mean_llm": round(sum(seed_nov) / len(seed_nov), 4) if seed_nov else None,
+        "novelty_vs_seeds_mean_rule": round(
+            sum(c.novelty for c in rules if c.novelty is not None)
+            / max(1, sum(c.novelty is not None for c in rules)), 4) if rules else None,
+        "new_categories": new,
+        "llm_cases_in_new_categories": sum(
+            1 for c in llm if f"{c.axis}/{c.category}" in set(new)),
+    }
+
+
 def coverage_report(spec: TaskSpec, cases: list[EdgeCase]) -> dict:
     axis = Counter(c.axis for c in cases)
     cat = Counter(f"{c.axis}/{c.category}" for c in cases)
@@ -78,6 +113,7 @@ def coverage_report(spec: TaskSpec, cases: list[EdgeCase]) -> dict:
         "schema_invalid": sum(1 for c in cases if c.schema_valid is False),
         "labels": dict(Counter(str(c.label) for c in cases)),
         "needs_human_review": sum(1 for c in cases if c.needs_human_review),
+        "llm_vs_rules": llm_vs_rules(cases),
         **pairwise_stats(spec, cases),
     }
 
@@ -99,6 +135,17 @@ def format_report(rep: dict) -> str:
     )
     for ax, v in rep["pairwise_coverage_by_axis"].items():
         lines.append(f"    {ax:<14} alone: {v:.1%}")
+    lv = rep.get("llm_vs_rules")
+    if lv:
+        lines.append(
+            f"  llm vs rules: {lv['n_llm']} llm cases; novelty vs rule cases mean "
+            f"{lv['novelty_vs_rules_mean']:.2f} (median {lv['novelty_vs_rules_median']:.2f}, "
+            f"min {lv['novelty_vs_rules_min']:.2f}); novelty vs seeds llm "
+            f"{lv['novelty_vs_seeds_mean_llm']} vs rule {lv['novelty_vs_seeds_mean_rule']}")
+        lines.append(f"    {lv['llm_cases_in_new_categories']} llm cases in "
+                     f"{len(lv['new_categories'])} categories no rule produced: "
+                     + ", ".join(lv["new_categories"][:12])
+                     + (" ..." if len(lv["new_categories"]) > 12 else ""))
     if rep["fields_untouched"]:
         lines.append(f"  untouched fields: {', '.join(rep['fields_untouched'])}")
     return "\n".join(lines)

@@ -1,0 +1,6 @@
+pairs: final 47, run1 47, common prompts 47
+deepseek-v4-pro: byte-identical across runs 0/47; same-model similarity 0.469
+deepseek-flash: byte-identical across runs 0/47; same-model similarity 0.535
+cross-model similarity (final run): 0.221
+deepseek-v4-pro: over 120 words 7/47; mean words 100.2
+deepseek-flash: over 120 words 1/47; mean words 88.2

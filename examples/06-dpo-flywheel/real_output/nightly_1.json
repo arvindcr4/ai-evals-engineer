@@ -1,0 +1,53 @@
+{
+  "started": "2026-10-04T14:26:50+00:00",
+  "backend": "dry",
+  "events_total": 32,
+  "events_new": 32,
+  "pairs_total": 21,
+  "pairs_new": 21,
+  "drops": {
+    "contaminated": 1,
+    "identical": 1,
+    "refusal": 1,
+    "duplicate": 1
+  },
+  "llm_usage": {
+    "teacher": {
+      "calls": 0,
+      "cache_hits": 18,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "judge": {
+      "calls": 0,
+      "cache_hits": 68,
+      "errors": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0.0
+    },
+    "total_cost_usd": 0.0
+  },
+  "dataset": "out/real/flywheel/datasets/2026-10-03",
+  "data_sha256": "d781bf943c4795acea63e10dca8f44ce076c3b962ede124d7ac611e2d9b6f9c8",
+  "train": {
+    "backend": "dry",
+    "status": "planned",
+    "adapter_path": "out/real/flywheel/adapters/2026-10-03",
+    "metrics": {
+      "rows": 21,
+      "steps": 2,
+      "problems": 0
+    }
+  },
+  "gate": {
+    "incumbent": "base",
+    "incumbent_score": 0.7,
+    "candidate_score": 0.7607,
+    "min_win": 0.01,
+    "promoted": true
+  },
+  "status": "promoted"
+}

@@ -11,7 +11,9 @@ from __future__ import annotations
 
 import itertools
 import math
-from collections.abc import Iterable, Sequence
+import sys
+from collections.abc import Callable, Iterable, Sequence
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Any
 
@@ -41,16 +43,47 @@ class Judgment:
         return dict(self.__dict__)
 
 
+def _judge_one(a: Anchor, judge: PairwiseJudge, pointwise: PointwiseJudge | None) -> Judgment:
+    ab, ba = judge.judge_anchor(a, swap=False), judge.judge_anchor(a, swap=True)
+    sa = pointwise.score(a.prompt, a.response_a) if pointwise else None
+    sb = pointwise.score(a.prompt, a.response_b) if pointwise else None
+    return Judgment(a.id, ab.winner, ab.p_a, ab.confidence, ba.winner, ba.p_a,
+                    ba.confidence, sa, sb)
+
+
 def collect_judgments(anchors: Iterable[Anchor], judge: PairwiseJudge,
-                      pointwise: PointwiseJudge | None = None) -> list[Judgment]:
-    out = []
-    for a in anchors:
-        ab, ba = judge.judge_anchor(a, swap=False), judge.judge_anchor(a, swap=True)
-        sa = pointwise.score(a.prompt, a.response_a) if pointwise else None
-        sb = pointwise.score(a.prompt, a.response_b) if pointwise else None
-        out.append(Judgment(a.id, ab.winner, ab.p_a, ab.confidence, ba.winner, ba.p_a,
-                            ba.confidence, sa, sb))
-    return out
+                      pointwise: PointwiseJudge | None = None, workers: int = 1,
+                      progress: Callable[[int, int], None] | None = None) -> list[Judgment]:
+    """Judge every anchor in both orders (plus pointwise scores), in anchor order.
+
+    With ``workers`` > 1 anchors are judged concurrently (API judges are
+    latency-bound). An anchor whose judge calls still fail after the client's
+    retries is dropped and counted in ``judge.usage.errors`` instead of aborting
+    a run that has already paid for hundreds of calls.
+    """
+    anchors = list(anchors)
+    results: list[Judgment | None] = [None] * len(anchors)
+
+    def run(i: int) -> None:
+        try:
+            results[i] = _judge_one(anchors[i], judge, pointwise)
+        except Exception as e:  # noqa: BLE001 — any provider/transport failure
+            judge.usage.error()
+            print(f"judge failed on {anchors[i].id}: {type(e).__name__}: {e}"[:300],
+                  file=sys.stderr)
+
+    if workers <= 1:
+        for i in range(len(anchors)):
+            run(i)
+            if progress:
+                progress(i + 1, len(anchors))
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            for done, _ in enumerate(as_completed(pool.submit(run, i)
+                                                  for i in range(len(anchors))), 1):
+                if progress:
+                    progress(done, len(anchors))
+    return [j for j in results if j is not None]
 
 
 def save_judgments(path: str, rows: list[Judgment]) -> None:

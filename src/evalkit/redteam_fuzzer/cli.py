@@ -12,7 +12,9 @@ from evalkit.redteam_fuzzer.attacks import AttackCase
 from evalkit.redteam_fuzzer.fuzzer import run_campaign
 from evalkit.redteam_fuzzer.report import (
     campaign_from_findings,
+    render_comparison,
     render_scorecard,
+    summary_row,
     write_scorecard,
 )
 
@@ -34,20 +36,28 @@ def _run(a: argparse.Namespace) -> int:
     all_rows: list[dict] = []
     llm = None if a.llm == "mock" else get_llm(a.llm)
     seeds = [AttackCase.from_dict(r) for r in read_jsonl(a.seeds)] if a.seeds else None
+    spent = 0.0
     for level in levels:
+        budget = None if a.max_cost_usd is None else max(0.0, a.max_cost_usd - spent)
         camp = run_campaign(level, iterations=a.iterations, seed=a.seed,
                             step_budget=a.step_budget, token_budget=a.token_budget,
-                            llm=llm, seeds=seeds)
+                            llm=llm, seeds=seeds, max_cost_usd=budget)
+        spent += camp.cost_usd
         campaigns.append(camp)
         rows = [f.to_dict() for f in camp.findings]
         # Summary marker row: carries the run count so `report` can rescore.
-        rows.append({"guardrail": level, "_runs": camp.runs, "_failed_runs": camp.failed_runs})
+        rows.append(summary_row(camp))
         all_rows.extend(rows)
         write_jsonl(out / f"findings-{level}.jsonl", rows)
+        # Every executed case (replayable with --seeds) and the per-run log.
+        write_jsonl(out / f"cases-{level}.jsonl", [r["case"] for r in camp.case_log])
+        write_jsonl(out / f"runs-{level}.jsonl", camp.case_log)
+        cost = f" llm_calls={camp.llm_calls} cost=${camp.cost_usd:.4f}" if camp.cost_usd else ""
+        infra = f" infra_errors={camp.infra_errors}" if camp.infra_errors else ""
         print(f"[{level}] runs={camp.runs} findings={len(camp.findings)} "
               f"attack_success={camp.attack_success_rate:.3f} "
               f"resilience={camp.resilience_score:.3f} "
-              f"severities={dict(sorted(camp.severity_counts.items()))}")
+              f"severities={dict(sorted(camp.severity_counts.items()))}{cost}{infra}")
     write_jsonl(out / "findings.jsonl", all_rows)
     path = write_scorecard(campaigns, out)
     print(f"wrote {path}")
@@ -63,6 +73,19 @@ def _report(a: argparse.Namespace) -> int:
     if a.out:
         path = write_scorecard(campaigns, a.out)
         print(f"wrote {path}")
+    else:
+        print(md)
+    return 0
+
+
+def _compare(a: argparse.Namespace) -> int:
+    base = campaign_from_findings(read_jsonl(a.baseline))
+    other = campaign_from_findings(read_jsonl(a.other))
+    md = render_comparison(base, other, labels=(a.labels[0], a.labels[1]))
+    if a.out:
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.out).write_text(md)
+        print(f"wrote {a.out}")
     else:
         print(md)
     return 0
@@ -91,12 +114,21 @@ def register(subparsers) -> None:
                    help="policy LLM spec driving the toy agent (default: deterministic toy policy)")
     r.add_argument("--seeds", default="", help="seed-corpus JSONL of AttackCases (default: built-in)")
     r.add_argument("--out", default="redteam_out", help="output directory")
+    r.add_argument("--max-cost-usd", type=float, default=None,
+                   help="stop issuing new cases once policy-model spend reaches this (all levels)")
     r.set_defaults(func=_run)
 
     rp = sub.add_parser("report", help="render a scorecard from a findings JSONL")
     rp.add_argument("findings", help="findings.jsonl written by run")
     rp.add_argument("--out", default="", help="output dir (prints to stdout if omitted)")
     rp.set_defaults(func=_report)
+
+    cp = sub.add_parser("compare", help="compare two findings JSONLs (e.g. mock vs real model)")
+    cp.add_argument("baseline")
+    cp.add_argument("other")
+    cp.add_argument("--labels", nargs=2, default=["mock", "real"])
+    cp.add_argument("--out", default="", help="write Markdown here (prints if omitted)")
+    cp.set_defaults(func=_compare)
 
     st = sub.add_parser("selftest", help="show the toy policy's action for one task")
     st.add_argument("task")

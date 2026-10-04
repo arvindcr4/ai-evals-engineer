@@ -14,7 +14,8 @@ import re
 from typing import Any
 
 from evalkit.core.llm import LLM, Message, MockLLM, stable_hash
-from evalkit.edge_case_gen.cases import AXIS_CATEGORIES, EdgeCase
+from evalkit.edge_case_gen.cases import AXIS_CATEGORIES, EdgeCase, canonical
+from evalkit.edge_case_gen.claims import claim_holds
 from evalkit.edge_case_gen.spec import TaskSpec
 
 SYSTEM = (
@@ -29,10 +30,24 @@ N: {n}
 Suggested categories for this axis: {cats}
 Each input MUST be a JSON object using only the declared field names. Inputs may
 deliberately violate constraints when testing boundaries.
+Rule-based generators already produce the suggested categories mechanically (exact
+min/max values and lengths, nulls, missing fields, common Unicode tricks). Prefer
+realistic, domain-specific cases they would miss; new snake_case categories are fine.
+The input MUST actually contain the edge the description claims. Write every
+invisible, control or non-ASCII character as a JSON \\uXXXX escape (e.g. \\u200b,
+\\u202e, \\u0301) so it survives transport. Do not claim an exact string length;
+keep every string under 300 characters (rules already cover very long inputs).
 SPEC_JSON:
 {spec}
 END_SPEC
 Return: {{"cases": [{{"input": {{...}}, "category": "<category>", "description": "<why it is hard>"}}]}}"""
+
+REPAIR_TEMPLATE = """{k} of those cases do not contain the edge their description claims: the
+input is identical to a seed example, or the named characters/values are absent:
+{listing}
+Return {{"cases": [...]}} with exactly one replacement per listed case whose input
+really contains the edge (change the field values themselves, not just the
+description). Write invisible or non-ASCII characters as \\uXXXX escapes."""
 
 LABEL_TEMPLATE = """TASK: propose_label
 Task: {desc}
@@ -56,6 +71,27 @@ def extract_json(text: str) -> Any:
     return obj
 
 
+def salvage_cases(text: str) -> list[dict]:
+    """Recover every complete ``{"input": ...}`` object from a truncated or broken reply.
+
+    Real models hit the max-token limit mid-case (e.g. while writing a
+    ``long_input`` note), which makes the whole reply invalid JSON; the cases
+    before the cut are still good.
+    """
+    dec, out, pos = json.JSONDecoder(), [], 0
+    for m in re.finditer(r'\{\s*"input"\s*:', text):
+        if m.start() < pos:
+            continue
+        try:
+            obj, end = dec.raw_decode(text, m.start())
+        except ValueError:
+            continue
+        if isinstance(obj, dict):
+            out.append(obj)
+            pos = end
+    return out
+
+
 def _between(text: str, start: str, end: str) -> str:
     return text.split(start, 1)[1].split(end, 1)[0].strip()
 
@@ -63,6 +99,8 @@ def _between(text: str, start: str, end: str) -> str:
 def mock_responder(messages: list[Message]) -> str:
     """Deterministic stand-in for a frontier model on both prompt types."""
     prompt = messages[-1]["content"]
+    if "TASK:" not in prompt:  # repair follow-up: the mock has nothing better to offer
+        return json.dumps({"cases": []})
     if "TASK: propose_label" in prompt:
         labels = json.loads(_between(prompt, "Allowed labels:", "\n"))
         inp = _between(prompt, "INPUT_JSON:", "END_INPUT")
@@ -140,11 +178,18 @@ def with_mock_responder(llm: LLM) -> LLM:
 class LLMGenerator:
     """Ask a model for edge cases per axis and convert the reply to ``EdgeCase``s."""
 
-    def __init__(self, spec: TaskSpec, llm: LLM, n_per_axis: int = 4):
+    def __init__(self, spec: TaskSpec, llm: LLM, n_per_axis: int = 4,
+                 temperature: float = 0.9, max_tokens: int = 4000, repair_rounds: int = 1):
         self.spec = spec
+        self.max_tokens = max_tokens
+        self.repair_rounds = repair_rounds
+        self._seed_keys = {canonical(s) for s in spec.seeds}
+        self.stats = {"phantom": 0, "repaired": 0, "resent": 0}
         self.llm = with_mock_responder(llm)
         self.n = n_per_axis
+        self.temperature = temperature
         self.errors: list[str] = []
+        self.usage = {"calls": 0, "tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0}
 
     def prompt(self, axis: str) -> list[Message]:
         body = GEN_TEMPLATE.format(
@@ -153,17 +198,36 @@ class LLMGenerator:
         )
         return [{"role": "system", "content": SYSTEM}, {"role": "user", "content": body}]
 
-    def generate_axis(self, axis: str) -> list[EdgeCase]:
-        comp = self.llm.complete(self.prompt(axis), temperature=0.9)
+    def _complete(self, axis: str, messages: list[Message]):
+        comp = self.llm.complete(messages, temperature=self.temperature,
+                                 max_tokens=self.max_tokens)
+        self.usage["calls"] += 1
+        self.usage["tokens_in"] += comp.tokens_in
+        self.usage["tokens_out"] += comp.tokens_out
+        self.usage["cost_usd"] += comp.cost_usd
+        choices = comp.raw.get("choices") or [{}]
+        if choices[0].get("finish_reason") == "length":
+            self.errors.append(f"{axis}: reply truncated at the max-token limit")
+        return comp
+
+    def _parse(self, axis: str, text: str) -> list[dict] | None:
         try:
-            obj = extract_json(comp.text)
+            obj = extract_json(text)
         except ValueError as e:
-            self.errors.append(f"{axis}: unparseable reply ({e})")
-            return []
+            salvaged = salvage_cases(text)
+            if not salvaged:
+                self.errors.append(f"{axis}: unparseable reply ({e})")
+                return None
+            self.errors.append(f"{axis}: malformed/truncated JSON, salvaged "
+                               f"{len(salvaged)} complete cases ({e})")
+            return salvaged
         raw = obj.get("cases", []) if isinstance(obj, dict) else obj
         if not isinstance(raw, list):
             self.errors.append(f"{axis}: 'cases' is {type(raw).__name__}, not a list")
-            return []
+            return None
+        return raw
+
+    def _to_cases(self, axis: str, raw: list, model: str, cost: float) -> list[EdgeCase]:
         out = []
         for j, c in enumerate(raw):
             if not isinstance(c, dict) or not isinstance(c.get("input"), dict):
@@ -179,11 +243,57 @@ class LLMGenerator:
                 input=inp, axis=axis, category=category,
                 description=str(c.get("description", "")),
                 field=changed[0] if len(changed) == 1 else None, levels=levels,
-                provenance={"generator": f"llm:{comp.model}", "spec": self.spec.name,
+                provenance={"generator": f"llm:{model}", "spec": self.spec.name,
                             "spec_fingerprint": self.spec.fingerprint,
-                            "cost_usd": comp.cost_usd / max(1, len(raw))},
+                            "cost_usd": cost / max(1, len(raw))},
             ))
         return out
+
+    def is_phantom(self, c: EdgeCase) -> bool:
+        """The reply describes an edge its input does not contain."""
+        if canonical(c.input) in self._seed_keys:
+            return True
+        return claim_holds(self.spec, c.category, c.input, c.field) is False
+
+    def generate_axis(self, axis: str) -> list[EdgeCase]:
+        messages = self.prompt(axis)
+        comp = self._complete(axis, messages)
+        raw = self._parse(axis, comp.text)
+        if raw is None:
+            return []
+        cases = self._to_cases(axis, raw, comp.model, comp.cost_usd)
+        for _ in range(self.repair_rounds):
+            phantoms = [c for c in cases if self.is_phantom(c)]
+            if not phantoms:
+                break
+            self.stats["phantom"] += len(phantoms)
+            listing = "\n".join(f"- category={c.category}: {c.description[:160]}"
+                                for c in phantoms)
+            messages = messages + [
+                {"role": "assistant", "content": comp.text},
+                {"role": "user", "content": REPAIR_TEMPLATE.format(
+                    k=len(phantoms), listing=listing)},
+            ]
+            comp = self._complete(axis, messages)
+            fixed_raw = self._parse(axis, comp.text) or []
+            # Real models often resend the whole list instead of just the
+            # replacements: keep only inputs not seen yet, at most one per phantom,
+            # preferring ones that now really contain their edge.
+            seen = {canonical(c.input) for c in cases}
+            fresh: list[EdgeCase] = []
+            for c in self._to_cases(axis, fixed_raw, comp.model, comp.cost_usd):
+                key = canonical(c.input)
+                if key not in seen:
+                    seen.add(key)
+                    fresh.append(c)
+            fixed = sorted(fresh, key=self.is_phantom)[: len(phantoms)]
+            for c in fixed:
+                c.provenance["repaired"] = True
+            self.stats["resent"] += len(fixed_raw) - len(fresh)
+            self.stats["repaired"] += sum(not self.is_phantom(c) for c in fixed)
+            # Phantoms stay in the output so the validator records why they were dropped.
+            cases = cases + fixed
+        return cases
 
     def generate(self, axes: list[str]) -> list[EdgeCase]:
         out: list[EdgeCase] = []
@@ -201,11 +311,19 @@ def _changed_fields(spec: TaskSpec, inp: dict) -> list[str]:
     return min((diff(s) for s in spec.seeds), key=len)
 
 
-def llm_label(spec: TaskSpec, llm: LLM, inp: dict) -> tuple[str | None, float]:
-    """Ask the model for a label; returns ``(label, confidence)`` or ``(None, 0)``."""
+def llm_label(spec: TaskSpec, llm: LLM, inp: dict,
+              usage: dict | None = None) -> tuple[str | None, float]:
+    """Ask the model for a label; returns ``(label, confidence)`` or ``(None, 0)``.
+
+    ``usage`` (if given) accumulates calls, tokens and cost across calls.
+    """
     body = LABEL_TEMPLATE.format(desc=spec.description, labels=json.dumps(spec.labels),
                                  inp=json.dumps(inp, ensure_ascii=False, default=str))
     comp = with_mock_responder(llm).complete([{"role": "user", "content": body}], temperature=0)
+    if usage is not None:
+        for k, v in (("calls", 1), ("tokens_in", comp.tokens_in),
+                     ("tokens_out", comp.tokens_out), ("cost_usd", comp.cost_usd)):
+            usage[k] = usage.get(k, 0) + v
     try:
         obj = extract_json(comp.text)
         label = obj.get("label")
